@@ -1,5 +1,5 @@
 <template>
-    <div class="page-container">
+    <!-- <div class="page-container"> -->
       <v-app-bar app color="transparent" flat class="login-nav">
         <v-container>
           <v-row justify="end">
@@ -24,10 +24,10 @@
         </v-container>
       </v-app-bar>
   
-      <div class="image-container">
+      <!-- <div class="image-container">
         <img src="@/assets/image.png" alt="background image">
-      </div>
-    </div>
+      </div> -->
+    <!-- </div> -->
   </template>
   
   <script>
@@ -73,7 +73,7 @@
     font-weight: 500;
     font-size: 20px;
     line-height: 1;
-    color:#FFFFFF;
+    color:black;
   }
   
   .image-container {
