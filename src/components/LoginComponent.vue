@@ -48,7 +48,7 @@
           })
           // 로그인 성공 시 처리
           const token = response.data.result.membertoken
-          localStorage.setItem('memberToken', token)
+          localStorage.setItem('membertoken', token)
           alert(response.data.status_message)
           // 메인 페이지로 redirect
           router.push('/')

@@ -1,6 +1,6 @@
 <template>
-    <v-app>
-      <v-main>
+    <!-- <v-app> -->
+      <!-- <v-main> -->
         <div class="background-image">
           <v-container class="qna-container">
             <v-row>
@@ -8,10 +8,23 @@
                     <v-card>
                         <v-card-title class="custom-title">QnA</v-card-title>
                         <v-card-text>
-                            <v-data-table
-                            :headers="tableHeaders"
-                            :items="qnaList"
-                            >
+                            <v-data-table>
+                                <thead>
+                                    <tr>
+                                        <th>No</th>
+                                        <th>Title</th>
+                                        <th>Writer</th>
+                                        <th>Date</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr v-for="q in qnaList" :key="q.no">
+                                        <td>{{ q.no }}</td>
+                                        <td>{{ q.title }}</td>
+                                        <td>{{ q.memberEmail }}</td>
+                                        <td>{{ formatDate(q.writeTime) }}</td>
+                                    </tr>
+                                </tbody>
                             </v-data-table>
                         </v-card-text>
                     </v-card>
@@ -19,8 +32,8 @@
             </v-row>
          </v-container>   
         </div>
-      </v-main>
-    </v-app> 
+      <!-- </v-main> -->
+    <!-- </v-app>  -->
   </template>
   
   <script>
@@ -28,23 +41,39 @@
   export default {
     data() {
         return {
-            tableHeaders: [
-                {title:'No', key:'no', align:'start'},
-                {title:'Title', key:'title', align:'start'},
-                {title:'Email', key:'memberEmail', align:'start'},
-                {title:'작성일', key:'writeTime', align:'start'}
-            ],
             qnaList: []
         }
     },
-    async created() {
-        const token = localStorage.getItem('token');
-        // {headers: {Authorization: 'Bearer 토큰 값'}}}
-        const headers = {Authorization: `Bearer ${token}`};
-        const response = await axios.get(`${process.env.VUE_APP_API_BASE_URL}/mypage/qna/list`, {headers});
-        
-        this.qnaList = response.data.content; // setting 
+    created() {
+        this.loadList();
+    },
+    methods: {
+        async loadList() {
+            try {
+                const token = localStorage.getItem('membertoken');
+                // {headers: {Authorization: 'Bearer 토큰 값'}}}
+                const headers = {Authorization: `Bearer ${token}`};
+                console.log(headers);
+                const response = await axios.get(`${process.env.VUE_APP_API_BASE_URL}/mypage/qna/list`, {headers});
+
+                console.log('Response: ', response.data);
+                this.qnaList = response.data.content; // setting 
+            } catch(e) {
+                console.log('Error: ', e);
+            }
+        },
+        formatDate(dateString) {
+            const options = {
+                year: "numeric",
+                month: "2-digit",
+                day: "2-digit",
+                hour: "2-digit",
+                minute: "2-digit",
+            };
+            return new Date(dateString).toLocaleDateString(undefined, options);
+        },  
     }
+    
   }
   </script>
   
@@ -70,11 +99,12 @@
     position: absolute;
     width: 90%;
     max-width: 1200px;
-    height: 90vh;
+    height: 85vh;
     max-height: calc(100vh - 20px);
-    top: 50%; /* Adjusted from 50% to 55% to move it slightly down */
+    top: 55%; 
     left: 50%;
     transform: translate(-50%, -50%);
     border-radius: 10px;
+    overflow-y: auto;
   }
   </style>
