@@ -1,4 +1,5 @@
 <template>
+  <div>
   <v-app-bar
       app
       color="transparent"
@@ -36,7 +37,7 @@
       </v-row>
     </v-container>
   </v-app-bar>
-
+</div>
 </template>
 
 <script>
