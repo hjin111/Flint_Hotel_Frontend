@@ -5,6 +5,6 @@ export const qnaRouter = [
         path: '/mypage/qna/list', 
         name: 'QnaListComponent',
         component: QnaListComponent,
-        meta : {header: 'EmployeeHeaderComponent'}
+        meta : {header: 'HeaderComponent'}
     }
 ]

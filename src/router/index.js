@@ -10,13 +10,12 @@ const routes = [
         path:'/',
         name:'Flint',
         component:FlintView,
-        meta: {header: 'EmployeeHeaderComponent'}
+        meta: {header: 'HeaderComponent'}
     },
     {
         path: '/member/login',
         name: 'MemberLoginPage',
-        component: MemberLoginPage,
-        meta: {header: 'EmployeeHeaderComponent'}
+        component: MemberLoginPage
     },
     ...roomReservationRouter, 
     ...qnaRouter

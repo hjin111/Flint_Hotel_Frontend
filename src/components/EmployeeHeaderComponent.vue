@@ -6,15 +6,15 @@
         <v-row align="center">
             <!-- 콜 전체를 왼쪽정 렬되게 해줌 -->
             <v-col class="d-flex justify-start"> 
-                <v-btn :to="{path:'/introduce'}">Introduce</v-btn>
-                <v-btn :to="{path:'/reseve'}">Reservation</v-btn>
+                <v-btn :to="{path:'/employee/list_reserve'}">Member</v-btn>
+                <v-btn :to="{path:'/employee'}">Employee</v-btn>
             </v-col>
             <v-col class="text-center">
               <v-btn class="flint-hotel-title" :to="{path:'/'}">FLINT HOTEL</v-btn>
             </v-col>
             <v-col class="d-flex justify-end">
-              <v-btn :to="{path:'/info/dining'}">Dining</v-btn>
-              <v-btn :to="{path:'/info/room'}">Room</v-btn>
+              <v-btn :to="{path:'/employee/dining'}">Dining</v-btn>
+              <v-btn :to="{path:'/employee/room'}">Room</v-btn>
             </v-col>
         </v-row>
       </v-container>

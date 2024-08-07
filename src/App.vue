@@ -1,10 +1,7 @@
 <template>
   <v-app>
-    <!-- <HeaderComponent /> -->
-     <component :is="currentHeader" />
-    <v-main>
-      <router-view />
-    </v-main>
+     <component :is="currentHeader" v-if="currentHeader"/>
+      <router-view/>
   </v-app>
 </template>
 
@@ -21,7 +18,10 @@ export default {
   },
   computed: {
     currentHeader() {
-      const headerType = this.$route.meta.header;
+      const headerType = this.$route.meta?.header;
+      if (headerType == null) {
+        return null;
+      }
       return headerType === 'EmployeeHeaderComponent' ? EmployeeHeaderComponent : HeaderComponent;
     }
   }
