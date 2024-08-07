@@ -3,9 +3,7 @@
   <!-- router-view를 통해 app.vue에서 화면 라우팅이 시작 된다.-->
   <v-app>
     <HeaderComponent />
-    <v-main>
-      <router-view />
-    </v-main>
+    <router-view />
   </v-app>
   <!-- <FooterComponent /> -->
 </template>
@@ -35,4 +33,5 @@ export default {
   color: #2c3e50;
   margin-top: 60px;
 } */
+
 </style>

@@ -30,7 +30,7 @@ const routes = [
     // ...memberRouter
     {
         path:'/flint',
-        name:'Flint',
+        name:'FlintView',
         component:FlintView
     }
 
