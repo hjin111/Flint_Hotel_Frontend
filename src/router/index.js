@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router";
 import { roomReservationRouter } from "./roomReservationRouter";
 import { qnaRouter } from "./qnaRouter";
-import MemberLoginPage from '@/components/LoginComponent.vue'
+import MemberLoginPage from '@/components/common/LoginComponent.vue'
 
 import FlintView from '@/views/FlintView.vue';
 

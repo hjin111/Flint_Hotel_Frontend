@@ -1,72 +1,89 @@
 <template>
-    <div class="login-container">
-      <!-- 백그라운드 이미지를 감싸는 래퍼 -->
-      <div class="background-image-wrapper">
-        <!-- 로그인 페이지의 백그라운드 이미지 -->
-        <img :src="loginImage" alt="Login Page" class="background-image">
-      </div>
-      <!-- 로그인 폼을 감싸는 래퍼 -->
-      <div class="login-form-container">
-        <!-- 로그인 폼 -->
-        <div class="login-form">
-          <h1 class="title">FLINT</h1>
-          <!-- 이메일 입력 필드 -->
-          <input v-model="email" type="text" placeholder="Email" class="input-field">
-          <!-- 비밀번호 입력 필드 -->
-          <input v-model="password" type="password" placeholder="Password" class="input-field">
-          <!-- 로그인 버튼 -->
-          <button @click="login" class="login-button">LOGIN</button>
-          <!-- 추가 링크들 (ID 찾기, 비밀번호 찾기, 회원가입) -->
-          <div class="links">
-            <a href="/member/findemail" class="link">FIND ID</a> 
-            <a href="/member/findpassword" class="link">FIND Password</a> 
-            <a href="/member/signup" class="link">JOIN</a>
-          </div>
+  <div class="login-container">
+    <!-- 백그라운드 이미지를 감싸는 래퍼 -->
+    <div class="background-image-wrapper">
+      <!-- 로그인 페이지의 백그라운드 이미지 -->
+      <img :src="loginImage" alt="Login Page" class="background-image">
+    </div>
+    <!-- 로그인 폼을 감싸는 래퍼 -->
+    <div class="login-form-container">
+      <!-- 로그인 폼 -->
+      <div class="login-form">
+        <h1 class="title">FLINT</h1>
+        <!-- 이메일 입력 필드 -->
+        <input v-model="email" type="text" placeholder="Email" class="input-field">
+        <!-- 비밀번호 입력 필드 -->
+        <input v-model="password" type="password" placeholder="Password" class="input-field">
+        <!-- 로그인 버튼 -->
+        <button @click="login" class="login-button">LOGIN</button>
+        <!-- 추가 링크들 (ID 찾기, 비밀번호 찾기, 회원가입) -->
+        <div class="links">
+          <a @click.prevent="openFindEmailModal" class="link">FIND ID</a>
+          <a href="/member/findpassword" class="link">FIND Password</a>
+          <a href="/member/signup" class="link">JOIN</a>
         </div>
       </div>
     </div>
+    <FindEmailModal v-model="dialog" @close="closeFindEmailModal" />
+  </div>
 </template>
 
 <script>
-  import axios from '@/axios'
-  import loginImage from '@/assets/image.png'
-  import { useRouter } from 'vue-router'
-  import { ref } from 'vue'
-  
-  export default {
-    name: 'LoginPage',
-    setup() {
-      const router = useRouter()
-      const email = ref('')
-      const password = ref('')
-  
-      const login = async () => {
-        try {
-          const response = await axios.post(`/member/login`, {
-            email: email.value,
-            password: password.value
-          })
-          // 로그인 성공 시 처리
-          const token = response.data.result.membertoken
-          localStorage.setItem('membertoken', token)
-          alert(response.data.status_message)
-          // 메인 페이지로 redirect
-          router.push('/')
-        } catch (error) {
-          //console.error('로그인 오류:', error.response ? error.response.data : error.message)
-          // 로그인 실패 시 처리
-          alert(error.response ? error.response.data.error_message : error.message)
-        }
-      }
-  
-      return {
-        loginImage,
-        email,
-        password,
-        login
+import axios from '@/axios'
+import loginImage from '@/assets/image.png'
+import { useRouter } from 'vue-router'
+import { ref } from 'vue'
+import FindEmailModal from './FindEmailModal.vue'
+
+export default {
+  name: 'LoginPage',
+  components: {
+    FindEmailModal
+  },
+  setup() {
+    const router = useRouter()
+    const email = ref('')
+    const password = ref('')
+    const dialog = ref(false)
+
+    const login = async () => {
+      try {
+        const response = await axios.post(`/member/login`, {
+          email: email.value,
+          password: password.value
+        })
+        // 로그인 성공 시 처리
+        const token = response.data.result.membertoken
+        localStorage.setItem('membertoken', token)
+        alert(response.data.status_message)
+        // 메인 페이지로 redirect
+        router.push('/')
+      } catch (error) {
+        //console.error('로그인 오류:', error.response ? error.response.data : error.message)
+        // 로그인 실패 시 처리
+        alert(error.response ? error.response.data.error_message : error.message)
       }
     }
+
+    const openFindEmailModal = () => {
+      dialog.value = true
+    }
+
+    const closeFindEmailModal = () => {
+      dialog.value = false
+    }
+
+    return {
+      loginImage,
+      email,
+      password,
+      login,
+      dialog,
+      openFindEmailModal,
+      closeFindEmailModal
+    }
   }
+}
 </script>
 
 <style scoped>
