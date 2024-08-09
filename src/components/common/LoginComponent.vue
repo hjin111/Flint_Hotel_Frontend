@@ -19,12 +19,14 @@
         <!-- 추가 링크들 (ID 찾기, 비밀번호 찾기, 회원가입) -->
         <div class="links">
           <a @click.prevent="openFindEmailModal" class="link">FIND ID</a>
-          <a href="/member/findpassword" class="link">FIND Password</a>
+          <a @click.prevent="openFindPasswordModal" class="link">FIND Password</a>
+          <!-- <a href="/member/findpassword" class="link">FIND Password</a> -->
           <a href="/member/signup" class="link">JOIN</a>
         </div>
       </div>
     </div>
-    <FindEmailModal v-model="dialog" @close="closeFindEmailModal" />
+    <FindEmailModal v-model="dialog1" @close="closeFindEmailModal" />
+    <FindPasswordModal v-model="dialog2" @close="closeFindPasswordModal" />
   </div>
 </template>
 
@@ -34,17 +36,21 @@ import loginImage from '@/assets/image.png'
 import { useRouter } from 'vue-router'
 import { ref } from 'vue'
 import FindEmailModal from './FindEmailModal.vue'
+import FindPasswordModal from './FindPasswordModal.vue'
 
 export default {
   name: 'LoginPage',
   components: {
-    FindEmailModal
+    FindEmailModal,
+    FindPasswordModal,
+
   },
   setup() {
     const router = useRouter()
     const email = ref('')
     const password = ref('')
-    const dialog = ref(false)
+    const dialog1 = ref(false)
+    const dialog2 = ref(false)
 
     const login = async () => {
       try {
@@ -66,11 +72,19 @@ export default {
     }
 
     const openFindEmailModal = () => {
-      dialog.value = true
+      dialog1.value = true
     }
 
     const closeFindEmailModal = () => {
-      dialog.value = false
+      dialog1.value = false
+    }
+
+    const openFindPasswordModal = () => {
+      dialog2.value = true
+    }
+
+    const closeFindPasswordModal = () => {
+      dialog2.value = false
     }
 
     return {
@@ -78,9 +92,12 @@ export default {
       email,
       password,
       login,
-      dialog,
+      dialog1,
+      dialog2,
       openFindEmailModal,
-      closeFindEmailModal
+      closeFindEmailModal,
+      openFindPasswordModal,
+      closeFindPasswordModal
     }
   }
 }
