@@ -7,7 +7,7 @@ export const mypageRouter = [
         path: '/mypage', 
         name: 'MypageComponent',
         component: MypageComponent,
-        meta : {header: 'EmployeeHeaderComponent'}
+        meta : {header: 'HeaderComponent'}
     },
     // {
     //     path: '/mypage/dining',

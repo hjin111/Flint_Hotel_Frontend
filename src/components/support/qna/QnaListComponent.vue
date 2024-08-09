@@ -45,7 +45,7 @@ import axios from 'axios';
             qnaList: []
         }
     },
-    created() {
+    created() { 
         this.loadList();
     },
     methods: {

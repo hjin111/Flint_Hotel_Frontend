@@ -5,12 +5,12 @@
             <v-row>
                 <v-col>
                     <v-card>
-                        <v-card-title class="custom-title">Dining</v-card-title>
+                        <!-- <v-card-title class="custom-title">Dining</v-card-title> -->
                         <v-card-text>
                             <v-data-table>
                                 <thead>
                                     <tr>
-                                        <th>예약번호</th>
+                                        <!-- <th>예약번호</th> -->
                                         <th>호텔</th>
                                         <th>레스토랑</th>
                                         <th>예약인원</th>
@@ -20,7 +20,7 @@
                                 </thead>
                                 <tbody>
                                     <tr v-for="dl in diningList" :key="dl.no">
-                                        <td>{{ dl.no }}</td>
+                                        <!-- <td>{{ dl.no }}</td> -->
                                         <td>{{ hotelname }}</td>
                                         <td>{{ dl.adultCnt + dl.childCnt }}</td>
                                         <td>{{ formatDate(q.writeTime) }}</td>
@@ -51,7 +51,8 @@ export default {
         const token = localStorage.getItem('membertoken');
             // {headers: {Authorization: 'Bearer 토큰 값'}}}
         const headers = {Authorization: `Bearer ${token}`};
-        const response = await axios.
+        const response = await axios.get(`${process.env.VUE_APP_API_BASE_URL}/reserve/room/list`, {headers});
+        this.diningList = response.data.result;
         }catch(e){
             console(e);
         }

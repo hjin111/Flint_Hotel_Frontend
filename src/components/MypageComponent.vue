@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <v-main>
-      <div class="background-image">
+      <QnaView/>
         <v-container class="reserve-container">
           <v-row justify="center">
             <v-col cols="3" align-self="center">
@@ -50,27 +50,28 @@
               </v-row>
             </v-col>
             <v-col cols="9" justify="center">
-              <div v-if="namepath == 'Mypage'" class="user-profile">
-                <h1>사용자 정보</h1><br>
-                <div>
-                  <h2>{{ memberDetail.lastName + " " +memberDetail.firstName }} 님 안녕하세요.</h2>
-                  <ul>
-                    <li> 아이디 : {{ memberDetail.email }}</li>
-                    <li> 국적 : {{ memberDetail.nation }}</li>
-                    <li> 전화번호 : {{ memberDetail.phoneNumber }}</li>
-                  </ul>
+              <v-card-title class="custom-title">
+                <div v-if="namepath == 'Mypage'" class="user-profile">
+                  <h1>사용자 정보</h1><br>
+                  <div>
+                    <h2>{{ memberDetail.lastName + " " +memberDetail.firstName }} 님 안녕하세요.</h2>
+                    <ul>
+                      <li> 아이디 : {{ memberDetail.email }}</li>
+                      <li> 국적 : {{ memberDetail.nation }}</li>
+                      <li> 전화번호 : {{ memberDetail.phoneNumber }}</li>
+                    </ul>
+                  </div>
                 </div>
-              </div>
-              <div v-if="namepath == 'MypageDining'">
-                <MypageDining></MypageDining>
-              </div>
-              <div v-else-if="namepath == 'MypageRoom'">
-                <MypageRoom></MypageRoom>
-              </div>
+                <div v-else-if="namepath == 'MypageDining'">
+                  <MypageDining></MypageDining>
+                </div>
+                <div v-else-if="namepath == 'MypageRoom'">
+                  <MypageRoom></MypageRoom>
+                </div>
+              </v-card-title>
             </v-col>
           </v-row>
         </v-container>
-      </div>
     </v-main>
   </v-app>
 </template>
@@ -79,10 +80,12 @@
 import axios from 'axios'
 import MypageDining from "@/views/mypages/MypageDining.vue"
 import MypageRoom from "@/views/mypages/MypageRoom.vue"
+import QnaView from '@/views/QnaView.vue';
 export default {
   components:{
     MypageDining,
-    MypageRoom
+    MypageRoom,
+    QnaView
   },
   data() {
     return {
@@ -152,20 +155,28 @@ body,
   left: 0;
 }
 
+.custom-title {
+  font-family: "Playfair Display", serif;
+  color: #787878;
+  font-size:20px;
+}
+
+.custom-title h2, ul li{
+  font-family: "Playfair Display", serif;
+  color: black;
+}
+
 .reserve-container {
   background-color: white;
-  position: absolute;
-  width: 90%;
-  max-width: 1200px;
-  height: 85vh;
-  max-height: calc(100vh - 20px);
-  top: 53%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  border-radius: 10px;
-  overflow-y: auto; /* scrolling */
-  padding: 20px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    position: absolute;
+    width: 90%;
+    max-width: 1200px;
+    height: 80%;
+    top: 57%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 10px;
+    overflow-y: auto;
 }
 
 .reservation-content h1 {
