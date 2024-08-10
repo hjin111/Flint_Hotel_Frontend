@@ -15,10 +15,11 @@
 </template>
 
 <script>
-import axios from '@/axios'
 import { ref } from 'vue'
+import { useRouter } from 'vue-router'
 import FindEmailModal from './FindEmailModal.vue'
 import FindPasswordModal from './FindPasswordModal.vue'
+import axios from '@/axios'
 
 export default {
     name: 'LoginComponent',
@@ -28,86 +29,94 @@ export default {
     },
     props: {
       showFindId: {
-          type: Boolean,
-          default: true,
+        type: Boolean,
+        default: true,
       },
       showJoinLink: {
-          type: Boolean,
-          default: true,
+        type: Boolean,
+        default: true,
       },
       findEmailEndpoint: {
-          type: String,
-          required: true,
+        type: String,
+        required: true,
       },
       findPasswordEndpoint: {
-          type: String,
-          required: true,
+        type: String,
+        required: true,
       },
       loginEndpoint: {
-          type: String,
-          required: true,
+        type: String,
+        required: true,
       },
       tokenName: {
-          type: String,
-          required: true,
+        type: String,
+        required: true,
       },
       joinLink: {
-          type: String,
-          default: '/member/signup',
+        type: String,
+        default: '/member/signup',
       },
+      redirectPath: {
+        type: String,
+        default: '/',  // 기본값은 메인 페이지
+      }
     },
     setup(props) {
-        const email = ref('')
-        const password = ref('')
-        const dialog1 = ref(false)
-        const dialog2 = ref(false)
+      const email = ref('')
+      const password = ref('')
+      const dialog1 = ref(false)
+      const dialog2 = ref(false)
+      const router = useRouter()
 
-        const login = async () => {
+      const login = async () => {
           try {
               const response = await axios.post(props.loginEndpoint, {
-                email: email.value,
-                password: password.value,
+                  email: email.value,
+                  password: password.value,
               })
               const token = response.data.result[props.tokenName]
               localStorage.setItem(props.tokenName, token)
               alert(response.data.status_message)
+              // 로그인 성공 시 설정된 경로로 리다이렉트
+              router.push(props.redirectPath)
           } catch (error) {
               alert(error.response ? error.response.data.error_message : error.message)
           }
       }
 
       const openFindEmailModal = () => {
-          dialog1.value = true
+        dialog1.value = true
       }
 
       const closeFindEmailModal = () => {
-          dialog1.value = false
+        dialog1.value = false
       }
 
       const openFindPasswordModal = () => {
-          dialog2.value = true
+        dialog2.value = true
       }
 
       const closeFindPasswordModal = () => {
-          dialog2.value = false
+        dialog2.value = false
       }
 
       return {
-          email,
-          password,
-          login,
-          dialog1,
-          dialog2,
-          openFindEmailModal,
-          closeFindEmailModal,
-          openFindPasswordModal,
-          closeFindPasswordModal,
+        email,
+        password,
+        login,
+        dialog1,
+        dialog2,
+        openFindEmailModal,
+        closeFindEmailModal,
+        openFindPasswordModal,
+        closeFindPasswordModal,
       }
     },
 }
 </script>
 
 <style scoped>
+/* 기존 스타일 유지 */
 .login-form {
     width: 80%; /* 너비 80% */
     max-width: 400px; /* 최대 너비 400px */

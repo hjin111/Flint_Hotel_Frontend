@@ -11,6 +11,7 @@
           findPasswordEndpoint="/member/findpassword"
           loginEndpoint="/member/login"
           tokenName="membertoken"
+          redirectPath="/" 
         />
       </div>
     </div>
@@ -19,18 +20,18 @@
 <script>
 import loginImage from '@/assets/image.png'
 import LoginComponent from '@/components/common/LoginComponent.vue'
-  
+
 export default {
     name: 'MemberLoginView',
     components: {
-        LoginComponent,
+          LoginComponent,
     },
     setup() {
         return {
             loginImage,
         }
     },
-  }
+}
 </script>
   
 <style scoped>
