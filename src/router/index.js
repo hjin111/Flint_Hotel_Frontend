@@ -1,9 +1,10 @@
 import { createRouter, createWebHistory } from "vue-router";
 import { roomReservationRouter } from "./roomReservationRouter";
 import { qnaRouter } from "./qnaRouter";
+import { memberRouter } from "./memberRouter";
+import { employeeRouter } from "./employeeRouter";
 
 import FlintView from '@/views/FlintView.vue';
-import { userRouter } from "./userRouter";
 
 const routes = [
     {
@@ -12,9 +13,11 @@ const routes = [
         component:FlintView,
         meta: {header: 'HeaderComponent'}
     },
-    ...userRouter,
+
     ...roomReservationRouter, 
-    ...qnaRouter
+    ...qnaRouter,
+    ...memberRouter,
+    ...employeeRouter
 
 ]
 
