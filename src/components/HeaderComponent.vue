@@ -11,8 +11,9 @@
       <v-row>
         <v-btn text style="font-size: 13px; color:#FFFFFF; margin-left:auto; margin-right:-20px;" v-if="!isLogin">LOGIN</v-btn>
         <v-btn text style="font-size: 13px; color:#FFFFFF; margin-right:-20px;" v-if="!isLogin">JOIN</v-btn>
-        <v-btn text style="font-size: 13px; color:#FFFFFF; margin-right:-20px;" v-if="isLogin">MYPAGE</v-btn>
-        <v-btn text style="font-size: 13px; color:#FFFFFF; margin-right:-20px;" v-if="isLogin">LOGOUT</v-btn>
+        <v-btn text style="font-size: 13px; color:#FFFFFF; margin-left:auto; margin-right:-20px;" v-if="isLogin">MYPAGE</v-btn>
+        <!-- 바로 위, 아래 수정 -->
+        <v-btn text style="font-size: 13px; color:#FFFFFF; margin-right:-20px;" v-if="isLogin" @click="logout()">LOGOUT</v-btn>
         <v-btn text style="font-size: 13px; color:#FFFFFF; margin-right:-20px;">INQUIRY</v-btn>
       </v-row>
     </v-container>
@@ -49,15 +50,27 @@ export default {
     },
     mounted() {
         window.addEventListener("scroll", this.handleScroll);
-      },
-      beforeUnmount() {
+        this.checkLoginStatus() // 여기 추가
+    },
+    beforeUnmount() {
         window.removeEventListener("scroll", this.handleScroll);
-      },
-      methods: {
-        handleScroll() {
-          this.isScrolled = window.scrollY > 50;
-        },
-      },
+    },
+    methods: {
+    handleScroll() {
+      this.isScrolled = window.scrollY > 50;
+    },
+    checkLoginStatus() {
+      const token = localStorage.getItem('membertoken');
+      if(token){
+          this.isLogin = true // 토큰이 존재하면 로그인 상태로 설정
+      }
+    },
+    logout() {
+      localStorage.removeItem('membertoken') // 토큰 제거
+      this.isLogin = false // 로그아웃 상태로 설정
+      this.$router.push("/")
+    }
+  }
 };
 </script>
 

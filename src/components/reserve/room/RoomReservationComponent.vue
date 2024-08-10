@@ -10,7 +10,7 @@
   
               <v-col cols="12" md="2">
                 <div class="date-label">Select hotel</div>
-                <v-select :items="hotels" label="선택하세요." class="mx-2" outlined v-model="selectedHotel" ></v-select>
+                <v-select :items="hotels" label="선택하세요." class="mx-2" outlined v-model="selectedLocation" ></v-select>
               </v-col>
               <!-- check in -->
               <v-col cols="12" md="2">
@@ -86,7 +86,7 @@
                       <td>{{ room.roomTypeName }}</td>
                       <td>{{ room.roomPrice.toLocaleString() }}원 ~</td>
                       <td>
-                        <v-btn style="color: white;" color="#CFB18E">Select</v-btn>
+                        <v-btn @click="selectRoom(index)" style="color: white;" color="#CFB18E">Select</v-btn>
                       </td>
                     </tr>
                   </tbody>
@@ -113,7 +113,7 @@
     data() {
       return {
         hotels: ["Seoul"], 
-        selectedHotel: null,
+        selectedLocation: null,
 
         checkInDate: null,
         checkOutDate: null,
@@ -161,6 +161,25 @@
           console.error('Error: ', error);
         }
       },
+      selectRoom(index) {
+        const selectedRoom = this.roomList[index];
+
+        // 체크인/아웃 날짜, 성인/아이 수, 선택한 방정보 localstorage에 저장 
+        localStorage.setItem('checkInDate', this.formattedCheckInDate);
+        localStorage.setItem('checkOutDate', this.formattedCheckOutDate);
+        localStorage.setItem('numAdults', this.numAdults);
+        localStorage.setItem('numChildren', this.numChildren);
+
+        // 선택한 방 정보 -> 직렬화해서 localstorage에 넣기 
+        localStorage.setItem('selectedRoom', JSON.stringify({
+          roomId: selectedRoom.roomId,
+          roomTypeName: selectedRoom.roomTypeName,
+          roomPrice: selectedRoom.roomPrice
+        }));
+
+        this.$router.push('/reserve/room/description');
+        
+      }
     }
   };
   </script>
