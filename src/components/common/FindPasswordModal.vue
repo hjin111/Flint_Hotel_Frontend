@@ -65,7 +65,7 @@
           const response = await axios.post(`/member/findpassword`, {
             email: this.email
           })
-          alert(response.data?.status_message)
+          alert(response.data)
           this.closeModal()
         } catch (e) {
           console.log(e)

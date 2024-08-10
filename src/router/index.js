@@ -1,9 +1,9 @@
 import { createRouter, createWebHistory } from "vue-router";
 import { roomReservationRouter } from "./roomReservationRouter";
 import { qnaRouter } from "./qnaRouter";
-import MemberLoginPage from '@/components/common/LoginComponent.vue'
 
 import FlintView from '@/views/FlintView.vue';
+import { userRouter } from "./userRouter";
 
 const routes = [
     {
@@ -12,11 +12,7 @@ const routes = [
         component:FlintView,
         meta: {header: 'HeaderComponent'}
     },
-    {
-        path: '/member/login',
-        name: 'MemberLoginPage',
-        component: MemberLoginPage
-    },
+    ...userRouter,
     ...roomReservationRouter, 
     ...qnaRouter
 
