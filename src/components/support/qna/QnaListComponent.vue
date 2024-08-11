@@ -1,6 +1,5 @@
 <template>
     <div>
-    <QnaView />
     <v-container class="qna-container">
         <v-row>
             <v-col>
@@ -34,11 +33,9 @@
   </template>
   
   <script>
-  import QnaView from '@/views/QnaView.vue';
 import axios from 'axios';
   export default {
     components: {
-        QnaView
     },
     data() {
         return {

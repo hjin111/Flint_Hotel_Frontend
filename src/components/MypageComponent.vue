@@ -68,6 +68,9 @@
                 <div v-else-if="namepath == 'MypageRoom'">
                   <MypageRoom></MypageRoom>
                 </div>
+                <div v-else-if="namepath == 'MypageUpdatePass'">
+                  <MypageUpdatePassword />
+                </div>
               </v-card-title>
             </v-col>
           </v-row>
@@ -78,14 +81,16 @@
 
 <script>
 import axios from 'axios'
-import MypageDining from "@/views/mypages/MypageDining.vue"
+import MypageDining from '@/views/mypages/MypageDining.vue';
 import MypageRoom from "@/views/mypages/MypageRoom.vue"
 import QnaView from '@/views/QnaView.vue';
+import MypageUpdatePassword from '@/views/mypages/MypageUpdatePassword.vue';
 export default {
   components:{
     MypageDining,
     MypageRoom,
-    QnaView
+    QnaView,
+    MypageUpdatePassword,
   },
   data() {
     return {
@@ -108,6 +113,7 @@ export default {
     }
   },
   methods: {
+    // 이 부분도 바꿔야 함 문제가 많음 일단 임시처치
     setDining() {
       this.urlpath = "/mypage/dining";
       this.namepath = "MypageDining";
@@ -121,6 +127,7 @@ export default {
     },
     updatePassword(){
       this.urlpath = "/mypage/updatepassword";
+      this.namepath = "MypageUpdatePass"
     },
     inquiryList(){
       this.urlpath = "/mypage/inquiryList";
