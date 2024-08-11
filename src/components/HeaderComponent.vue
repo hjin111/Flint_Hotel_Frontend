@@ -9,7 +9,7 @@
     >
     <v-container>
       <v-row>
-        <v-btn text style="font-size: 13px; color:#FFFFFF; margin-left:auto; margin-right:-20px;" v-if="!isLogin">LOGIN</v-btn>
+        <v-btn text style="font-size: 13px; color:#FFFFFF; margin-left:auto; margin-right:-20px;" v-if="!isLogin" @click="login()">LOGIN</v-btn>
         <v-btn text style="font-size: 13px; color:#FFFFFF; margin-right:-20px;" v-if="!isLogin">JOIN</v-btn>
         <v-btn text style="font-size: 13px; color:#FFFFFF; margin-left:auto; margin-right:-20px;" v-if="isLogin">MYPAGE</v-btn>
         <!-- 바로 위, 아래 수정 -->
@@ -69,6 +69,9 @@ export default {
       localStorage.removeItem('membertoken') // 토큰 제거
       this.isLogin = false // 로그아웃 상태로 설정
       this.$router.push("/")
+    },
+    login() {
+      this.$router.push("/member/login")
     }
   }
 };
