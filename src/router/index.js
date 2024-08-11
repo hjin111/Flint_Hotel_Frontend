@@ -7,9 +7,8 @@ import { createRouter, createWebHistory } from "vue-router";
 // import HomeComponent from '@/components/HomeComponent.vue';
 // import TestComponent from '@/components/TestComponent.vue';
 
-// import {practiceRouter} from './practiceRouter';
-
-import FlintView from '@/views/FlintView.vue';
+// import FlintView from '@/views/FlintView.vue';
+import {diningRouter} from './diningRouter';
 
 const routes = [
 
@@ -28,11 +27,12 @@ const routes = [
     
     // ...practiceRouter
     // ...memberRouter
-    {
-        path:'/flint',
-        name:'FlintView',
-        component:FlintView
-    }
+    // {
+    //     path:'/flint',
+    //     name:'FlintView',
+    //     component:FlintView
+    // },
+    ...diningRouter
 
 ]
 
