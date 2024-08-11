@@ -3,26 +3,24 @@
     <v-container class="qna-container">
         <v-row>
             <v-col>
-                <v-card>
+                <v-card class="qna-card">
                     <v-card-title class="custom-title">QnA</v-card-title>
                     <v-card-text>
-                        <v-data-table>
-                            <thead>
+                        <v-data-table
+                            :items="qnaList"
+                            :headers="tableHeaders"
+                            class="elevation-1">
+                            <template v-slot:item="{ item }">
                                 <tr>
-                                    <th>No</th>
-                                    <th>Title</th>
-                                    <th>Writer</th>
-                                    <th>Date</th>
+                                    <td>{{ item.no }}</td>
+                                    <td>{{ item.title }}</td>
+                                    <td>{{ item.memberEmail }}</td>
+                                    <td>{{ formatDate(item.writeTime) }}</td>
+                                    <td>
+                                        <v-btn style="color: white;" color="#C7BDC7">Modify</v-btn>
+                                    </td>
                                 </tr>
-                            </thead>
-                            <tbody>
-                                <tr v-for="q in qnaList" :key="q.no">
-                                    <td>{{ q.no }}</td>
-                                    <td>{{ q.title }}</td>
-                                    <td>{{ q.memberEmail }}</td>
-                                    <td>{{ formatDate(q.writeTime) }}</td>
-                                </tr>
-                            </tbody>
+                            </template>
                         </v-data-table>
                     </v-card-text>
                 </v-card>
@@ -40,7 +38,14 @@ import axios from 'axios';
     },
     data() {
         return {
-            qnaList: []
+            qnaList: [],
+            tableHeaders: [
+                {title:'No', key:'no', align:'start'},
+                {title:'Title', key:'title', align:'start'},
+                {title:'Email', key:'memberEmail', align:'start'},
+                {title: 'Write time', key: 'writeTime', align: 'start'},
+                {title:'Modify', align:'start'}
+            ],
         }
     },
     created() {
@@ -56,20 +61,16 @@ import axios from 'axios';
                 const response = await axios.get(`${process.env.VUE_APP_API_BASE_URL}/mypage/qna/list`, {headers});
 
                 console.log('Response: ', response.data);
-                this.qnaList = response.data.content; // setting 
+                this.qnaList = response.data; // setting 
             } catch(e) {
                 console.log('Error: ', e);
             }
         },
         formatDate(dateString) {
-            const options = {
-                year: "numeric",
-                month: "2-digit",
-                day: "2-digit",
-                hour: "2-digit",
-                minute: "2-digit",
-            };
-            return new Date(dateString).toLocaleDateString(undefined, options);
+            if (!dateString) return '';
+
+            const [datePart, timePart] = dateString.split('T');
+            return `${datePart} ${timePart}`;
         },  
     }
     
@@ -81,6 +82,8 @@ import axios from 'axios';
     font-family: "Playfair Display", serif;
     color: #787878;
     font-size:20px;
+    border-bottom: 3px solid #787878;
+    text-align: center;
   }
   .qna-container {
     background-color: white;
@@ -93,5 +96,8 @@ import axios from 'axios';
     transform: translate(-50%, -50%);
     border-radius: 10px;
     overflow-y: auto;
+  }
+  .qna-card {
+    padding: 20px;
   }
   </style>
