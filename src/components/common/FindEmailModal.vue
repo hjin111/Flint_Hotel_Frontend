@@ -66,14 +66,10 @@ watch: {
 methods: {
   async findEmail() {
     try {
-      const response = await axios.get(this.findEmailEndpoint, {
-        params: {
+      const response = await axios.post(this.findEmailEndpoint, {
           phoneNumber: this.phoneNumber,
-          firstName: this.firstName,
-          lastName: this.lastName
-        }
       })
-      alert(response.data?.status_message)
+      alert(response.data?.result)
       this.closeModal()
     } catch (e) {
       console.log(e)

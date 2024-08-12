@@ -67,14 +67,12 @@ methods: {
   async findPassword() {
     try {
       const response = await axios.post(this.findPasswordEndpoint, {
-        email: this.email,
-        firstName: this.firstName,
-        lastName: this.lastName
+        email: this.email
       })
       alert(response.data)
       this.closeModal()
     } catch (e) {
-      console.log(e)
+      console.log(this.email)
       alert(e.response?.data?.error_message)
     }
   },

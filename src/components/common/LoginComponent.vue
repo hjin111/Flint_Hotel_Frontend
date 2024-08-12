@@ -10,8 +10,8 @@
       <a v-if="showJoinLink" :href="joinLink" class="link">JOIN</a>
     </div>
   </div>
-  <FindEmailModal v-model="dialog1" @close="closeFindEmailModal" />
-  <FindPasswordModal v-model="dialog2" @close="closeFindPasswordModal" />
+  <FindEmailModal v-model="dialog1" @close="closeFindEmailModal" :findEmailEndpoint="findEmailEndpoint"/>
+  <FindPasswordModal v-model="dialog2" @close="closeFindPasswordModal" :findPasswordEndpoint="findPasswordEndpoint" />
 </template>
 
 <script>
