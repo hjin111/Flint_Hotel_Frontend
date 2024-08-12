@@ -71,6 +71,9 @@
                 <div v-else-if="namepath == 'MypageUpdatePass'">
                   <MypageUpdatePassword />
                 </div>
+                <div v-else-if="namepath == 'MypageDelMember'">
+                  <MypageDelMember />
+                </div>
               </v-card-title>
             </v-col>
           </v-row>
@@ -85,12 +88,14 @@ import MypageDining from '@/views/mypages/MypageDining.vue';
 import MypageRoom from "@/views/mypages/MypageRoom.vue"
 import QnaView from '@/views/QnaView.vue';
 import MypageUpdatePassword from '@/views/mypages/MypageUpdatePassword.vue';
+import MypageDelMember from '@/views/mypages/MypageDelMember.vue';
 export default {
   components:{
     MypageDining,
     MypageRoom,
     QnaView,
     MypageUpdatePassword,
+    MypageDelMember,
   },
   data() {
     return {
@@ -134,6 +139,7 @@ export default {
     },
     deactivation(){
       this.urlpath = "/mypage/deactivation";
+      this.namepath = "MypageDelMember"
     },
   },
 };
