@@ -1,5 +1,4 @@
 import axios from 'axios';
-import store from './store';
 
 const instance = axios.create({
   baseURL: 'http://localhost:8080',
@@ -9,11 +8,30 @@ const instance = axios.create({
 })
 
 instance.interceptors.request.use(config => {
-  const token = store.getters.getToken;
+  let token = localStorage.getItem('employeetoken') || localStorage.getItem('membertoken')
+  
+
   if (token) {
-    config.headers.Authorization = `Bearer ${token}`;
+    config.headers.Authorization = `Bearer ${token}`
   }
-  return config;
+
+  return config
 })
 
-export default instance;
+instance.interceptors.response.use(
+    response => response,
+    async error => {
+        if(error.response && error.response.status === 401){
+          if(localStorage.getItem('employeetoken')!=null){
+              localStorage.removeItem('employeetoken')
+          } else if(localStorage.getItem('membertoken')!=null){
+              localStorage.removeItem('membertoken')
+          } else{
+              console.log('로그인하세요')
+          }
+    }
+  }
+)
+
+
+export default instance
