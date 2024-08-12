@@ -1,147 +1,78 @@
 <template>
-  <v-app>
-    <v-main>
-      <QnaView/>
-        <v-container class="reserve-container">
-          <v-row justify="center">
-            <v-col cols="3" align-self="center">
-              <v-row class="sidebar">
-                <a href="/mypage"><h2>마이페이지</h2></a>
-                <ul>
-                  <br />
-                  <h3>예약 확인/취소</h3>
-                  <ul>
-                    <li>
-                      <v-btn
-                        class="custom-size"
-                        @click="setDining"
-                        >다이닝</v-btn>
-                    </li>
-                    <li>
-                      <v-btn
-                        class="custom-size"
-                        @click="setRoom"
-                        >객실</v-btn>
-                    </li>
-                  </ul>
-                  <br />
-                  <h3>쿠폰</h3>
-                  <ul>
-                    <li><v-btn class="custom-size">쿠폰함</v-btn></li>
-                    <li><v-btn class="custom-size">프로모션 숙박권</v-btn></li>
-                  </ul>
-                  <br />
-                  <h3>내정보</h3>
-                  <ul>
-                    <li><v-btn class="custom-size"
-                      @click="setProfile"
-                      >프로필 수정</v-btn></li>
-                    <li><v-btn class="custom-size"
-                      @click="updatePassword"
-                      >비밀번호 변경</v-btn></li>
-                    <li><v-btn class="custom-size"
-                      @click="inquiryList"
-                      >문의 내역</v-btn></li>
-                    <li><v-btn class="custom-size"
-                      @click="deactivation"
-                      >회원 탈퇴</v-btn></li>
-                  </ul>
-                </ul>
-              </v-row>
-            </v-col>
-            <v-col cols="9" justify="center">
-              <v-card-title class="custom-title">
-                <div v-if="namepath == 'Mypage'" class="user-profile">
-                  <h1>사용자 정보</h1><br>
-                  <div>
-                    <h2>{{ memberDetail.lastName + " " +memberDetail.firstName }} 님 안녕하세요.</h2>
-                    <ul>
-                      <li> 아이디 : {{ memberDetail.email }}</li>
-                      <li> 국적 : {{ memberDetail.nation }}</li>
-                      <li> 전화번호 : {{ memberDetail.phoneNumber }}</li>
-                    </ul>
-                  </div>
-                </div>
-                <div v-else-if="namepath == 'MypageDining'">
-                  <MypageDining></MypageDining>
-                </div>
-                <div v-else-if="namepath == 'MypageRoom'">
-                  <MypageRoom></MypageRoom>
-                </div>
-                <div v-else-if="namepath == 'MypageUpdatePass'">
-                  <MypageUpdatePassword />
-                </div>
-                <div v-else-if="namepath == 'MypageDelMember'">
-                  <MypageDelMember />
-                </div>
-              </v-card-title>
-            </v-col>
-          </v-row>
-        </v-container>
-    </v-main>
-  </v-app>
+  <v-col cols="3" align-self="center">
+    <v-row class="sidebar">
+      <a href="/mypage"><h2>마이페이지</h2></a>
+      <ul>
+        <br />
+        <h3>예약 확인/취소</h3>
+        <ul>
+          <li>
+            <v-btn class="custom-size" :to="{ path: '/mypage/dining' }"
+              >다이닝</v-btn
+            >
+          </li>
+          <li>
+            <v-btn class="custom-size" :to="{ path: '/mypage/room' }"
+              >객실</v-btn
+            >
+          </li>
+        </ul>
+        <br />
+        <h3>쿠폰</h3>
+        <ul>
+          <li><v-btn class="custom-size">쿠폰함</v-btn></li>
+          <li><v-btn class="custom-size">프로모션 숙박권</v-btn></li>
+        </ul>
+        <br />
+        <h3>내정보</h3>
+        <ul>
+          <li>
+            <v-btn class="custom-size" @click="setProfile">프로필 수정</v-btn>
+          </li>
+          <li>
+            <v-btn class="custom-size" :to="{path:'/mypage/updatepassword'}">비밀번호 변경</v-btn
+            >
+          </li>
+          <li>
+            <v-btn class="custom-size" @click="inquiryList">문의 내역</v-btn>
+          </li>
+          <li>
+            <v-btn class="custom-size" @click="deactivation">회원 탈퇴</v-btn>
+          </li>
+        </ul>
+      </ul>
+    </v-row>
+  </v-col>
 </template>
 
 <script>
-import axios from 'axios'
-import MypageDining from '@/views/mypages/MypageDining.vue';
-import MypageRoom from "@/views/mypages/MypageRoom.vue"
-import QnaView from '@/views/QnaView.vue';
-import MypageUpdatePassword from '@/views/mypages/MypageUpdatePassword.vue';
-import MypageDelMember from '@/views/mypages/MypageDelMember.vue';
+import axios from "axios";
 export default {
-  components:{
-    MypageDining,
-    MypageRoom,
-    QnaView,
-    MypageUpdatePassword,
-    MypageDelMember,
-  },
+  components: {},
   data() {
     return {
       selectedBreakfast: "yes", // Default selection
       urlpath: "",
       namepath: "Mypage",
-      memberDetail:[],
+      memberDetail: [],
     };
   },
-  async created(){
-    try{
-      const token = localStorage.getItem('membertoken');
-        // {headers: {Authorization: 'Bearer 토큰 값'}}}
-      const headers = {Authorization: `Bearer ${token}`};
-      const response = await axios.get(`${process.env.VUE_APP_API_BASE_URL}/member/detail`, {headers});
-      this.memberDetail = response.data.result
-      console.log(this.memberDetail)
-    }catch(e){
-      console("비어있음")
+  async created() {
+    try {
+      const token = localStorage.getItem("membertoken");
+      // {headers: {Authorization: 'Bearer 토큰 값'}}}
+      const headers = { Authorization: `Bearer ${token}` };
+      const response = await axios.get(
+        `${process.env.VUE_APP_API_BASE_URL}/member/detail`,
+        { headers }
+      );
+      this.memberDetail = response.data.result;
+      console.log(this.memberDetail);
+    } catch (e) {
+      console("비어있음");
     }
   },
-  methods: {
-    // 이 부분도 바꿔야 함 문제가 많음 일단 임시처치
-    setDining() {
-      this.urlpath = "/mypage/dining";
-      this.namepath = "MypageDining";
-    },
-    setRoom() {
-      this.urlpath = "/mypage/room";
-      this.namepath = "MypageRoom";
-    },
-    setProfile(){
-      this.urlpath = "/mypage/profile";
-    },
-    updatePassword(){
-      this.urlpath = "/mypage/updatepassword";
-      this.namepath = "MypageUpdatePass"
-    },
-    inquiryList(){
-      this.urlpath = "/mypage/inquiryList";
-    },
-    deactivation(){
-      this.urlpath = "/mypage/deactivation";
-      this.namepath = "MypageDelMember"
-    },
-  },
+  methods: {},
 };
 </script>
 
@@ -168,28 +99,23 @@ body,
   left: 0;
 }
 
-.custom-title {
-  font-family: "Playfair Display", serif;
-  color: #787878;
-  font-size:20px;
-}
-
-.custom-title h2, ul li{
+.custom-title h2,
+ul li {
   font-family: "Playfair Display", serif;
   color: black;
 }
 
 .reserve-container {
   background-color: white;
-    position: absolute;
-    width: 90%;
-    max-width: 1200px;
-    height: 80%;
-    top: 57%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    border-radius: 10px;
-    overflow-y: auto;
+  position: absolute;
+  width: 90%;
+  max-width: 1200px;
+  height: 80%;
+  top: 57%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 10px;
+  overflow-y: auto;
 }
 
 .reservation-content h1 {
@@ -314,13 +240,12 @@ body {
   background-color: #ded6f4;
   border: none !important;
   box-shadow: none !important;
-  
 }
 .v-btn:hover,
-.v-btn:active{
+.v-btn:active {
   background: #ded6f4;
 }
-.v-btn:visited{
+.v-btn:visited {
   background: #ded6f4;
 }
 .custom-size {
@@ -339,8 +264,7 @@ body {
   border-radius: 5px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
-.user-profile h1{
-  border-bottom: 4px solid black;;
+.user-profile h1 {
+  border-bottom: 4px solid black;
 }
-
 </style>
