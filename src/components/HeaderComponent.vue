@@ -13,7 +13,7 @@
   
       <v-app-bar app color="transparent" flat class="top-nav">
         <v-container>
-          <v-row justify="center" class="button-row" style="padding-right:50px;">
+          <v-row justify="center" class="button-row" style="padding-right:90px;">
             <v-btn text style="color:#000000; font-size: 18px; line-height: 1;">INTRODUCE</v-btn>
             <v-btn text style="color:#000000; font-size: 18px; line-height: 1;">RESERVATION</v-btn>
             <v-btn text style="font-size: 40px; color:#000000; line-height: 1;">FLINT HOTEL</v-btn>
@@ -46,7 +46,7 @@
   }
   
   .button-row {
-    gap: 70px;
+    gap: 60px;
   }
   
   .v-btn {
