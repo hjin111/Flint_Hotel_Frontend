@@ -1,34 +1,124 @@
 <template>
-    <div class="main">
-        <h1>회원 탈퇴</h1>
-        <h2>{{ memberDetail }} 님 안녕하세요.</h2>
-    </div>
+  <v-app>
+    <v-main>
+      <QnaView />
+      <v-container class="mypage-container">
+        <v-row justify="center">
+          <MypageComponent />
+          <v-col cols="9" justify="center">
+            <v-card-title class="custom-title">
+              <h1>탈퇴 요청</h1>
+              <v-divider class="custom-divider"></v-divider>
+              <v-card-text class="pa-4">
+                <div>
+                  MOORI CHOI님의 정보를 안전하게 보호하기 위해 비밀번호를 다시
+                  한번 확인합니다.
+                </div>
+              </v-card-text>
+              <v-card-text>
+                <v-row>
+                  <v-col cols="2"> 플린트 아이디 </v-col>
+                  <v-col cols="10">
+                    <input type="email" v-model="email" />
+                  </v-col>
+                </v-row>
+                <v-row>
+                  <v-col cols="2"> 비밀번호 </v-col>
+                  <v-col cols="10">
+                    <input
+                      v-model="password"
+                      type="password"
+                    />
+                  </v-col>
+                </v-row>
+              </v-card-text>
+              <v-card-text>
+                <v-row justify="center">
+                    <v-btn>확인</v-btn>
+                </v-row>
+              </v-card-text>
+            </v-card-title>
+          </v-col>
+        </v-row>
+      </v-container>
+    </v-main>
+  </v-app>
 </template>
 
 <script>
+import MypageComponent from "@/components/MypageComponent.vue";
+import QnaView from "../QnaView.vue";
+
 export default {
-    props: [
-        'memberDetail'
-    ],
-    date() {
-        return {
-        }
-    },
-    async created() {
-    },
-}
+  components: {
+    QnaView,
+    MypageComponent,
+  },
+  date() {
+    return {};
+  },
+  async created() {},
+};
 </script>
 
 <style scoped>
-.dining-container {
-    padding: 20px;
+.v-card-title {
+  color: #5e3701; /* 이미지에서 보여지는 색깔 */
+}
+.custom-divider {
+  background-color: rgba(0, 0, 0, 1); /* 완전한 black 색상 */
+  height: 4px; /* v-divider의 두께를 더 두껍게 설정 */
+  opacity: 1;
+}
+.custom-title {
+  font-family: "Playfair Display", serif;
+  color: #787878;
+  font-size: 20px;
+}
+.mypage-container {
+  background-color: white;
+  position: absolute;
+  width: 90%;
+  max-width: 1200px;
+  height: 80%;
+  top: 57%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 10px;
+  overflow-y: auto;
+}
+.v-card-title {
+  padding: 0;
+  margin: 0;
 }
 
-.main h1 {
-    border-bottom: 4px solid black;
+.v-btn {
+  margin: 0;
+  font-family: "Playfair Display", serif;
+  background-color: #ded6f4;
+  border: none !important;
+  box-shadow: none !important;
 }
 
-.main p {
-    font-size: 12px;
+.v-btn:hover,
+.v-btn:active {
+  background: #ded6f4;
+}
+
+.v-btn:visited {
+  background: #ded6f4;
+}
+.mypage-container input {
+  border: 1px solid;
+}
+.input {
+  display: block;
+  margin-bottom: 10px;
+  padding: 8px;
+  font-size: 16px;
+  width: 100%;
+  max-width: 300px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
 }
 </style>

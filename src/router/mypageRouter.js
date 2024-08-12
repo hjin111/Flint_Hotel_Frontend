@@ -2,7 +2,7 @@ import MypageComponent from "@/components/MypageComponent.vue"
 import MypageDining from "@/views/mypages/MypageDining.vue";
 import MypageRoom from "@/views/mypages/MypageRoom.vue";
 import MypageUpdatePassword from "@/views/mypages/MypageUpdatePassword.vue";
-
+import MypageDelMember from "@/views/mypages/MypageDelMember.vue";
 
 export const mypageRouter = [
     {
@@ -29,4 +29,10 @@ export const mypageRouter = [
         component: MypageUpdatePassword,
         meta : {header: 'HeaderComponent'}
     },
+    {
+        path: '/mypage/delmember',
+        name: 'MypageDelMember',
+        component: MypageDelMember,
+        meta : {header: 'HeaderComponent'}
+    },   
 ]
