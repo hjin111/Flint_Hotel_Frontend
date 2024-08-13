@@ -1,58 +1,62 @@
 <template>
-    <v-container>
-        <v-row class="d-flex justify-content-between mt-5">
+    <BackGround />
+    <v-container class="main-container">
+        <v-row class="d-flex justify-content-between align-items-center search-bar">
             <v-col>
-                <v-form @submit.prevent="searchProducts">
+                <v-form @submit.prevent="searchMenus">
                     <v-row>
-                        <v-col cols="auto">
+                        <v-col cols="2">
                             <v-select
                                 v-model="searchType"
                                 :items="searchOptions"
                                 item-title="text"
                                 item-value="value"
+                                dense
+                                hide-details
+                                class="search-type"
                             >
                             </v-select>
                         </v-col>
                         <v-col>
                             <v-text-field
                                 v-model="searchValue"
-                                label="Search"
+                                label="검색어 입력"
+                                dense
+                                hide-details
                             >
                             </v-text-field>
                         </v-col>
                         <v-col cols="auto">
-                            <v-btn type="submit" color="grey">검색</v-btn>
+                            <v-btn type="submit" color="grey" elevation="0" outlined>검색</v-btn>
                         </v-col>
                     </v-row>
                 </v-form>
             </v-col>
 
             <v-col cols="auto" v-if="canAccess">
-                <v-btn @click="openCreateMenuDialog()" color="success">메뉴 추가</v-btn>
+                <v-btn @click="openCreateMenuDialog()" color="grey" elevation="0" outlined>메뉴 추가</v-btn>
             </v-col>
         </v-row>
         <v-row>
             <v-col>
-                <v-card>
-                    <v-card-title class="text-p text-center">{{ pageTitle }}</v-card-title>
+                <v-card elevation="0" class="pa-4 table-card">
                     <v-card-text>
                         <v-simple-table>
                             <thead>
                                 <tr>
-                                    <th>제품 코드</th>
-                                    <th>제품명</th>
-                                    <th>가격</th>
-                                    <th v-if="canAccess">Action</th>
+                                    <th class="id-column">Id</th>
+                                    <th class="name-column">메뉴 이름</th>
+                                    <th class="price-column">가격</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr v-for="p in productList" :key="p.menuId">
-                                    <td>{{ p.menuId }}</td>
-                                    <td>{{ p.menuName }}</td>
-                                    <td>{{ p.cost }}</td>
-                                    <td v-if="canAccess">
-                                        <v-btn color="secondary" @click="openEditMenuDialog(p)">수정</v-btn>
-                                        <v-btn color="red" @click="openDeleteMenuDialog(p.menuId)">삭제</v-btn>
+                                <tr v-for="p in menuList" :key="p.menuId">
+                                    <td class="id-column-value" >{{ p.menuId }}</td>
+                                    <td class="name-column-value">{{ p.menuName }}</td>
+                                    <td class="price-column-value">{{ p.cost }}원</td>
+                                    <td class="col-action">
+                                        <v-btn color="grey" @click="openEditMenuDialog(p)" elevation="0" outlined small>수정</v-btn>
+                                        <v-btn color="grey" @click="openDeleteMenuDialog(p.menuId)" elevation="0" outlined small>삭제</v-btn>
                                     </td>
                                 </tr>
                             </tbody>
@@ -64,7 +68,7 @@
         <!-- 추가 모달 -->
         <AddMenuModal
             v-model="createDialog"
-            @input="creatDialog = $event"
+            @input="createDialog = $event"
             :menuData="createMenuData"
             @create-menu="confirmCreateMenu"
         />
@@ -93,12 +97,14 @@ import { useRouter } from 'vue-router'
 import ModMenuModal from '@/views/employee/dining/ModMenuModal.vue'
 import DeleteModal from '@/views/employee/dining/DeleteModal.vue'
 import AddMenuModal from '@/views/employee/dining/AddMenuModal.vue'
+import BackGround from '@/components/user/employee/EmployeeBasicComponent.vue'
 
 export default {
     components: {
         AddMenuModal,
         ModMenuModal,
-        DeleteModal
+        DeleteModal,
+        BackGround,
     },
     data() {
         return {
@@ -112,11 +118,11 @@ export default {
             searchType: "",
             searchValue: "",
             searchOptions: [
-                { text: '제품 코드', value: 'menuId' },
-                { text: '제품명', value: 'menuName' },
-                { text: '가격', value: 'cost' }
+                { text: '선택', value: '' },
+                { text: '메뉴 코드', value: 'menuId' },
+                { text: '메뉴명', value: 'menuName' },
             ],
-            productList: [],
+            menuList: [],
             canAccess: false,
             pageTitle: '메뉴 목록',
             router: useRouter(),
@@ -148,7 +154,7 @@ export default {
                         const response = await axios.get(`/employee/dining/list`, {
                             params: { department: this.department }
                         })
-                        this.productList = response.data.result
+                        this.menuList = response.data.result
                     } catch (error) {
                         console.error('Error fetching menu list:', error)
                     }
@@ -161,18 +167,18 @@ export default {
                 this.router.push('/employee/login')
             }
         },
-        async searchProducts() {
+        async searchMenus() {
             try {
-                const response = await axios.get(`/employee/dining/listes`, {
+                const response = await axios.get(`/employee/dining/list`, {
                     params: {
+                        department: this.department,
                         searchType: this.searchType,
                         searchValue: this.searchValue,
-                        department: this.department
                     }
-                })
-                this.productList = response.data.result
+                });
+                this.menuList = response.data.result;
             } catch (error) {
-                console.error('Error searching products:', error)
+                console.error('Error searching products:', error);
             }
         },
         openCreateMenuDialog() {
@@ -223,7 +229,7 @@ export default {
         async confirmDeleteMenu(menuId) {
             try {
                 await axios.delete(`/employee/dining/delmenu/${menuId}`)
-                this.productList = this.productList.filter(p => p.menuId !== menuId)
+                this.menuList = this.menuList.filter(p => p.menuId !== menuId)
                 this.closeDeleteMenuDialog()
             } catch (error) {
                 console.error('Error deleting menu:', error)
@@ -234,4 +240,65 @@ export default {
 </script>
 
 <style scoped>
+.main-container {
+    margin-top: 120px;
+}
+
+.search-bar {
+    margin-bottom: 16px;
+}
+
+.search-type{
+    max-width: 133px;
+    font-size: 0.5rem; 
+    line-height: 1.25rem;
+}
+
+.text-h5 {
+    font-size: 1.25rem;
+}
+
+.table-card {
+    border: none;
+    box-shadow: none;
+}
+
+/* 열 간격 조정 */
+.id-column {
+    padding-left: 150px;
+}
+
+.name-column {
+    padding-left: 200px;
+    text-align: center;
+}
+
+.price-column {
+    padding-left: 200px;
+}
+
+.id-column-value {
+    padding-left: 150px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.name-column-value {
+    padding-left: 200px;
+    text-align: center;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.price-column-value {
+    padding-left: 200px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.col-action {
+    padding-left: 150px;
+    display: flex;
+    justify-content: space-between;
+    gap: -10px; /* 버튼 사이의 간격 */
+    border-bottom: 1px solid #e0e0e0;
+}
+
 </style>
