@@ -5,20 +5,25 @@
             <v-col>
                 <v-card class="qna-card">
                     <v-card-title class="custom-title">QnA</v-card-title>
+                    <br>
                     <v-card-text>
                         <v-data-table
                             :items="qnaList"
                             :headers="tableHeaders"
                             class="elevation-1">
                             <template v-slot:item="{ item }">
-                                <tr>
+                                <tr class="datatr">
                                     <td>{{ item.no }}</td>
-                                    <td>{{ item.title }}</td>
+                                    <td>
+                                        <router-link :to="{ name: 'QnaDetailComponent', params: {id: item.id}}">
+                                            {{ item.title }}
+                                        </router-link>
+                                    </td>
                                     <td>{{ item.memberEmail }}</td>
                                     <td>{{ formatDate(item.writeTime) }}</td>
-                                    <td>
+                                    <!-- <td>
                                         <v-btn style="color: white;" color="#C7BDC7">Modify</v-btn>
-                                    </td>
+                                    </td> -->
                                 </tr>
                             </template>
                         </v-data-table>
@@ -40,11 +45,11 @@ import axios from 'axios';
         return {
             qnaList: [],
             tableHeaders: [
-                {title:'No', key:'no', align:'start'},
-                {title:'Title', key:'title', align:'start'},
-                {title:'Email', key:'memberEmail', align:'start'},
-                {title: 'Write time', key: 'writeTime', align: 'start'},
-                {title:'Modify', align:'start'}
+                {title:'No', key:'no', align:'center'},
+                {title:'Title', key:'title', align:'center'},
+                {title:'Email', key:'memberEmail', align:'center'},
+                {title: 'Write time', key: 'writeTime', align: 'center'},
+                // {title:'Modify', align:'center'}
             ],
         }
     },
@@ -99,5 +104,10 @@ import axios from 'axios';
   }
   .qna-card {
     padding: 20px;
+    /* font-family: "Playfair Display", serif; */
+    font-family: "Noto Serif KR", serif;
+  }
+  .datatr {
+    text-align: center;
   }
   </style>
