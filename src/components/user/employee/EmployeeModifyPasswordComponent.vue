@@ -9,8 +9,35 @@
                         <br>
                         <v-card-text>
                             <v-row>
-                                </v-row>
+                                <v-col cols="3">
+                                    현재 비밀번호
+                                </v-col>
+                                <v-col cols="9">
+                                    <input type="password" v-model="beforePassword" id="beforeInput"
+                                        placeholder="현재 비밀번호" />
+                                </v-col>
+                            </v-row>
+                            <v-row>
+                                <v-col cols="3"> 새 비밀번호 </v-col>
+                                <v-col cols="9">
+                                    <input v-model="afterPassword" type="password" placeholder="새 비밀번호" 
+                                        @input="checkPassword"/>
+                                </v-col>
+                            </v-row>
+                            <v-row>
+                                <v-col cols="3"> 새 비밀번호 확인 </v-col>
+                                <v-col cols="9">
+                                    <input v-model="passwordCheck" type="password" placeholder="새 비밀번호 확인"
+                                        @input="checkPassword" />
+                                    <p class="messageClass">{{ message }}</p>
+                                </v-col>
+                            </v-row>
                         </v-card-text>
+                        <v-row>
+                            <v-col class="d-flex justify-center">
+                                <v-btn> 확인 </v-btn>
+                            </v-col>
+                        </v-row>
                     </v-card>
                 </v-col>
             </v-row>
@@ -27,7 +54,25 @@ export default {
     },
     data() {
         return {
+            beforePassword: "",
+            afterPassword: "",
+            passwordCheck: "",
+            message: "비밀번호가 일치하지 않습니다.",
         };
+    },
+    computed: {
+        isCorrect() {
+            return this.afterPassword === this.passwordCheck;
+        },
+    },
+    methods: {
+        checkPassword() {
+            if (this.isCorrect) {
+                this.message = "비밀번호가 일치합니다.";
+            } else {
+                this.message = "비밀번호가 일치하지 않습니다.";
+            }
+        },
     }
 };
 </script>
@@ -66,7 +111,7 @@ export default {
     width: 100%;
     box-sizing: border-box;
     font-family: "Playfair Display", serif;
-
+    box-shadow: none;
     height: 90%;
 }
 
