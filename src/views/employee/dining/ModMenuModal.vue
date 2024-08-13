@@ -44,7 +44,7 @@ export default {
     },
     methods: {
         closeDialog() {
-            this.dialog = false
+            this.$emit('input', false)
         },
         async confirmEditMenu() {
             try {

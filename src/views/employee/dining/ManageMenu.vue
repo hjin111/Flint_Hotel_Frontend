@@ -64,13 +64,15 @@
         <!-- 추가 모달 -->
         <AddMenuModal
             v-model="createDialog"
+            @input="creatDialog = $event"
             :menuData="createMenuData"
-            @edit-menu="confirmCreateMenu"
+            @create-menu="confirmCreateMenu"
         />
 
         <!-- 수정 모달 -->
         <ModMenuModal
             v-model="editDialog"
+            @input="editDialog = $event"
             :menuData="editMenuData"
             @edit-menu="confirmEditMenu"
         />
@@ -100,16 +102,22 @@ export default {
     },
     data() {
         return {
+            diningMapping: {
+                'KorDining': 1,
+                'JapDining': 2,
+                'ChiDining': 3,
+                'Lounge': 4,
+            },
             department: "",
             searchType: "",
             searchValue: "",
             searchOptions: [
-                { text: '제품 코드', value: 'menuId'},
+                { text: '제품 코드', value: 'menuId' },
                 { text: '제품명', value: 'menuName' },
                 { text: '가격', value: 'cost' }
             ],
-            productList: [], // DiningMenuDto 리스트를 저장
-            canAccess: false, // 접근 권한 확인
+            productList: [],
+            canAccess: false,
             pageTitle: '메뉴 목록',
             router: useRouter(),
 
@@ -124,7 +132,7 @@ export default {
         }
     },
     mounted() {
-        this.initialize() // 컴포넌트가 마운트되면 initialize() 메서드를 호출
+        this.initialize()
     },
     methods: {
         async initialize() {
@@ -133,9 +141,8 @@ export default {
                 const decodedToken = jwtDecode(token)
                 this.department = decodedToken.department
 
-                // 접근 가능한 부서인지 확인
                 this.canAccess = ['KorDining', 'JapDining', 'ChiDining', 'Lounge'].includes(this.department)
-                
+
                 if (this.canAccess) {
                     try {
                         const response = await axios.get(`/employee/dining/list`, {
@@ -169,36 +176,37 @@ export default {
             }
         },
         openCreateMenuDialog() {
-            this.createMenuData = {}
+            this.createMenuData = {
+                menuName: '',
+                cost: 0,
+                diningId: this.diningMapping[this.department] || null, // department를 diningId로 변환
+            }
             this.createDialog = true
         },
-        closeCreateMenuDialog(){
+        closeCreateMenuDialog() {
             this.createDialog = false
         },
-
-        async confirmCreateMenu(){
-            const addMenuData = {
-                
-            }
-            try{
-                await axios.post(`/employee/dining/addmenu`, addMenuData)
-            } catch(error){
-                console.log(error)
+        async confirmCreateMenu(menuData) {
+            try {
+                await axios.post(`/employee/dining/addmenu`, menuData)
+                this.initialize()
+                this.closeCreateMenuDialog()
+            } catch (error) {
+                console.error('생성 실패:', error)
             }
         },
         openEditMenuDialog(menu) {
-            this.editMenuData = { ...menu } // 메뉴 데이터를 복사하여 수정
-            this.editDialog = true // 수정 모달 열기
+            this.editMenuData = { ...menu }
+            this.editDialog = true
         },
         closeEditMenuDialog() {
-            this.editDialog = false // 수정 모달 닫기
+            this.editDialog = false
         },
         async confirmEditMenu(menuData) {
             try {
                 await axios.patch(`/employee/dining/modmenu/${menuData.menuId}`, {
-                    cost: menuData.cost 
+                    cost: menuData.cost
                 })
-                // 메뉴 목록 갱신
                 this.initialize()
                 this.closeEditMenuDialog()
             } catch (error) {
