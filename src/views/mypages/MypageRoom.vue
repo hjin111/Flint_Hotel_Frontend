@@ -68,7 +68,7 @@ export default {
       history.pushState(null, null, "/mypage/room");
       const token = localStorage.getItem("membertoken");
       // {headers: {Authorization: 'Beare r 토큰 값'}}}
-      const headers = { Authorization: `B earer ${token}` };
+      const headers = { Authorization: `Bearer ${token}` };
       const response = await axios.get(
         `${process.env.VUE_APP_API_BASE_URL}/reserve/room/list`,
         { headers }

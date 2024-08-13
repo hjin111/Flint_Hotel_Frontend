@@ -27,7 +27,7 @@
         <h3>내정보</h3>
         <ul>
           <li>
-            <v-btn class="custom-size" @click="setProfile">프로필 수정</v-btn>
+            <v-btn class="custom-size">프로필 수정</v-btn>
           </li>
           <li>
             <v-btn class="custom-size" :to="{path:'/mypage/updatepassword'}">비밀번호 변경</v-btn
@@ -37,7 +37,9 @@
             <v-btn class="custom-size" @click="inquiryList">문의 내역</v-btn>
           </li>
           <li>
-            <v-btn class="custom-size" :to="{path:'/mypage/delmember'}">회원 탈퇴</v-btn>
+            <v-btn class="custom-size" 
+              :to="{path:'/mypage/delmember'}"
+            >회원 탈퇴</v-btn>
           </li>
         </ul>
       </ul>
@@ -46,32 +48,27 @@
 </template>
 
 <script>
-// import axios from "axios";
+import axios from "axios";
 export default {
   components: {},
   data() {
     return {
-      selectedBreakfast: "yes", // Default selection
-      urlpath: "",
-      namepath: "Mypage",
       memberDetail: [],
     };
   },
-  // async created() {
-  //   try {
-  //     const token = localStorage.getItem("membertoken");
-  //     // {headers: {Authorization: 'Bearer 토큰 값'}}}
-  //     const headers = { Authorization: `Bearer ${token}` };
-  //     const response = await axios.get(
-  //       `${process.env.VUE_APP_API_BASE_URL}/member/detail`,
-  //       { headers }
-  //     );
-  //     this.memberDetail = response.data.result;
-  //     console.log(this.memberDetail);
-  //   } catch (e) {
-  //     console("비어있음");
-  //   }
-  // },
+  async created() {
+    try {
+      const token = localStorage.getItem('membertoken');
+      // {headers: {Authorization: 'Bearer 토큰 값'}}}
+      const headers = { Authorization: `Bearer ${token}` };
+      const response = await axios.get(`${process.env.VUE_APP_API_BASE_URL}/member/detail`, { headers });
+      this.memberDetail = response.data.result
+      localStorage.setItem('memberEmail', this.memberDetail.email)
+      localStorage.setItem('memberName', this.memberDetail.firstName + " " + this.memberDetail.lastName);
+    } catch (e) {
+      console("비어있음")
+    }
+  },
   methods: {},
 };
 </script>

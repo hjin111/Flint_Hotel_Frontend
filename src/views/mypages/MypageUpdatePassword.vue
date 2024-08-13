@@ -23,6 +23,7 @@
                           type="password"
                           v-model="beforePassword"
                           id="beforeInput"
+                          placeholder="현재 비밀번호"
                         />
                       </v-col>
                     </v-row>
@@ -52,7 +53,6 @@
                 </v-card>
                 <br />
                 <v-btn @click="passwordUpdate()">비번 변경</v-btn>
-                <v-btn >취소</v-btn>
               </v-col>
             </v-card-title>
           </v-col>

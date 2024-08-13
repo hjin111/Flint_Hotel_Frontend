@@ -1,16 +1,17 @@
-import MypageComponent from "@/components/MypageComponent.vue"
+// import MypageComponent from "@/components/MypageComponent.vue"
 import MypageDining from "@/views/mypages/MypageDining.vue";
 import MypageRoom from "@/views/mypages/MypageRoom.vue";
 import MypageUpdatePassword from "@/views/mypages/MypageUpdatePassword.vue";
 import MypageDelMember from "@/views/mypages/MypageDelMember.vue";
+import MypageMain from "@/views/mypages/MypageMain.vue";
 
 export const mypageRouter = [
-    {
-        path: '/mypage', 
-        name: 'MypageComponent',
-        component: MypageComponent,
-        meta : {header: 'HeaderComponent'}
-    },
+    // {
+    //     path: '/mypage', 
+    //     name: 'MypageComponent',
+    //     component: MypageComponent,
+    //     meta : {header: 'HeaderComponent'}
+    // },
     {
         path: '/mypage/dining',
         name: 'MypageDining',
@@ -34,5 +35,11 @@ export const mypageRouter = [
         name: 'MypageDelMember',
         component: MypageDelMember,
         meta : {header: 'HeaderComponent'}
-    },   
+    },  
+    {
+        path: '/mypage',
+        name: 'MypageMain',
+        component: MypageMain,
+        meta : {header: 'HeaderComponent'}
+    },  
 ]
