@@ -4,7 +4,7 @@
       app
       color="transparent"
       flat
-      class="login-nav"
+      class="top-nav"
       v-show="!isScrolled"
       :style="{ transition: 'transform 0.3s ease-in-out', transform: isScrolled ? 'translateY(-100%)' : 'translateY(0)' }"
     >
@@ -81,9 +81,11 @@ export default {
 <style>  
   .login-nav {
   z-index: 10;
+  margin-top:-25px;
   }
   .top-nav {
   z-index: 10;
+  margin-top:-10px;
   }
   .v-btn {
     font-family: 'Playfair Display', serif;

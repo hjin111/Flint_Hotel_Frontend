@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <QnaView />
     <v-container class="qna-container">
         <v-row>
             <v-col>
@@ -34,13 +34,14 @@
             </v-col>
         </v-row>
      </v-container> 
-    </div>
   </template>
   
   <script>
+  import QnaView from '@/views/QnaView.vue';
 import axios from 'axios';
   export default {
     components: {
+        QnaView
     },
     data() {
         return {
@@ -54,7 +55,7 @@ import axios from 'axios';
             ],
         }
     },
-    created() { 
+    created() {
         this.loadList();
     },
     methods: {
@@ -96,7 +97,7 @@ import axios from 'axios';
     position: absolute;
     width: 90%;
     max-width: 1200px;
-    height: 80%;
+    height: 82%;
     top: 57%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -105,8 +106,9 @@ import axios from 'axios';
   }
   .qna-card {
     padding: 20px;
-    /* font-family: "Playfair Display", serif; */
     font-family: "Noto Serif KR", serif;
+    border: none;
+    box-shadow: none;
   }
   .datatr {
     text-align: center;

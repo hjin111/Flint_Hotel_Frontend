@@ -6,7 +6,7 @@
         <img :src="loginImage" alt="Login Page" class="background-image">
       </div>
       <!-- 로그인 폼을 감싸는 래퍼 -->
-      <div class="login-form-container">
+      <div class="login-form-container" >
         <!-- 로그인 폼 -->
         <div class="login-form">
           <h1 class="title">FLINT</h1>
@@ -69,7 +69,7 @@
   }
 </script>
 
-<style scoped>
+<style>
   .login-container {
       display: flex; /* Flexbox를 사용하여 자식 요소 정렬 */
       height: 100vh; /* 화면 높이 100% */

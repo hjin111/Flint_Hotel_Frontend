@@ -4,7 +4,7 @@
         <v-row justify="center">
             <v-col cols="12" md="12">
                 <v-card class="qna-card">
-                    <v-card-title class="custom-title">QnA 조회</v-card-title>
+                    <v-card-title class="custom-title">QnA 수정</v-card-title>
                     <br>
                     <v-card-text>
                         <v-form>
@@ -16,11 +16,11 @@
                                     </v-input>
                                 </v-col>
                                 <v-col cols="12" md="10">
-                                    <v-text-field
-                                        v-model="service"
-                                        outlined
-                                        readOnly
-                                    ></v-text-field>
+                                    <v-select
+                                    :items="service"
+                                    v-model="selectedSerivce"
+                                    outlined
+                                    ></v-select>
                                 </v-col>
                             </v-row>
                             <!-- title -->
@@ -34,7 +34,6 @@
                                     <v-text-field
                                         v-model="title"
                                         outlined
-                                        readOnly
                                     ></v-text-field>
                                 </v-col>
                             </v-row>
@@ -49,16 +48,12 @@
                                     <v-textarea
                                         v-model="contents"
                                         outlined
-                                        readOnly
                                     ></v-textarea>
                                 </v-col>
                             </v-row> 
                         </v-form>
                         <v-row class="justify-end">
-                            <v-btn class="leftbtn" style="color: white;" color="#7A6C5B"
-                            @click="$router.push({ name: 'QnaModComponent', params: { id: this.$route.params.id } })"
-                            >Modify</v-btn>
-                            <v-btn style="color: white;" color="#CFB18E">Delete</v-btn>
+                            <v-btn class="leftbtn" @click="modQna()" style="color: white;" color="#7A6C5B">Submit</v-btn>
                         </v-row>
                     </v-card-text>
                 </v-card>
@@ -76,9 +71,11 @@
     },
     data() {
         return {
-            service: "",
             title: "",
-            contents: ""
+            contents: "",
+
+            service: ["Room", "Lounge", "KorDining", "ChiDining", "JapDining"],
+            selectedSerivce: null,
         }
     },
     created() {
@@ -89,17 +86,34 @@
         async fetchQnaDetail(qnaId) {
             try {
                 const response = await axios.get(`/mypage/qna/detail/${qnaId}`);
-                console.log(response.data);
+                console.log(response);
 
-                this.service = response.data.result.service;
+                this.selectedSerivce = response.data.result.service;
                 this.title = response.data.result.title;
                 this.contents = response.data.result.contents;
 
             } catch(e) {
                 console.log(e);
             }
+        },
+        async modQna() {
+            try {
+                const qnaId = this.$route.params.id;
+                const params = {
+                    service: this.selectedSerivce,
+                    title: this.title,
+                    contents: this.contents
+                }
+                console.log("params임: ", params);
+
+                const response = await axios.post(`/mypage/qna/update/${qnaId}`, params);
+                console.log(response);
+
+                this.$router.push(`/mypage/qna/detail/${qnaId}`);
+            } catch(e) {
+                console.log(e);
+            }
         }
-        
     }
     
   }
@@ -149,6 +163,6 @@
     color: #787878;
   }
   .leftbtn {
-    margin-right: -8px;
+    margin-right:10px;
   }
   </style>

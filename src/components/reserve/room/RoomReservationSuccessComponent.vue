@@ -1,5 +1,4 @@
 <template>
-  <div>
   <FlintView />
   <v-container class="reserve-contianer">
     <v-row>
@@ -27,7 +26,6 @@
                         <v-text-field
                           v-model="firstName"
                           outlined
-                          class="input-field"
                           readonly
                         ></v-text-field>
                       </v-col>
@@ -40,7 +38,6 @@
                         <v-text-field
                           v-model="lastName"
                           outlined
-                          class="input-field"
                           readonly
                         ></v-text-field>
                       </v-col>
@@ -53,7 +50,6 @@
                         <v-text-field
                           v-model="email"
                           outlined
-                          class="input-field"
                           readonly
                         ></v-text-field>
                       </v-col>
@@ -66,7 +62,6 @@
                         <v-text-field
                           v-model="phoneNumber"
                           outlined
-                          class="input-field"
                           readonly
                         ></v-text-field>
                       </v-col>
@@ -83,7 +78,6 @@
                       <v-col cols="12" md="4">
                         <v-text-field
                           outlined
-                          class="input-field"
                           readonly
                         ></v-text-field>
                       </v-col>
@@ -95,7 +89,6 @@
                       <v-col cols="12" md="4">
                         <v-text-field
                           outlined
-                          class="input-field"
                           readonly
                         ></v-text-field>
                       </v-col>
@@ -107,7 +100,6 @@
                       <v-col cols="12" md="4">
                         <v-text-field
                           outlined
-                          class="input-field"
                           readonly
                         ></v-text-field>
                       </v-col>
@@ -119,7 +111,6 @@
                       <v-col cols="12" md="9">
                         <v-text-field
                           outlined
-                          class="input-field"
                           readonly
                         ></v-text-field>
                       </v-col>
@@ -132,7 +123,6 @@
       </v-col>
     </v-row>
   </v-container>
-</div>
 </template>
   
   <script>
@@ -165,10 +155,10 @@
         const response = await axios.get(`${process.env.VUE_APP_API_BASE_URL}/member/detail`, {headers});
         console.log(response.data);
 
-        this.firstName = response.data.firstName;
-        this.lastName = response.data.lastName;
-        this.email = response.data.email;
-        this.phoneNumber = response.data.phoneNumber;
+        this.firstName = response.data.result.firstName;
+        this.lastName = response.data.result.lastName;
+        this.email = response.data.result.email;
+        this.phoneNumber = response.data.result.phoneNumber;
 
       } catch(e) {
         console.log(e);
@@ -193,8 +183,8 @@
     position: absolute;
     width: 90%;
     max-width: 1200px;
-    height: 80%;
-    top: 55%;
+    height: 82%;
+    top: 57%;
     left: 50%;
     transform: translate(-50%, -50%);
     border-radius: 10px;
@@ -238,10 +228,6 @@
     padding-left: 17px;
     padding-bottom: 20px;
     font-family: "Noto Serif KR", serif;
-  }
-  
-  .input-field {
-    margin-bottom: 10px;
   }
   
   .v-radio-group {

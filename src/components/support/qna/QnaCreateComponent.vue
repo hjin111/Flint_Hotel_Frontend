@@ -94,7 +94,7 @@
     position: absolute;
     width: 90%;
     max-width: 1200px;
-    height: 80%;
+    height: 82%;
     top: 57%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -102,7 +102,7 @@
     overflow-y: auto;
 
     padding-left:14%;
-    padding-top: 50px;
+    padding-top: 10px;
   }
   .qna-card {
     width:80%;
