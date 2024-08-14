@@ -1,4 +1,5 @@
 <template>
+    <div>
     <FlintView />
     <v-container class="reserve-contianer">
         <br>
@@ -104,6 +105,7 @@
             </v-row>
         </v-container>
     </v-container>
+</div>
 </template>
     
     <script>

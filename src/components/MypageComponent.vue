@@ -66,7 +66,7 @@ export default {
       localStorage.setItem('memberEmail', this.memberDetail.email)
       localStorage.setItem('memberName', this.memberDetail.firstName + " " + this.memberDetail.lastName);
     } catch (e) {
-      console("비어있음")
+      console.log("비어있음")
     }
   },
   methods: {},

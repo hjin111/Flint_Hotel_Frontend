@@ -1,4 +1,5 @@
 <template>
+    <div>
     <QnaView />
     <v-container class="qna-container">
         <v-row>
@@ -34,6 +35,7 @@
             </v-col>
         </v-row>
      </v-container> 
+     </div>
   </template>
   
   <script>
