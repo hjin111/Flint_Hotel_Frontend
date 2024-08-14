@@ -5,8 +5,10 @@
             <v-col>
                 <v-card class="qna-card">
                     <v-card-title class="custom-title">QnA</v-card-title>
-                    <br>
                     <v-card-text>
+                        <v-row class="justify-end btnrow">
+                            <v-btn @click="$router.push('/mypage/qna/create')" style="color: white;" color="#7A6C5B">Write</v-btn>
+                        </v-row>
                         <v-data-table
                             :items="qnaList"
                             :headers="tableHeaders"
@@ -109,5 +111,9 @@ import axios from 'axios';
   }
   .datatr {
     text-align: center;
+  }
+  .btnrow {
+    margin-top:10px;
+    margin-bottom:5px;
   }
   </style>
