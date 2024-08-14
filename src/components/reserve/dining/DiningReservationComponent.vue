@@ -1,6 +1,6 @@
 <template>
     <div>
-      <FlintView />
+      <DiningView />
       <v-container class="dining-contianer">
         <v-row justify="center">
           <v-col>
@@ -87,12 +87,12 @@
   
   <script>
   import axios from '@/axios';
-  import FlintView from '@/views/FlintView.vue';
+  import DiningView from '@/views/DiningView.vue';
   import { jwtDecode } from 'jwt-decode'
 
   export default {
     components: {
-      FlintView
+      DiningView
     },
     data() {
         
@@ -133,7 +133,7 @@
             const decodedToken = jwtDecode(token);
             this.memberId = decodedToken.id;
             console.log('Fetched Member ID:', this.memberId );
-            const reservationDateTime = `${this.selectedDate.id}`+"T"+`${this.timeInput}`;
+            const reservationDateTime = `${this.selectedDate.id}`+"T"+`${this.timeInput}:00 `;
 
             const reservationData = {
             adult: this.adult,
@@ -203,8 +203,8 @@
     position: absolute;
     width: 90%;
     max-width: 1200px;
-    height: 80%;
-    top: 60%;
+    height: 82%;
+    top: 57%;
     left: 50%;
     transform: translate(-50%, -50%);
     border-radius: 10px;

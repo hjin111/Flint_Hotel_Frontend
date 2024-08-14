@@ -6,13 +6,13 @@ export const diningRouter = [
         path: '/reserve/dining/create',
         name: 'DiningCreate',
         component: DiningCreate,
-        meta: {header: 'HeaderComponent'}
+        meta: {header: 'DiningHeaderComponent'}
     },
     {
         path: '/reserve/dining/success', 
         name: 'DiningReservationSuccessComponent',
         component: DiningReservationSuccessComponent,
-        meta : {header: 'HeaderComponent'}
+        meta : {header: 'DiningHeaderComponent'}
     }
 
 ]
