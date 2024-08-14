@@ -5,12 +5,12 @@
             <v-row>
                 <v-col cols="12" class="d-flex justify-center">
                     <v-card class="confirmation-card" style="width:1100px">
-                        <v-card-title class="confirmation-title">직원 정보</v-card-title>
+                        <v-card-title class="confirmation-title">My Info</v-card-title>
                         <br>
                         <v-card-text>
                             <v-row>
                                 <v-col cols="12" md="6">
-                                    <h3 class="section-title">○ 직원 정보</h3>
+                                
                                     <!-- 고객정보 -->
                                     <v-row>
                                         <v-col cols="12" md="3">
@@ -51,7 +51,7 @@
                                 </v-col>
 
                                 <v-col cols="12" md="6">
-                                    <br><br>
+                                    
                                     <v-row>
                                         <v-col cols="12" md="3">
                                             <div class="data-label"> Rank </div>
@@ -164,14 +164,15 @@ export default {
 }
 
 .confirmation-card {
-    margin-top: 15px;
     padding: 20px;
     border-radius: 8px;
     border: none;
     width: 100%;
     box-sizing: border-box;
-    font-family: "Playfair Display", serif;
+    font-family: "Noto Serif KR", serif;
     height: 90%;
+    border: none;
+    box-shadow: none;
 }
 
 .confirmation-title {
