@@ -1,0 +1,216 @@
+<template>
+    <div>
+      <FlintView />
+      <v-container class="dining-contianer">
+        <v-row justify="center">
+          <v-col>
+            <v-card>
+              <v-card-title class="text-center text-h5" style="font-family: 'Playfair Display', serif; font-weight: 600; ">
+                DINING RESERVATION
+              </v-card-title>
+              <v-card-text >
+                <v-form @submit.prevent="diningReservation">
+                  <v-table style="font-family: 'Playfair Display', serif;">
+                    <thead>
+                      <tr>
+                        <th class="text-center">SELECT</th>
+                        <th class="text-center">ADULT</th>
+                        <th class="text-center">CHILD</th>
+                        <th class="text-center">
+                          <v-btn style=" background-color: #7A6C5B; color: white; " @click="showCalendar">show Calendar</v-btn>
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td class="button-group" style="padding-top: 10px;">
+                          <v-btn class="custom-button" @click="selectDining(1)">Korea</v-btn>
+                          <v-btn class="custom-button" @click="selectDining(2)">China</v-btn>
+                          <v-btn class="custom-button" @click="selectDining(3)">Japan</v-btn>
+                          <v-btn class="custom-button" @click="selectDining(4)">Lounge</v-btn>
+                        </td>
+                        <td style="padding-left: 63px; padding-top: 10px;">
+                          <v-text-field type="number" v-model="adult" style="width: 70px;"></v-text-field>
+                        </td>
+                        <td style="padding-left: 55px; padding-top: 10px;">
+                          <v-text-field type="number" v-model="child" style="width: 70px;"></v-text-field>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </v-table>
+  
+                  <v-card class="weatherview" style="margin-top: 10px; display: none; padding-bottom: 20px;">
+                    <v-card-text>
+                      <v-row>
+                        <v-col cols="5" style="padding-left: 50px">
+                          <v-calendar
+                            v-model:date="selectedDate"
+                            :attributes="calendarAttributes"
+                            is-range
+                            is-month-picker
+                            :style="{ width: '380px', height: '270px', border: '2px solid #7A6C5B', borderRadius: '7px'}"
+                           
+                            @dayclick="handleDateChange">
+                          </v-calendar>
+                        </v-col>
+                        <v-col cols="6" class="d-flex flex-column">
+                          <v-text-field
+                            label="시간입력"
+                            type="text"
+                            required
+                            dense
+                            class="mb-2"
+                            v-model="timeInput"
+                          ></v-text-field>
+                          <v-text-field
+                            label="요청사항"
+                            type="text"
+                            required
+                            v-model="comment"
+                            style="height: 90px;margin-top: -50px;">
+                          </v-text-field>
+                        </v-col>
+                      </v-row>
+                      <v-row style="padding-left: 450px;  padding-bottom: 10px; margin-top: -50px;">
+                        <v-btn type="submit" class="text-center custom-btn" style=" background-color: #7A6C5B; color: white;">Reservation</v-btn>
+                      </v-row>
+                    </v-card-text>
+                  </v-card>
+                </v-form>
+              </v-card-text>
+            </v-card>
+          </v-col>
+        </v-row>
+      </v-container>
+    </div>
+  </template>
+  
+  <script>
+  import axios from '@/axios';
+  import FlintView from '@/views/FlintView.vue';
+  import { jwtDecode } from 'jwt-decode'
+
+  export default {
+    components: {
+      FlintView
+    },
+    data() {
+        
+      return {
+        selectedDate: null,
+        timeInput: '',
+        calendarAttributes: [], 
+        adult: null,
+        child: null,
+        diningId: null,
+        comment: '',
+        memberId: null, // memberId 저장을 위한 변수 추가
+        decodedToken : null
+      };
+   
+    },
+    methods: {
+      selectDining(id) {
+        this.diningId = id;
+      },
+      showCalendar() {
+        const elements = document.getElementsByClassName('weatherview');
+        elements[0].style.display = 'block';
+      },
+      handleDateChange(date) {
+        console.log("Date received:", date);
+        this.selectedDate = date;
+        console.log("Selected Date:", this.selectedDate);
+      },
+      
+    
+      async diningReservation() {
+
+        const token = localStorage.getItem('membertoken');
+        console.log(token);
+            if (token) {
+
+            const decodedToken = jwtDecode(token);
+            this.memberId = decodedToken.id;
+            console.log('Fetched Member ID:', this.memberId );
+            const reservationDateTime = `${this.selectedDate.id}`+"T"+`${this.timeInput}`;
+
+            const reservationData = {
+            adult: this.adult,
+            child: this.child,
+            diningId: this.diningId,
+            reservationDateTime: reservationDateTime,
+            comment: this.comment,
+            memberId: this.memberId, // memberId 추가
+            };
+
+            console.log(localStorage.getItem('membertoken'));
+            console.log(reservationData);
+
+            try{
+                await axios.post(`/reserve/dining/create`, reservationData);
+                alert('예약이 완료되었습니다.');
+                this.$router.push({
+                        path: '/reserve/dining/success',
+                        query: {
+                            diningId: this.diningId,
+                            adult: this.adult,
+                            child: this.child,
+                            reservationDateTime: reservationDateTime
+                        }
+                    });
+            
+            }catch(e){
+                console.log(e);
+            }
+           
+        }
+      },
+    },
+  };
+</script>
+
+  
+  <style>
+  .button-group {
+    display: flex;
+    justify-content: space-between;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .custom-button {
+    margin: 0 -5px;
+  }
+  
+  .custom-btn {
+    width: 540px; 
+    height: 30px; 
+  }
+  
+  html,
+  body,
+  #app,
+  .v-application--wrap {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+  }
+  
+  .dining-contianer {
+    background-color: white;
+    position: absolute;
+    width: 90%;
+    max-width: 1200px;
+    height: 80%;
+    top: 60%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 10px;
+    overflow-y: auto;
+  }
+
+
+  </style>
+  

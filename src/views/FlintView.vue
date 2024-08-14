@@ -1,21 +1,15 @@
 <template>
-    <div>
+  <div>
     <div class="image-container">
         <img src="@/assets/image.png" alt="background image">
     </div>
-    </div>
-    
+  </div>
 </template>
 
 <script>
-import HeaderComponent from '../components/HeaderComponent.vue';
-
 export default{
-   components(){
-    HeaderComponent
-   }
 }
-console.log("hi");
+// console.log("hi");
 </script>
 
 <style>
@@ -25,9 +19,13 @@ console.log("hi");
   }
   
   .image-container img {
-    width: 1519.2px;
-    height: 740px;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    top: 0;
+    left: 0;
+    background-attachment: fixed;
     position: relative;
-    z-index: 8;
+    overflow: auto;
   }
 </style>
