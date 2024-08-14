@@ -1,6 +1,7 @@
 import EmployeeBasicComponent from "@/components/user/employee/EmployeeBasicComponent.vue";
 import EmployeeInfoComponent from "@/components/user/employee/EmployeeInfoComponent.vue";
 import EmployeeModifyPasswordComponent from "@/components/user/employee/EmployeeModifyPasswordComponent.vue";
+import EmployeeSearchMember from "@/components/user/employee/EmployeeSearchMember.vue";
 
 export const employeeRouter = [
     {
@@ -19,6 +20,12 @@ export const employeeRouter = [
         path: '/admin/employeemodifypassword', 
         name: 'EmployeeModifyPasswordComponent',
         component: EmployeeModifyPasswordComponent,
+        meta : {header: 'EmployeeHeaderComponent'}
+    },
+    {
+        path: '/admin/emptosearchmem', 
+        name: 'EmployeeSearchMember',
+        component: EmployeeSearchMember,
         meta : {header: 'EmployeeHeaderComponent'}
     },
 ]

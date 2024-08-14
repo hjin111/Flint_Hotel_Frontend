@@ -20,8 +20,8 @@
                             <v-row>
                                 <v-col cols="3"> 새 비밀번호 </v-col>
                                 <v-col cols="9">
-                                    <input v-model="afterPassword" type="password" placeholder="새 비밀번호" 
-                                        @input="checkPassword"/>
+                                    <input v-model="afterPassword" type="password" placeholder="새 비밀번호"
+                                        @input="checkPassword" />
                                 </v-col>
                             </v-row>
                             <v-row>
