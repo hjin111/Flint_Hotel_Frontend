@@ -31,7 +31,7 @@
                                                 <th style="text-align: center;">Id</th>
                                                 <th style="text-align: center;">Check In Date</th>
                                                 <th style="text-align: center;">Check Out Time</th>
-                                                <th style="text-align: center;">상세보기</th>
+                                                <th style="text-align: center;">Detail</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -89,7 +89,7 @@ export default {
                 this.roomReservations = response.data.result.roomReservations;
                 console.log(this.roomReservations)
             } catch (e) {
-                alert("입력값이 없습니다")
+                alert(e)
             }
         },
         formatDate(dateString) {

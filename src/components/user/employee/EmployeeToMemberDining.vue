@@ -155,7 +155,6 @@ export default {
     width: 100%;
     box-sizing: border-box;
     font-family: "Playfair Display", serif;
-
     height: 90%;
 }
 

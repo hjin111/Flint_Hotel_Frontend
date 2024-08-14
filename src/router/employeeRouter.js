@@ -6,6 +6,7 @@ import EmployeeLogin from '@/views/employee/EmployeeLogin.vue'
 import EmployeeCreate from '@/views/employee/EmployeeCreate.vue'
 import DiningMenu from '@/views/employee/dining/ManageMenu.vue'
 import EmployeeToMemberRoom from "@/components/user/employee/EmployeeToMemberRoom.vue";
+import EmployeeToMember from "@/components/user/employee/EmployeeToMember.vue";
 
 export const employeeRouter = [
     {
@@ -32,13 +33,13 @@ export const employeeRouter = [
         meta : {header: 'EmployeeHeaderComponent'}
     },
     {
-        path: '/admin/employeeminfo', 
+        path: '/employee', 
         name: 'EmployeeInfoComponent',
         component: EmployeeInfoComponent,
         meta : {header: 'EmployeeHeaderComponent'}
     },
     {
-        path: '/admin/employeemodifypassword', 
+        path: '/employee/employeemodifypassword', 
         name: 'EmployeeModifyPasswordComponent',
         component: EmployeeModifyPasswordComponent,
         meta : {header: 'EmployeeHeaderComponent'}
@@ -53,6 +54,12 @@ export const employeeRouter = [
         path: '/employee/room', 
         name: 'EmployeeToMemberRoom',
         component: EmployeeToMemberRoom,
+        meta : {header: 'EmployeeHeaderComponent'}
+    },
+    {
+        path: '/employee/member',
+        name: 'EmployeeToMember',
+        component: EmployeeToMember,
         meta : {header: 'EmployeeHeaderComponent'}
     },
 ]

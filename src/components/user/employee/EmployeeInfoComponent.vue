@@ -17,7 +17,7 @@
                                             <div class="data-label">Emp No</div>
                                         </v-col>
                                         <v-col cols="12" md="9">
-                                            <v-text-field v-model="empNo" outlined class="input-field"
+                                            <v-text-field v-model="empNo"
                                                 readonly></v-text-field>
                                         </v-col>
                                     </v-row>
@@ -26,7 +26,7 @@
                                             <div class="data-label">Name</div>
                                         </v-col>
                                         <v-col cols="12" md="9">
-                                            <v-text-field v-model="name" outlined class="input-field"
+                                            <v-text-field v-model="name"
                                                 readonly></v-text-field>
                                         </v-col>
                                     </v-row>
@@ -35,7 +35,7 @@
                                             <div class="data-label">Email</div>
                                         </v-col>
                                         <v-col cols="12" md="9">
-                                            <v-text-field v-model="email" outlined class="input-field"
+                                            <v-text-field v-model="email"
                                                 readonly></v-text-field>
                                         </v-col>
                                     </v-row>
@@ -44,7 +44,7 @@
                                             <div class="data-label">Phone num</div>
                                         </v-col>
                                         <v-col cols="12" md="9">
-                                            <v-text-field v-model="phoneNumber" outlined class="input-field"
+                                            <v-text-field v-model="phoneNumber"
                                                 readonly></v-text-field>
                                         </v-col>
                                     </v-row>
@@ -57,7 +57,7 @@
                                             <div class="data-label"> Rank </div>
                                         </v-col>
                                         <v-col cols="12" md="9">
-                                            <v-text-field v-model="rank" outlined class="input-field" 
+                                            <v-text-field v-model="rank"
                                                 readonly></v-text-field>
                                         </v-col>
                                     </v-row>
@@ -66,7 +66,7 @@
                                             <div class="data-label"> Department </div>
                                         </v-col>
                                         <v-col cols="12" md="9">
-                                            <v-text-field v-model="department" outlined class="input-field"
+                                            <v-text-field v-model="department" 
                                                 readonly></v-text-field>
                                         </v-col>
                                     </v-row>
@@ -75,7 +75,7 @@
                                             <div class="data-label">Date of Employee</div>
                                         </v-col>
                                         <v-col cols="12" md="8">
-                                            <v-text-field v-model="empDate" outlined class="input-field" 
+                                            <v-text-field v-model="empDate" 
                                                 readonly></v-text-field>
                                         </v-col>
                                     </v-row>
@@ -84,7 +84,7 @@
                                             <div class="data-label">Gender</div>
                                         </v-col>
                                         <v-col cols="12" md="9">
-                                            <v-text-field v-model="gender" outlined class="input-field"
+                                            <v-text-field v-model="gender"
                                                 readonly></v-text-field>
                                         </v-col>
                                     </v-row>
@@ -171,7 +171,6 @@ export default {
     width: 100%;
     box-sizing: border-box;
     font-family: "Playfair Display", serif;
-
     height: 90%;
 }
 
@@ -191,10 +190,6 @@ export default {
     padding-left: 17px;
     padding-bottom: 20px;
     font-family: "Noto Serif KR", serif;
-}
-
-.input-field {
-    margin-bottom: 10px;
 }
 
 .v-radio-group {
