@@ -48,5 +48,4 @@ export const employeeRouter = [
         component: EmployeeSearchMember,
         meta : {header: 'EmployeeHeaderComponent'}
     },
-    }
 ]
