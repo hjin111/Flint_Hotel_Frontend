@@ -1,4 +1,5 @@
 <template>
+  <div>
   <FlintView />
   <v-container class="reserve-contianer">
     <v-row>
@@ -10,26 +11,16 @@
   
               <v-col cols="12" md="2">
                 <div class="date-label">Select hotel</div>
-                <v-select :items="hotels" label="선택하세요." class="mx-2" outlined v-model="selectedHotel" ></v-select>
+                <v-select :items="hotels" label="선택하세요." class="mx-2" outlined v-model="selectedLocation" ></v-select>
               </v-col>
               <!-- check in -->
               <v-col cols="12" md="2">
                 <div class="date-label">Check In</div> 
-                <v-menu
-                  v-model="menuCheckIn"
-                  :close-on-content-click="false"
-                  :nudge-bottom="12"
-                  transition="scale-transition"
-                  offset-y
-                  min-width="auto"
-                  type="date"
-                >
+                <v-menu v-model="menuCheckIn">
                   <template v-slot:activator="{ on, attrs }">
                     <v-text-field
                       v-bind="attrs"
                       v-on="on"
-                      class="mx-2"
-                      outlined
                       :value="formattedCheckInDate"
                       readonly
                       @click="menuCheckIn = true"
@@ -38,27 +29,17 @@
                   <v-date-picker
                     v-model="checkInDate"
                     @input="closeCheckInMenu"
-                    no-title
                   ></v-date-picker>
                 </v-menu>
               </v-col>
               <!-- check out -->
               <v-col cols="12" md="2">
                 <div class="date-label">Check Out</div> 
-                <v-menu
-                  v-model="menuCheckOut"
-                  :close-on-content-click="false"
-                  :nudge-bottom="40"
-                  transition="scale-transition"
-                  offset-y
-                  min-width="auto"
-                >
+                <v-menu v-model="menuCheckOut">
                   <template v-slot:activator="{ on, attrs }">
                     <v-text-field
                       v-bind="attrs"
                       v-on="on"
-                      class="mx-2"
-                      outlined
                       :value="formattedCheckOutDate"
                       readonly
                       @click="menuCheckOut = true" 
@@ -67,7 +48,6 @@
                   <v-date-picker
                     v-model="checkOutDate"
                     @input="closeCheckOutMenu"
-                    no-title
                   ></v-date-picker>
                 </v-menu>
               </v-col>
@@ -86,14 +66,47 @@
             </v-row>
           </v-card-text>
         </v-card>
+
+        <!-- 객실 목록 -->
+        <v-row v-if="showRoom">
+          <v-col>
+            <v-card>
+              <v-card-text>
+                <v-table>
+                  <thead>
+                    <tr>
+                      <th>Room Image</th>
+                      <th>Room Name</th>
+                      <th>Room Base Price</th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr v-for="(room, index) in roomList" :key="index">
+                      <td>이미지</td>
+                      <td>{{ room.roomTypeName }}</td>
+                      <td>{{ room.roomPrice.toLocaleString() }}원 ~</td>
+                      <td>
+                        <v-btn @click="selectRoom(index)" style="color: white;" color="#CFB18E">Select</v-btn>
+                      </td>
+                    </tr>
+                  </tbody>
+                </v-table>
+              </v-card-text>
+            </v-card>
+          </v-col>
+        </v-row> 
       </v-col>
     </v-row>
   </v-container>
+</div>  
 </template>
   
   <script>
   import FlintView from '@/views/FlintView.vue';
   import dayjs from 'dayjs';
+  import axios from 'axios';
+
   export default {
     components: {
       FlintView // flintView 가져와 사용 
@@ -101,16 +114,18 @@
     name: "RoomReservationComponent",
     data() {
       return {
-        menuCheckIn: false,
-        menuCheckOut: false,
-        hotels: ["Hotel A", "Hotel B", "Hotel C"], 
-        selectedHotel: null,
+        hotels: ["Seoul"], 
+        selectedLocation: null,
+
         checkInDate: null,
         checkOutDate: null,
+        menuCheckIn: false,
+        menuCheckOut: false,
+
         numAdults: 0, 
         numChildren: 0,
-        isHeaderHidden: false,
-        lastScrollPosition: 0, 
+        roomList:[],
+        showRoom: false
       };
     },
     computed: {
@@ -120,6 +135,53 @@
       formattedCheckOutDate() {
         return this.checkOutDate ? dayjs(this.checkOutDate).format('YYYY-MM-DD') : '';
       },
+    },
+    methods: {
+      closeCheckInMenu() {
+        this.menuCheckIn = false;
+      },
+      closeCheckOutMenu() {
+        this.menuCheckOut = false;
+      },
+      async searchRooms() {
+        const params = {
+          checkInDate: this.formattedCheckInDate,
+          checkOutDate: this.formattedCheckOutDate,
+        };
+
+        try {
+          console.log('start');
+          const token = localStorage.getItem('membertoken');
+          const headers = {Authorization: `Bearer ${token}`};
+
+          const response = await axios.get(`${process.env.VUE_APP_API_BASE_URL}/reserve/room/remain`, {params, headers});
+          console.log(response);
+          this.roomList = response.data;
+
+          this.showRoom = true;
+        } catch (error) {
+          console.error('Error: ', error);
+        }
+      },
+      selectRoom(index) {
+        const selectedRoom = this.roomList[index];
+
+        // 체크인/아웃 날짜, 성인/아이 수, 선택한 방정보 localstorage에 저장 
+        localStorage.setItem('checkInDate', this.formattedCheckInDate);
+        localStorage.setItem('checkOutDate', this.formattedCheckOutDate);
+        localStorage.setItem('numAdults', this.numAdults);
+        localStorage.setItem('numChildren', this.numChildren);
+
+        // 선택한 방 정보 -> 직렬화해서 localstorage에 넣기 
+        localStorage.setItem('selectedRoom', JSON.stringify({
+          roomId: selectedRoom.roomId,
+          roomTypeName: selectedRoom.roomTypeName,
+          roomPrice: selectedRoom.roomPrice
+        }));
+
+        this.$router.push('/reserve/room/description');
+        
+      }
     }
   };
   </script>
@@ -145,6 +207,7 @@
       left: 50%;
       transform: translate(-50%, -50%);
       border-radius: 10px;
+      overflow-y: auto;
     }
     
     .custom-title {
@@ -170,8 +233,8 @@
       text-align: left; 
     }
     .mx-2 {
-      margin-left: 6px !important; /* Reduced margin */
-      margin-right: 6px !important; /* Reduced margin */
+      margin-left: 6px !important;
+      margin-right: 6px !important;
     }
 
     .v-card-text {

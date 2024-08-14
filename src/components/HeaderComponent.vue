@@ -1,4 +1,5 @@
 <template>
+  <div>
   <v-app-bar
       app
       color="transparent"
@@ -9,7 +10,7 @@
     >
     <v-container>
       <v-row>
-        <v-btn text style="font-size: 13px; color:#FFFFFF; margin-left:auto; margin-right:-20px;" v-if="!isLogin" href="/member/login">LOGIN</v-btn>
+        <v-btn text style="font-size: 13px; color:#FFFFFF; margin-left:auto; margin-right:-20px;" v-if="!isLogin" @click="login()">LOGIN</v-btn>
         <v-btn text style="font-size: 13px; color:#FFFFFF; margin-right:-20px;" v-if="!isLogin">JOIN</v-btn>
         <v-btn text style="font-size: 13px; color:#FFFFFF; margin-left:auto; margin-right:-20px;" v-if="isLogin">MYPAGE</v-btn>
         <!-- 바로 위, 아래 수정 -->
@@ -32,12 +33,12 @@
         <v-btn text style="color:#FFFFFF">INTRODUCE</v-btn>
         <v-btn text style="color:#FFFFFF">RESERVATION</v-btn>
         <v-btn text style="font-size: 40px; color:#FFFFFF">FLINT HOTEL</v-btn>
-        <v-btn text style="color:#FFFFFF">DINING</v-btn>
+        <v-btn text style="color:#FFFFFF" :to="{path:'/reserve/dining/create'}">DINING</v-btn>
         <v-btn text style="color:#FFFFFF">ROOM</v-btn>
       </v-row>
     </v-container>
   </v-app-bar>
-
+</div>
 </template>
 
 <script>
@@ -70,6 +71,9 @@ export default {
       this.isLogin = false // 로그아웃 상태로 설정
       this.$router.push("/")
     },
+    login() {
+      this.$router.push("/member/login")
+    }
   }
 };
 </script>
