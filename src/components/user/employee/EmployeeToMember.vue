@@ -6,7 +6,8 @@
                 <div class="gray-bar"></div>
                 <v-row class="button-row">
                     <v-col cols="6" md="6" class="left-bar">
-                        <v-btn class="custom-btn" size="large">회원 목록</v-btn>
+                        <v-btn class="custom-btn" size="large"
+                            :to="{path: `./member/list`}">회원 목록</v-btn>
                     </v-col>
                     <v-col cols="6" md="6" class="left-bar">
                         <v-btn class="custom-btn" size="large">QnA 관리</v-btn>

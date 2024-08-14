@@ -78,15 +78,15 @@ export default {
                 const token = localStorage.getItem('employeetoken');
                 // {headers: {Authorization: 'Bearer 토큰 값'}}}
                 const headers = { Authorization: `Bearer ${token}` };
-                const response = await axios.post(`${process.env.VUE_APP_API_BASE_URL}/employee/list_reserve`,
-                    this.email
-                    , {
-                        // password 를 단순한 String 평문으로 Server 에 던저주기 위한 설정.
-                        headers: {
-                            ...headers,
-                            'Content-Type': 'text/plain' // Content-Type을 text/plain으로 설정
-                        }
-                    });
+                const response = await axios.get(`${process.env.VUE_APP_API_BASE_URL}/employee/list_reserve`, {
+                    params: {
+                        email: this.email
+                    },
+                    headers: {
+                        ...headers,
+                        'Content-Type': 'text/plain' // 사실 GET 요청에서는 Content-Type을 설정할 필요가 없습니다.
+                    }
+                });
 
                 this.diningReservations = response.data.result.diningReservations;
                 console.log(this.diningReservations)
@@ -156,6 +156,7 @@ export default {
     box-sizing: border-box;
     font-family: "Playfair Display", serif;
     height: 90%;
+    box-shadow: none;
 }
 
 .confirmation-title {

@@ -7,6 +7,7 @@ import EmployeeCreate from '@/views/employee/EmployeeCreate.vue'
 import DiningMenu from '@/views/employee/dining/ManageMenu.vue'
 import EmployeeToMemberRoom from "@/components/user/employee/EmployeeToMemberRoom.vue";
 import EmployeeToMember from "@/components/user/employee/EmployeeToMember.vue";
+import EmployeeToMemberList from "@/components/user/employee/EmployeeToMemberList.vue";
 
 export const employeeRouter = [
     {
@@ -60,6 +61,12 @@ export const employeeRouter = [
         path: '/employee/member',
         name: 'EmployeeToMember',
         component: EmployeeToMember,
+        meta : {header: 'EmployeeHeaderComponent'}
+    },
+    {
+        path: '/employee/member/list',
+        name: 'EmployeeToMemberList',
+        component: EmployeeToMemberList,
         meta : {header: 'EmployeeHeaderComponent'}
     },
 ]
