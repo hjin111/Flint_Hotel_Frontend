@@ -33,7 +33,7 @@
         <v-btn text style="color:#FFFFFF">INTRODUCE</v-btn>
         <v-btn text style="color:#FFFFFF">RESERVATION</v-btn>
         <v-btn text style="font-size: 40px; color:#FFFFFF">FLINT HOTEL</v-btn>
-        <v-btn text style="color:#FFFFFF">DINING</v-btn>
+        <v-btn text style="color:#FFFFFF" :to="{path:'/reserve/dining/create'}">DINING</v-btn>
         <v-btn text style="color:#FFFFFF">ROOM</v-btn>
       </v-row>
     </v-container>

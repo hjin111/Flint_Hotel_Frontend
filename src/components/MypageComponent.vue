@@ -95,7 +95,6 @@ body,
   top: 0;
   left: 0;
 }
-
 .custom-title h2,
 ul li {
   font-family: "Playfair Display", serif;
@@ -237,12 +236,13 @@ body {
   background-color: #ded6f4;
   border: none !important;
   box-shadow: none !important;
+  
 }
 .v-btn:hover,
-.v-btn:active {
+.v-btn:active{
   background: #ded6f4;
 }
-.v-btn:visited {
+.v-btn:visited{
   background: #ded6f4;
 }
 .custom-size {
