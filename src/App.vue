@@ -5,16 +5,17 @@
   </v-app>
 </template>
 
-
 <script>
 import EmployeeHeaderComponent from './components/EmployeeHeaderComponent.vue';
 import HeaderComponent from './components/HeaderComponent.vue';
+import DiningHeaderComponent from './components/DiningHeaderComponent.vue';
 
 export default {
   name: 'App',
   components: {
     HeaderComponent,
-    EmployeeHeaderComponent
+    EmployeeHeaderComponent,
+    DiningHeaderComponent
   },
   computed: {
     currentHeader() {
@@ -22,7 +23,14 @@ export default {
       if (headerType == null) {
         return null;
       }
-      return headerType === 'EmployeeHeaderComponent' ? EmployeeHeaderComponent : HeaderComponent;
+
+      if (headerType === 'DiningHeaderComponent') {
+        return DiningHeaderComponent;
+      } else if (headerType === 'EmployeeHeaderComponent') {
+        return EmployeeHeaderComponent;
+      } else {
+        return HeaderComponent;
+      }
     }
   }
 }
