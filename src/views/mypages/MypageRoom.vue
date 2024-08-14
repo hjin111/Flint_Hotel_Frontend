@@ -75,7 +75,7 @@ export default {
       );
       this.roomList = response.data.content;
     } catch (e) {
-      console(e);
+      console.log(e);
     }
   },
   methods: {
@@ -141,7 +141,7 @@ ul li {
   position: absolute;
   width: 90%;
   max-width: 1200px;
-  height: 80%;
+  height: 82%;
   top: 57%;
   left: 50%;
   transform: translate(-50%, -50%);
