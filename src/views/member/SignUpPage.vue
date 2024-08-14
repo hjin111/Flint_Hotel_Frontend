@@ -15,6 +15,7 @@
               <v-text-field 
                 label="EMAIL *" 
                 v-model="email"
+                type="email"
                 required
               ></v-text-field>
               <v-text-field 
@@ -41,7 +42,17 @@
               v-model="birthday"
               placeholder="YYYY-MM-DD"
               required
+              @click="showCalendar()"
             ></v-text-field>
+            <v-calendar
+              v-model="selectedDate" 
+              class="calendar"
+              :attributes="calendarAttributes"
+              is-range
+              is-month-picker
+              :style="{ width: '380px', height: '270px', borderRadius: '7px', display:'none'}"
+              @dayclick="handleDateChange">
+            </v-calendar>
             <v-text-field 
               label="PHONE NUMBER *" 
               v-model="phoneNumber"
@@ -75,7 +86,7 @@ import { ref } from 'vue'
 import EmailVerifyModal from './EmailVerifyModal.vue'
 
 export default {
-  components:{
+  components: {
     EmailVerifyModal
   },
   setup() {
@@ -108,16 +119,25 @@ export default {
         await axios.post(`/member/signup`, signUpData)
         alert("회원님의 이메일로 인증 코드가 전송되었습니다. 인증 코드를 입력하시면 회원 가입이 완료됩니다!")
         emailVerify.value = true 
-      } catch (e) {
-        if (e.response && e.response.data) {
-          const error_message = e.response.data.error_message
-          alert(error_message)
-          console.log(error_message)
-        } else {
-          console.log(e.message)
-        }
+      } catch (error) {
+        console.log("hee")
+        console.log(error)
+        alert(error.response ? error.response.data.error_message : error.message)
       } 
     }
+
+    const showCalendar = () => {
+      const element = document.getElementsByClassName('calendar');
+      element[0].style.display = 'block';
+    }
+
+    const handleDateChange = (date) => {
+      birthday.value = date.id
+
+      const element = document.getElementsByClassName('calendar');
+      element[0].style.display = 'none';
+    }
+
 
     return {
       email,
@@ -127,8 +147,10 @@ export default {
       birthday,
       phoneNumber,
       nation,
+      emailVerify,
       SignUp,
-      emailVerify
+      showCalendar,
+      handleDateChange
     }
   },
 }

@@ -1,5 +1,4 @@
 <template>
-  <div>
   <FlintView />
   <v-container class="reserve-contianer">
     <v-row>
@@ -99,7 +98,6 @@
       </v-col>
     </v-row>
   </v-container>
-</div>  
 </template>
   
   <script>
@@ -203,7 +201,7 @@
       width: 90%;
       max-width: 1200px;
       height: 80%;
-      top: 55%;
+      top: 60%;
       left: 50%;
       transform: translate(-50%, -50%);
       border-radius: 10px;

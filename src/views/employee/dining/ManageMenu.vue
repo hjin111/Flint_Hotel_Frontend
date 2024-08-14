@@ -110,8 +110,8 @@ export default {
         return {
             diningMapping: {
                 'KorDining': 1,
-                'JapDining': 2,
-                'ChiDining': 3,
+                'ChiDining': 2,
+                'JapDining': 3,
                 'Lounge': 4,
             },
             department: "",
@@ -211,7 +211,7 @@ export default {
         async confirmEditMenu(menuData) {
             try {
                 await axios.patch(`/employee/dining/modmenu/${menuData.menuId}`, {
-                    cost: menuData.cost
+                    cost: parseInt(menuData.cost)
                 })
                 this.initialize()
                 this.closeEditMenuDialog()
@@ -224,7 +224,7 @@ export default {
             this.deleteDialog = true
         },
         closeDeleteMenuDialog() {
-            this.deleteDialog = false
+            this.deleteDialog = false   
         },
         async confirmDeleteMenu(menuId) {
             try {

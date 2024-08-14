@@ -6,8 +6,10 @@
                 이 메뉴를 삭제하시겠습니까?
             </v-card-text>
             <v-card-actions>
-                <v-btn color="red" @click="confirmDelete">확인</v-btn>
-                <v-btn @click="closeDialog" color="grey">취소</v-btn>
+                <v-row style="display: flex; justify-content: center;">
+                    <v-btn class="submitButton" @click="confirmDelete">확인</v-btn>
+                    <v-btn class="cancelButton" @click="closeDialog">취소</v-btn>
+                </v-row>
             </v-card-actions>
         </v-card>
     </v-dialog>
@@ -44,3 +46,8 @@ export default {
     }
 };
 </script>
+
+<style scoped>
+
+
+</style>
