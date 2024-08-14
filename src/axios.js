@@ -7,15 +7,19 @@ const instance = axios.create({
   }
 })
 
-instance.interceptors.request.use(config => {
-  let token = localStorage.getItem('employeetoken') || localStorage.getItem('membertoken')
-
-  if (token) {
-    config.headers.Authorization = `Bearer ${token}`
+instance.interceptors.request.use(
+  config => {
+    let token = localStorage.getItem('employeetoken') || localStorage.getItem('membertoken')
+    console.log(token)
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`
+    }
+    return config
+  },
+  error => {
+    return Promise.reject(error)
   }
-
-  return config
-})
+)
 
 instance.interceptors.response.use(
     response => response,
@@ -28,7 +32,8 @@ instance.interceptors.response.use(
           } else{
               console.log('로그인하세요')
           }
-    }
+        }
+        return Promise.reject(error)
   }
 )
 

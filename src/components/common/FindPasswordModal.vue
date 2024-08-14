@@ -24,8 +24,10 @@
             type="email"
             required
           ></v-text-field>
-          <v-btn type="submit" color="primary" block>임시 비밀번호 발급</v-btn>
-          <v-btn color="red" @click="closeModal" block>닫기</v-btn>
+          <div style="display: flex; justify-content: center;">
+              <v-btn type="submit" class="findButton" style="width: 160px;">임시 비밀번호 발급</v-btn>
+              <v-btn class="closeButton" @click="closeModal" style="width: 160px;">닫기</v-btn>
+          </div>
         </v-form>
       </v-card-text>
     </v-card>
@@ -82,3 +84,20 @@ methods: {
 }
 }
 </script>
+
+<style scoped>
+.findButton{
+  background: #8F7598;
+  color: white;
+  font-family: "Noto Serif KR";
+  font-size: 14px;
+}
+
+.closeButton{
+  background: white;
+  color:#8F7598;
+  font-family: "Noto Serif KR";
+  font-size: 14px;
+}
+</style>
+

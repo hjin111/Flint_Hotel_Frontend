@@ -23,8 +23,10 @@
                     required
                     >
                     </v-text-field>
-                    <v-btn type="submit" color="primary" block>인증 완료</v-btn>
-                    <v-btn color="red" @click="closeModal" block>닫기</v-btn>
+                    <v-row style="display: flex; justify-content: center;">
+                        <v-btn type="submit">인증 완료</v-btn>
+                        <v-btn @click="closeModal">닫기</v-btn>
+                    </v-row>
                 </v-form>
             </v-card-text>
         </v-card>

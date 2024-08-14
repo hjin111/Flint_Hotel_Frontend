@@ -1,12 +1,15 @@
 <template>
-    <v-dialog v-model="dialog" max-width="600px">
+    <v-dialog v-model="dialog" max-width="400px">
         <v-card>
             <v-card-title>메뉴 수정</v-card-title>
             <v-card-text>
                 <v-form @submit.prevent="confirmEditMenu">
-                    <v-text-field v-model="localMenuData.cost" label="가격"></v-text-field>
-                    <v-btn type="submit" color="primary">저장</v-btn>
-                    <v-btn @click="closeDialog" color="grey">취소</v-btn>
+                    <v-text-field v-model="localMenuData.originalCost" label="기존 가격" readonly></v-text-field>
+                    <v-text-field v-model="localMenuData.cost" label="수정 가격" type="number" :min="0"></v-text-field>
+                    <v-row style="display: flex; justify-content: center;">
+                        <v-btn type="submit" color="primary">저장</v-btn>
+                        <v-btn @click="closeDialog" color="grey">취소</v-btn>
+                    </v-row>
                 </v-form>
             </v-card-text>
         </v-card>
@@ -21,14 +24,20 @@ export default {
     },
     data() {
         return {
-            localMenuData: { ...this.menuData } // menuData의 데이터를 로컬 데이터로 복사
+            localMenuData: { 
+                ...this.menuData,
+                originalCost: this.menuData.cost, // menuData의 cost를 originalCost로 저장
+                cost: this.menuData.cost  // 수정할 가격을 저장
+            } 
         }
     },
     watch: {
         menuData: {
             immediate: true,
             handler(newData) {
-                this.localMenuData = { ...newData } // menuData 변경 시 로컬 데이터도 업데이트
+                // menuData 변경 시 로컬 데이터 업데이트
+                this.localMenuData.originalCost = newData.cost;
+                this.localMenuData.cost = newData.cost;
             }
         }
     },
