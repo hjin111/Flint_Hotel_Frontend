@@ -75,6 +75,7 @@
       height: 100vh; /* 화면 높이 100% */
       width: 100%; /* 화면 너비 100% */
       overflow: hidden; /* 넘치는 콘텐츠 숨김 */
+      font-family: 'Playfair Display', serif;
   }
   
   .background-image-wrapper {

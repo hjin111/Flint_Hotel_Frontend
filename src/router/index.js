@@ -8,13 +8,18 @@ import MemberLoginPage from '@/components/LoginComponent.vue'
 import FlintView from '@/views/FlintView.vue';
 import EmployeeView from '@/views/EmployeeView.vue';
 
-
 const routes = [
     {
         path:'/',
         name:'Flint',
         component:FlintView,
         meta: {header: 'HeaderComponent'}
+    },
+    {
+        path:'/admin',
+        name:'Employee',
+        component:EmployeeView,
+        meta: {header: 'EmployeeHeaderComponent'}
     },
     {
         path: '/member/login',
