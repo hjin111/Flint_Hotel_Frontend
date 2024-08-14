@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router";
 import { roomReservationRouter } from "./roomReservationRouter";
 import { qnaRouter } from "./qnaRouter";
+import { memberRouter } from "./memberRouter";
 import {mypageRouter} from "./mypageRouter";
 import {diningRouter} from "./diningRouter";
 import { employeeRouter } from "./employeeRouter";
@@ -36,7 +37,8 @@ const routes = [
     ...qnaRouter,
     ...mypageRouter,
     ...employeeRouter,
-    ...diningRouter
+    ...memberRouter,
+    ...diningRouter,
 ]
 
 const router = createRouter({

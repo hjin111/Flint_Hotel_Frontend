@@ -9,7 +9,7 @@
   <script>
   export default{
   }
-  console.log("hi");
+  // console.log("hi");
   </script>
   
   <style>
