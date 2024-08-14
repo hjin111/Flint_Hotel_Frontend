@@ -69,7 +69,7 @@
   }
 </script>
 
-<style scoped>
+<style>
   .login-container {
       display: flex; /* Flexbox를 사용하여 자식 요소 정렬 */
       height: 100vh; /* 화면 높이 100% */

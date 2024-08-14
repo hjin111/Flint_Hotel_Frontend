@@ -17,7 +17,7 @@
                                             <div class="data-label">Emp No</div>
                                         </v-col>
                                         <v-col cols="12" md="9">
-                                            <v-text-field v-model="firstName" outlined class="input-field"
+                                            <v-text-field v-model="empNo" outlined class="input-field"
                                                 readonly></v-text-field>
                                         </v-col>
                                     </v-row>
@@ -26,7 +26,7 @@
                                             <div class="data-label">Name</div>
                                         </v-col>
                                         <v-col cols="12" md="9">
-                                            <v-text-field v-model="lastName" outlined class="input-field"
+                                            <v-text-field v-model="name" outlined class="input-field"
                                                 readonly></v-text-field>
                                         </v-col>
                                     </v-row>
@@ -57,7 +57,8 @@
                                             <div class="data-label"> Rank </div>
                                         </v-col>
                                         <v-col cols="12" md="9">
-                                            <v-text-field outlined class="input-field" readonly></v-text-field>
+                                            <v-text-field v-model="rank" outlined class="input-field" 
+                                                readonly></v-text-field>
                                         </v-col>
                                     </v-row>
                                     <v-row>
@@ -65,7 +66,8 @@
                                             <div class="data-label"> Department </div>
                                         </v-col>
                                         <v-col cols="12" md="9">
-                                            <v-text-field outlined class="input-field" readonly></v-text-field>
+                                            <v-text-field v-model="department" outlined class="input-field"
+                                                readonly></v-text-field>
                                         </v-col>
                                     </v-row>
                                     <v-row>
@@ -73,7 +75,8 @@
                                             <div class="data-label">Date of Employee</div>
                                         </v-col>
                                         <v-col cols="12" md="8">
-                                            <v-text-field outlined class="input-field" readonly></v-text-field>
+                                            <v-text-field v-model="empDate" outlined class="input-field" 
+                                                readonly></v-text-field>
                                         </v-col>
                                     </v-row>
                                     <v-row>
@@ -81,7 +84,8 @@
                                             <div class="data-label">Gender</div>
                                         </v-col>
                                         <v-col cols="12" md="9">
-                                            <v-text-field outlined class="input-field" readonly></v-text-field>
+                                            <v-text-field v-model="gender" outlined class="input-field"
+                                                readonly></v-text-field>
                                         </v-col>
                                     </v-row>
                                 </v-col>
@@ -96,6 +100,7 @@
 
 <script>
 import EmployeeView from '@/views/EmployeeView.vue';
+import axios from 'axios';
 
 export default {
     components: {
@@ -103,7 +108,31 @@ export default {
     },
     data() {
         return {
+            name: "",
+            empNo: "",
+            email: "",
+            phoneNumber: "",
+            rank: "",
+            department: "",
+            empDate:"",
+            gender:"",
         };
+    },
+    async created() {
+        const token = localStorage.getItem('employeetoken');
+        // {headers: {Authorization: 'Bearer 토큰 값'}}}
+        const headers = { Authorization: `Bearer ${token}` };
+        const response = await axios.get(`${process.env.VUE_APP_API_BASE_URL}/employee/detail`, {headers});
+        const employeeDetail = response.data.result;
+
+        this.empNo = employeeDetail.employeeNumber
+        this.name = employeeDetail.firstName + " " + employeeDetail.lastName
+        this.email = employeeDetail.email
+        this.phoneNumber = employeeDetail.phoneNumber
+        this.rank = employeeDetail.employeeRank
+        this.department = employeeDetail.department
+        this.empDate = employeeDetail.dateOfEmployment
+        this.gender = employeeDetail.gender
     }
 };
 </script>
