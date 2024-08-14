@@ -1,7 +1,7 @@
 <template>
     <div class="full-screen-bg"></div>
   </template>
-  
+
   <script>
   export default {
     mounted() {
@@ -9,7 +9,7 @@
     }
   };
   </script>
-  
+
   <style>
   .full-screen-bg {
     width: 100%;
@@ -20,4 +20,4 @@
     left: 0;
   }
   </style>
-  
+

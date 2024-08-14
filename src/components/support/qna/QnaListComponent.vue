@@ -1,5 +1,5 @@
 <template>
-    <QnaView />
+    <div>
     <v-container class="qna-container">
         <v-row>
             <v-col>
@@ -34,14 +34,13 @@
             </v-col>
         </v-row>
      </v-container> 
+    </div>
   </template>
   
   <script>
-  import QnaView from '@/views/QnaView.vue';
 import axios from 'axios';
   export default {
     components: {
-        QnaView
     },
     data() {
         return {
@@ -55,7 +54,7 @@ import axios from 'axios';
             ],
         }
     },
-    created() {
+    created() { 
         this.loadList();
     },
     methods: {
