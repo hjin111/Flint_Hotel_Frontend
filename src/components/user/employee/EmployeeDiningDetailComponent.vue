@@ -5,28 +5,28 @@
             <v-row>
                 <v-col cols="12" class="d-flex justify-center">
                     <v-card class="confirmation-card" style="width:1100px">
-                        <v-card-title class="confirmation-title">직원 정보</v-card-title>
+                        <v-card-title class="confirmation-title">Dining</v-card-title>
                         <br>
                         <v-card-text>
                             <v-row>
                                 <v-col cols="12" md="6">
-                                    <h3 class="section-title">○ 직원 정보</h3>
+                                    <h3 class="section-title">○ 고객 정보</h3>
                                     <!-- 고객정보 -->
                                     <v-row>
                                         <v-col cols="12" md="3">
-                                            <div class="data-label">Emp No</div>
+                                            <div class="data-label">First name</div>
                                         </v-col>
                                         <v-col cols="12" md="9">
-                                            <v-text-field v-model="empNo"
+                                            <v-text-field v-model="firstName"
                                                 readonly></v-text-field>
                                         </v-col>
                                     </v-row>
                                     <v-row>
                                         <v-col cols="12" md="3">
-                                            <div class="data-label">Name</div>
+                                            <div class="data-label">Last name</div>
                                         </v-col>
                                         <v-col cols="12" md="9">
-                                            <v-text-field v-model="name"
+                                            <v-text-field v-model="lastName" 
                                                 readonly></v-text-field>
                                         </v-col>
                                     </v-row>
@@ -35,7 +35,7 @@
                                             <div class="data-label">Email</div>
                                         </v-col>
                                         <v-col cols="12" md="9">
-                                            <v-text-field v-model="email"
+                                            <v-text-field v-model="email" 
                                                 readonly></v-text-field>
                                         </v-col>
                                     </v-row>
@@ -51,46 +51,47 @@
                                 </v-col>
 
                                 <v-col cols="12" md="6">
-                                    <br><br>
+                                    <h3 class="section-title">○ 예약 정보</h3>
                                     <v-row>
-                                        <v-col cols="12" md="3">
-                                            <div class="data-label"> Rank </div>
+                                        <v-col cols="12" md="5">
+                                            <div class="data-label"> Breakfast Option (Adult) </div>
                                         </v-col>
-                                        <v-col cols="12" md="9">
-                                            <v-text-field v-model="rank"
-                                                readonly></v-text-field>
+                                        <v-col cols="12" md="7">
+                                            <v-text-field  readonly></v-text-field>
                                         </v-col>
                                     </v-row>
                                     <v-row>
-                                        <v-col cols="12" md="3">
-                                            <div class="data-label"> Department </div>
+                                        <v-col cols="12" md="5">
+                                            <div class="data-label"> Breakfast Option (Child) </div>
                                         </v-col>
-                                        <v-col cols="12" md="9">
-                                            <v-text-field v-model="department" 
-                                                readonly></v-text-field>
+                                        <v-col cols="12" md="7">
+                                            <v-text-field  readonly></v-text-field>
+                                        </v-col>
+                                    </v-row>
+                                    <v-row>
+                                        <v-col cols="12" md="5">
+                                            <div class="data-label">Parking Option </div>
+                                        </v-col>
+                                        <v-col cols="12" md="7">
+                                            <v-text-field  readonly></v-text-field>
                                         </v-col>
                                     </v-row>
                                     <v-row>
                                         <v-col cols="12" md="4">
-                                            <div class="data-label">Date of Employee</div>
+                                            <div class="data-label">Request</div>
                                         </v-col>
                                         <v-col cols="12" md="8">
-                                            <v-text-field v-model="empDate" 
-                                                readonly></v-text-field>
-                                        </v-col>
-                                    </v-row>
-                                    <v-row>
-                                        <v-col cols="12" md="3">
-                                            <div class="data-label">Gender</div>
-                                        </v-col>
-                                        <v-col cols="12" md="9">
-                                            <v-text-field v-model="gender"
-                                                readonly></v-text-field>
+                                            <v-text-field  readonly></v-text-field>
                                         </v-col>
                                     </v-row>
                                 </v-col>
                             </v-row>
                         </v-card-text>
+                          <!-- 버튼 추가 -->
+                          <v-card-actions class="d-flex justify-end">
+                            <v-btn style="background-color: #787878; color:#FFFFFF; width: 150px " @click="onModify">Modify</v-btn>
+                            <v-btn style="background-color: #787878; color:#FFFFFF; width: 150px " @click="onCancel">Cancel</v-btn>
+                        </v-card-actions>              
                     </v-card>
                 </v-col>
             </v-row>
@@ -100,7 +101,7 @@
 
 <script>
 import EmployeeView from '@/views/EmployeeView.vue';
-import axios from 'axios';
+//import axios from 'axios';
 
 export default {
     components: {
@@ -108,32 +109,9 @@ export default {
     },
     data() {
         return {
-            name: "",
-            empNo: "",
-            email: "",
-            phoneNumber: "",
-            rank: "",
-            department: "",
-            empDate:"",
-            gender:"",
         };
     },
-    async created() {
-        const token = localStorage.getItem('employeetoken');
-        // {headers: {Authorization: 'Bearer 토큰 값'}}}
-        const headers = { Authorization: `Bearer ${token}` };
-        const response = await axios.get(`${process.env.VUE_APP_API_BASE_URL}/employee/detail`, {headers});
-        const employeeDetail = response.data.result;
-
-        this.empNo = employeeDetail.employeeNumber
-        this.name = employeeDetail.firstName + " " + employeeDetail.lastName
-        this.email = employeeDetail.email
-        this.phoneNumber = employeeDetail.phoneNumber
-        this.rank = employeeDetail.employeeRank
-        this.department = employeeDetail.department
-        this.empDate = employeeDetail.dateOfEmployment
-        this.gender = employeeDetail.gender
-    }
+    
 };
 </script>
 
@@ -152,7 +130,9 @@ export default {
     flex-direction: column;
     padding-left: 40px;
     padding-right: 40px;
-    overflow: hidden;
+   
+  
+    overflow: scroll;
 }
 
 .custom-title {
@@ -171,7 +151,8 @@ export default {
     width: 100%;
     box-sizing: border-box;
     font-family: "Playfair Display", serif;
-    height: 90%;
+    padding-bottom: 10px;
+    height: 100%;
 }
 
 .confirmation-title {
@@ -190,6 +171,10 @@ export default {
     padding-left: 17px;
     padding-bottom: 20px;
     font-family: "Noto Serif KR", serif;
+}
+
+.input-field {
+    margin-bottom: 10px;
 }
 
 .v-radio-group {

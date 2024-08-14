@@ -35,7 +35,7 @@
                         </v-card-text>
                         <v-row>
                             <v-col class="d-flex justify-center">
-                                <v-btn> 확인 </v-btn>
+                                <v-btn @click="passwordUpdate()"> 확인 </v-btn>
                             </v-col>
                         </v-row>
                     </v-card>
@@ -47,6 +47,7 @@
 
 <script>
 import EmployeeView from '@/views/EmployeeView.vue';
+import axios from 'axios';
 
 export default {
     components: {
@@ -66,6 +67,24 @@ export default {
         },
     },
     methods: {
+        async passwordUpdate() {
+            try {
+                const token = localStorage.getItem("employeetoken");
+                // {headers: {Authorization: 'Bearer 토큰 값'}}}
+                const headers = { Authorization: `Bearer ${token}` };
+                const response = await axios.put(
+                    `${process.env.VUE_APP_API_BASE_URL}/employee/modify`,
+                    {
+                        beforePassword: this.beforePassword,
+                        afterPassword: this.afterPassword,
+                    },
+                    { headers }
+                );
+                alert("비밀번호가 성공적으로 업데이트되었습니다:", response.data);
+            } catch (e) {
+                console.log(e);
+            }
+        },
         checkPassword() {
             if (this.isCorrect) {
                 this.message = "비밀번호가 일치합니다.";

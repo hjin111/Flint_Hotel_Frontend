@@ -6,7 +6,7 @@
         <img :src="loginImage" alt="Login Page" class="background-image">
       </div>
       <!-- 로그인 폼을 감싸는 래퍼 -->
-      <div class="login-form-container">
+      <div class="login-form-container" >
         <!-- 로그인 폼 -->
         <div class="login-form">
           <h1 class="title">FLINT</h1>

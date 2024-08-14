@@ -1,5 +1,6 @@
 
 <template>
+    <div>
     <QnaView />
     <v-container class="qna-container">
         <v-row>
@@ -35,6 +36,7 @@
             </v-col>
         </v-row>
      </v-container> 
+     </div>
   </template>
   
   <script>
@@ -98,8 +100,8 @@ import axios from 'axios';
     position: absolute;
     width: 90%;
     max-width: 1200px;
-    height: 80%;
-    top: 60%;
+    height: 82%;
+    top: 57%;
     left: 50%;
     transform: translate(-50%, -50%);
     border-radius: 10px;
@@ -107,8 +109,9 @@ import axios from 'axios';
   }
   .qna-card {
     padding: 20px;
-    /* font-family: "Playfair Display", serif; */
     font-family: "Noto Serif KR", serif;
+    border: none;
+    box-shadow: none;
   }
   .datatr {
     text-align: center;
