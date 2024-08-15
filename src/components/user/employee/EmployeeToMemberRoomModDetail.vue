@@ -213,14 +213,6 @@ export default {
     overflow-y: auto;
 }
 
-.custom-title {
-    padding-left: 9%;
-    font-family: "playfire Display", serif;
-    color: #787878;
-    text-align: left;
-    border-bottom: 3px solid;
-}
-
 .confirmation-card {
     padding: 20px;
     border-radius: 8px;

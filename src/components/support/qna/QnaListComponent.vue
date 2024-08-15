@@ -85,7 +85,7 @@ import axios from '@/axios';
   
   <style scoped>
   .custom-title {
-    font-family: "Playfair Display", serif;
+    font-family: "Noto Serif KR", serif;
     color: #787878;
     font-size:20px;
     border-bottom: 3px solid #787878;

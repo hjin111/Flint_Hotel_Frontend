@@ -25,7 +25,7 @@
                                 </v-col>
                             </v-row>
                             <!-- title -->
-                            <v-row>
+                            <v-row style="margin-top: -25px;">
                                 <v-col cols="12" md="2" class="custom-col-title">
                                     <v-input>
                                         Title
@@ -40,7 +40,7 @@
                                 </v-col>
                             </v-row>
                             <!-- content -->
-                            <v-row>
+                            <v-row style="margin-top: -25px;">
                                 <v-col cols="12" md="2" class="custom-col-content">
                                     <v-input>
                                         Content
@@ -55,6 +55,21 @@
                                 </v-col>
                             </v-row> 
                         </v-form>
+                        <!-- 답변 -->
+                        <v-row v-if="showResponseCard" style="margin-top: -25px;">
+                            <v-col cols="12" md="2" class="custom-col-respond">
+                                    <v-input>
+                                        Respond
+                                    </v-input>
+                                </v-col>
+                                <v-col cols="12" md="10">
+                                    <v-textarea
+                                        v-model="answer"
+                                        outlined
+                                        readOnly
+                                    ></v-textarea>
+                                </v-col>
+                        </v-row>
                         <v-row class="justify-end">
                             <v-btn class="leftbtn" style="color: white;" color="#7A6C5B"
                             @click="$router.push({ name: 'QnaModComponent', params: { id: this.$route.params.id } })"
@@ -94,6 +109,8 @@
             service: "",
             title: "",
             contents: "",
+            showResponseCard: false,
+            answer: "",
             dialog:false
         }
     },
@@ -104,12 +121,21 @@
     methods: {
         async fetchQnaDetail(qnaId) {
             try {
+                // qna detail
                 const response = await axios.get(`/mypage/qna/detail/${qnaId}`);
                 console.log(response.data);
 
                 this.service = response.data.result.service;
                 this.title = response.data.result.title;
                 this.contents = response.data.result.contents;
+
+                // 답변
+                const respondYN = response.data.result.respond;
+                if (respondYN == 'Y') {
+                    console.log(respondYN);
+                    this.showResponseCard = true;
+                    this.answer = response.data.result.answer;
+                }
 
             } catch(e) {
                 if (e.response) {
@@ -146,8 +172,8 @@
   
   <style scoped>
   .custom-title {
-    font-family: "Playfair Display", serif;
-    /* font-family: "Noto Serif KR", serif; */
+    /* font-family: "Playfair Display", serif; */
+    font-family: "Noto Serif KR", serif;
     color: #787878;
     font-size:20px;
     border-bottom: 3px solid #787878;
@@ -184,6 +210,11 @@
   }
   .custom-col-content {
     padding-left: 50px;
+    padding-top: 70px;
+    color: #787878;
+  }
+  .custom-col-respond {
+    padding-left: 45px;
     padding-top: 70px;
     color: #787878;
   }

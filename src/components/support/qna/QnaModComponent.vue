@@ -24,7 +24,7 @@
                                 </v-col>
                             </v-row>
                             <!-- title -->
-                            <v-row>
+                            <v-row style="margin-top: -25px;">
                                 <v-col cols="12" md="2" class="custom-col-title">
                                     <v-input>
                                         Title
@@ -38,7 +38,7 @@
                                 </v-col>
                             </v-row>
                             <!-- content -->
-                            <v-row>
+                            <v-row style="margin-top: -25px;">
                                 <v-col cols="12" md="2" class="custom-col-content">
                                     <v-input>
                                         Content

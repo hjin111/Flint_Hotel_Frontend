@@ -157,7 +157,7 @@ export default {
 
 .custom-title {
     padding-left: 9%;
-    font-family: "playfire Display", serif;
+    font-family: "Noto Serif KR", serif;
     color: #787878;
     text-align: left;
     border-bottom: 3px solid;
