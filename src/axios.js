@@ -10,7 +10,6 @@ const instance = axios.create({
 instance.interceptors.request.use(
   config => {
     let token = localStorage.getItem('employeetoken') || localStorage.getItem('membertoken')
-    console.log(token)
     if (token) {
       config.headers.Authorization = `Bearer ${token}`
     }
