@@ -9,6 +9,9 @@ import EmployeeDiningDetailComponent from "@/components/user/employee/EmployeeDi
 import EmployeeToMemberRoom from "@/components/user/employee/EmployeeToMemberRoom.vue";
 import EmployeeToMember from "@/components/user/employee/EmployeeToMember.vue";
 import EmployeeToMemberList from "@/components/user/employee/EmployeeToMemberList.vue";
+import EmployeeTaskComponent from "@/components/user/employee/EmployeeTaskComponent.vue"
+import EmployeeRoomPriceModify from "@/views/employee/room/EmployeeModRoomPrice.vue"
+import EmployeeListView from "@/views/employee/office/EmployeeList.vue"
 
 export const employeeRouter = [
     {
@@ -80,6 +83,24 @@ export const employeeRouter = [
         path: '/employee/dining/detail/:id', 
         name: 'EmployeeDiningDetailComponent',
         component: EmployeeDiningDetailComponent,
+        meta : {header: 'EmployeeHeaderComponent'}
+    },
+    {
+        path: '/employee/task',
+        name: 'EmployeeTaskComponent',
+        component: EmployeeTaskComponent,
+        meta : {header: 'EmployeeHeaderComponent'}
+    },
+    {
+        path: '/employee/room/modprice',
+        name: 'EmployeeRoomPriceModify',
+        component: EmployeeRoomPriceModify,
+        meta : {header: 'EmployeeHeaderComponent'}
+    },
+    {
+        path: '/employee/office/employeelist',
+        name: 'EmployeeListView',
+        component: EmployeeListView,
         meta : {header: 'EmployeeHeaderComponent'}
     }
 ]
