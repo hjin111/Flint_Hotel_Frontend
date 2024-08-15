@@ -40,7 +40,7 @@
                                                 <td>{{ room.reservationCheckin }}</td>
                                                 <td>{{ room.reservationCheckout }}</td>
                                                 <td>
-                                                    <v-btn>Detail</v-btn>
+                                                    <v-btn @click="$router.push(`/employee/room/${room.roomReservationId}`)">Detail</v-btn>
                                                 </td>
                                             </tr>
                                         </tbody>
@@ -132,7 +132,6 @@ export default {
     flex-direction: column;
     padding-left: 40px;
     padding-right: 40px;
-    overflow: hidden;
 }
 
 .custom-title {
@@ -150,7 +149,7 @@ export default {
     width: 100%;
     box-sizing: border-box;
     font-family: "Noto Serif KR", serif;
-    height: 90%;
+    height: auto;
     box-shadow: none;
 }
 
