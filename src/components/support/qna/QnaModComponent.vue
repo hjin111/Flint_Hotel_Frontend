@@ -85,7 +85,10 @@
     methods: {
         async fetchQnaDetail(qnaId) {
             try {
-                const response = await axios.get(`/mypage/qna/detail/${qnaId}`);
+                const token = localStorage.getItem('membertoken');
+                const headers = {Authorization: `Bearer ${token}`};
+
+                const response = await axios.get(`/mypage/qna/detail/${qnaId}`, {headers});
                 console.log(response);
 
                 this.selectedSerivce = response.data.result.service;
@@ -93,7 +96,12 @@
                 this.contents = response.data.result.contents;
 
             } catch(e) {
-                console.log(e);
+                if (e.response) {
+                    console.error("Error Status:", e.response.status);  
+                    console.error("Error Data:", e.response.data); 
+                } else {
+                    console.error("Error Message:", e.message);
+                }
             }
         },
         async modQna() {
@@ -111,7 +119,12 @@
 
                 this.$router.push(`/mypage/qna/detail/${qnaId}`);
             } catch(e) {
-                console.log(e);
+                if (e.response) {
+                    console.error("Error Status:", e.response.status);  
+                    console.error("Error Data:", e.response.data); 
+                } else {
+                    console.error("Error Message:", e.message);
+                }
             }
         }
     }
