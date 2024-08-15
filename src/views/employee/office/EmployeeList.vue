@@ -56,7 +56,7 @@
                                                 <td>{{ m.email }}</td>
                                                 <td>{{ m.department }}</td>
                                                 <td>
-                                                    <v-btn @click="viewDetails(m.id)">상세 조회</v-btn>
+                                                    <v-btn @click="confirmDelEmployee(m)">퇴사 처리</v-btn>
                                                 </td>
                                             </tr>
                                         </tbody>
@@ -68,6 +68,19 @@
                 </v-col>
             </v-row>
         </v-container>
+
+        <!-- 퇴사 처리 확인 모달 -->
+        <v-dialog v-model="showConfirmDialog" max-width="400px">
+            <v-card>
+                <v-card-title class="headline">퇴사 처리 확인</v-card-title>
+                <v-card-text>{{ modalMessage }}</v-card-text>
+                <v-card-actions>
+                    <v-spacer></v-spacer>
+                    <v-btn color="green darken-1" text @click="handleConfirm">Yes</v-btn>
+                    <v-btn color="red darken-1" text @click="closeDialog">No</v-btn>
+                </v-card-actions>
+            </v-card>
+        </v-dialog>
     </div>
 </template>
 
@@ -92,6 +105,9 @@ export default {
                 { text: '부서', value: 'department' },
                 { text: '이메일', value: 'email' },
             ],
+            showConfirmDialog: false, 
+            selectedEmployee: null,  
+            modalMessage: '',  
             router: useRouter(),
         }
     },
@@ -102,26 +118,45 @@ export default {
         async fetchEmployees() {
             const response = await axios.get(`/employee/list`)
             this.employee = response.data.result
-            this.filteredEmployees = this.employee  
+            this.filteredEmployees = this.employee.filter(emp => emp.delYN === 'N')
         },
         searchEmployees() {
             if (!this.searchType || !this.searchValue) {
-                this.filteredEmployees = this.employee
+                this.filteredEmployees = this.employee.filter(emp => emp.delYN === 'N')
                 return
             }
 
             this.filteredEmployees = this.employee.filter((emp) => {
                 const field = emp[this.searchType] ? emp[this.searchType].toString().toLowerCase() : ''
-                return field.includes(this.searchValue.toLowerCase())
-            })
+                return emp.delYN === 'N' && field.includes(this.searchValue.toLowerCase())
+            });
         },
-        viewDetails(id) {
-            this.$router.push(`/employee/detail/${id}`)
+        confirmDelEmployee(employee) {
+            this.selectedEmployee = employee
+            this.modalMessage = `${employee.firstName} ${employee.lastName}님을 퇴사 처리 하시겠습니까?`
+            this.showConfirmDialog = true
+        },
+        async handleConfirm() {
+            if (this.selectedEmployee) {
+                try {
+                    const response = await axios.patch(`/employee/delaccount`, { employeeId: this.selectedEmployee.id })
+                    if (response.status === 200) {
+                        alert(response.data.status_message)
+                        this.fetchEmployees()
+                    }
+                } catch (error) {
+                    alert('퇴사 처리 중 오류가 발생했습니다: ' + error.response.data.message)
+                }
+            }
+            this.closeDialog()
+        },
+        closeDialog() {
+            this.showConfirmDialog = false
+            this.selectedEmployee = null
         }
     }
 }
 </script>
-
 
 <style scoped>
 .content-container {
