@@ -206,49 +206,58 @@
             return truncatedPrice.toLocaleString();
         },
         async createReservation() {
-            const token = localStorage.getItem('membertoken');
-            const checkInDate = localStorage.getItem('checkInDate');
-            const checkOutDate = localStorage.getItem('checkOutDate');
-            const adultCnt = localStorage.getItem('numAdults');
-            const childCnt = localStorage.getItem('numChildren');
-
-            // 역직렬화해서 roomId 가져오기 
-            const selectedRoom = localStorage.getItem('selectedRoom');
-            let roomId = null;
-            if (selectedRoom) {
-                const parseRoom = JSON.parse(selectedRoom);
-                roomId = parseRoom.roomId;
-                console.log(roomId);
-            } else {
-                console.log('no room');
-            }
-
-            const headers = { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' };         
-            const data = {
-                checkInDate: checkInDate,
-                checkOutDate: checkOutDate,
-                adultCnt: adultCnt,
-                childCnt: childCnt,
-                roomId: roomId,
-                adultBreakfastCount: this.adultBreakfastCount,
-                childBreakfastCount: this.childBreakfastCount,
-                parkingYN: this.parkingYN,
-                requestContents: this.requestContents
-            };
-            console.log(JSON.stringify(data));
+            
             try {
+                const token = localStorage.getItem('membertoken');
+                const checkInDate = localStorage.getItem('checkInDate');
+                const checkOutDate = localStorage.getItem('checkOutDate');
+                const adultCnt = localStorage.getItem('numAdults');
+                const childCnt = localStorage.getItem('numChildren');
+
+                // 역직렬화해서 roomId 가져오기 
+                const selectedRoom = localStorage.getItem('selectedRoom');
+                let roomId = null;
+                if (selectedRoom) {
+                    const parseRoom = JSON.parse(selectedRoom);
+                    roomId = parseRoom.roomId;
+                    console.log(roomId);
+                } else {
+                    console.log('no room');
+                }
+
+                const headers = { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' };         
+                const data = {
+                    checkInDate: checkInDate,
+                    checkOutDate: checkOutDate,
+                    adultCnt: adultCnt,
+                    childCnt: childCnt,
+                    roomId: roomId,
+                    adultBreakfastCount: this.adultBreakfastCount,
+                    childBreakfastCount: this.childBreakfastCount,
+                    parkingYN: this.parkingYN,
+                    requestContents: this.requestContents
+                };
+                console.log(JSON.stringify(data));
+
                 await axios.post(`${process.env.VUE_APP_API_BASE_URL}/reserve/room`, data, {headers});
                 console.log("예약 성공");
+
+                // localstorage에 예약정보 클리어
+                localStorage.removeItem('checkInDate');
+                localStorage.removeItem('checkOutDate');
+                localStorage.removeItem('numAdults');
+                localStorage.removeItem('numChildren');
+                localStorage.removeItem('selectedRoom');
+                this.$router.push('/reserve/room/success');
             } catch(e) {
-                console.log(e);
+                if (e.response) {
+                    console.error("Error Status:", e.response.status);  
+                    console.error("Error Data:", e.response.data); 
+                    alert(e.response.data.error_message);
+                } else {
+                    console.error("Error Message:", e.message);
+                }
             }
-            // localstorage에 예약정보 클리어
-            localStorage.removeItem('checkInDate');
-            localStorage.removeItem('checkOutDate');
-            localStorage.removeItem('numAdults');
-            localStorage.removeItem('numChildren');
-            localStorage.removeItem('selectedRoom');
-            this.$router.push('/reserve/room/success');
         }
       }
     };

@@ -159,8 +159,13 @@
           this.roomList = response.data;
 
           this.showRoom = true;
-        } catch (error) {
-          console.error('Error: ', error);
+        } catch (e) {
+          if (e.response) {
+                    console.error("Error Status:", e.response.status);  
+                    console.error("Error Data:", e.response.data); 
+                } else {
+                    console.error("Error Message:", e.message);
+                }
         }
       },
       selectRoom(index) {
