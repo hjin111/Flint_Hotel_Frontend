@@ -59,12 +59,25 @@
                             <v-btn class="leftbtn" style="color: white;" color="#7A6C5B"
                             @click="$router.push({ name: 'QnaModComponent', params: { id: this.$route.params.id } })"
                             >Modify</v-btn>
-                            <v-btn style="color: white;" color="#CFB18E">Delete</v-btn>
+                            <v-btn style="color: white;" color="#CFB18E"
+                            @click="openDeleteDialog"
+                            >Delete</v-btn>
                         </v-row>
                     </v-card-text>
                 </v-card>
             </v-col>
         </v-row>
+        <!-- 모달 -->
+        <v-dialog v-model="dialog" max-width="400px">
+            <v-card class="modal">
+                <v-card-title>정말 삭제하시겠습니까?</v-card-title>
+                <v-card-actions>
+                    <v-spacer></v-spacer>
+                    <v-btn class="leftbtn" color="black" @click="deleteReservation">Yes</v-btn>
+                    <v-btn color="black" @click="cancelDelete">No</v-btn>
+                </v-card-actions>
+            </v-card>
+        </v-dialog>
      </v-container> 
     </div>
   </template>
@@ -80,7 +93,8 @@
         return {
             service: "",
             title: "",
-            contents: ""
+            contents: "",
+            dialog:false
         }
     },
     created() {
@@ -105,6 +119,24 @@
                     console.error("Error Message:", e.message);
                 }
             }
+        },
+        openDeleteDialog() {
+            this.dialog = true;
+        },
+        async deleteReservation() {
+            try {
+                const qnaId = this.$route.params.id;
+                await axios.get(`/mypage/qna/delete/${qnaId}`);
+
+                this.$router.push(`/mypage/qna/list`);
+            } catch(e) {
+                console.log(e);
+            } finally {
+                this.dialog = false; // 모달 닫기 
+            }
+        },
+        cancelDelete() {
+            this.dialog = false;
         }
         
     }
