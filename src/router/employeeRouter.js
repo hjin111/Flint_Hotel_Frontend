@@ -11,7 +11,6 @@ import EmployeeToMember from "@/components/user/employee/EmployeeToMember.vue";
 import EmployeeToMemberList from "@/components/user/employee/EmployeeToMemberList.vue";
 import EmployeeTaskComponent from "@/components/user/employee/EmployeeTaskComponent.vue"
 import EmployeeRoomPriceModify from "@/views/employee/room/EmployeeModRoomPrice.vue"
-import EmployeeListView from "@/views/employee/office/EmployeeList.vue"
 
 export const employeeRouter = [
     {
@@ -97,10 +96,4 @@ export const employeeRouter = [
         component: EmployeeRoomPriceModify,
         meta : {header: 'EmployeeHeaderComponent'}
     },
-    {
-        path: '/employee/office/employeelist',
-        name: 'EmployeeListView',
-        component: EmployeeListView,
-        meta : {header: 'EmployeeHeaderComponent'}
-    }
 ]
