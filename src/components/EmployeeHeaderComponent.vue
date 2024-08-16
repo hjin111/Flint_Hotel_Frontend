@@ -46,7 +46,7 @@
          <v-dialog v-model="dialogManage" max-width="400px">
           <v-card style="border: none;">
             <div style="background-color: #828282; height: 50px; border-radius: 4px 4px 0 0;"></div>
-            <v-card-text class="cardText" style="margin-bottom:15px;">
+            <v-card-text class="cardText" style="padding: 24px;">
               <v-row class="button-row" justify="center">
                 <v-col  cols="12" md="8" class="d-flex justify-center">
                   <v-btn class="custom-btn" size="large" 
@@ -108,11 +108,13 @@ import { useRouter } from 'vue-router';
         this.dialogMember = false;
       },
       openManageDialog() {
+        console.log("hi");
         this.dialogManage = true;
       },
       navigateToMenu() {
             const path = this.isDining ? '/employee/dining/menu' : '/employee/room/modprice';
             this.$router.push(path);
+            console.log("hihi");
             this.dialogManage = false;
       },
     }
