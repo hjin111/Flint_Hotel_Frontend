@@ -1,14 +1,14 @@
 <template>
     <v-dialog v-model="dialog" max-width="400px">
-        <v-card>
-            <v-card-title>메뉴 수정</v-card-title>
+        <v-card class="mainCustom">
+            <v-card-title style="text-align:center">Modify Menu</v-card-title>
             <v-card-text>
                 <v-form @submit.prevent="confirmEditMenu">
-                    <v-text-field v-model="localMenuData.originalCost" label="기존 가격" readonly></v-text-field>
-                    <v-text-field v-model="localMenuData.cost" label="수정 가격" type="number" :min="0"></v-text-field>
-                    <v-row style="display: flex; justify-content: center;">
-                        <v-btn type="submit" color="primary">저장</v-btn>
-                        <v-btn @click="closeDialog" color="grey">취소</v-btn>
+                    <v-text-field v-model="localMenuData.originalCost" label="Before Price" readonly></v-text-field>
+                    <v-text-field v-model="localMenuData.cost" label="After Price" type="number" :min="0"></v-text-field>
+                    <v-row style="margin-left:30px; margin-top:8px; margin-bottom:8px;">
+                        <v-btn class="submitButton" type="submit" style="width:90px">Submit</v-btn>
+                        <v-btn class="cancelButton" @click="closeDialog" style="width:90px">Cancel</v-btn>
                     </v-row>
                 </v-form>
             </v-card-text>
@@ -66,3 +66,19 @@ export default {
     }
 }
 </script>
+
+<style scoped>
+.mainCustom {
+    font-family: "Noto Serif KR", serif;
+    border-radius: 10px;
+}
+.submitButton{
+    background-color: grey;
+    color: white;
+}
+
+.cancelButton{
+    background-color: grey;
+    color: white
+}
+</style>
