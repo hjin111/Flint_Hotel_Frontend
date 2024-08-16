@@ -5,24 +5,23 @@
             <v-row>
                 <v-col cols="12" class="d-flex justify-center">
                     <v-card class="confirmation-card" style="width:1100px">
-                        <v-card-title class="confirmation-title"> Member Dining Reservation Info </v-card-title>
+                        <v-card-title class="confirmation-title"> Dining Reservation Info </v-card-title>
                         <v-card-text>
-                            <v-row>
+                            <v-row class="justify-end searchrow">
                                 <v-col cols="12" md="6">
                                     <v-row>
-                                        <v-col cols="12" md="2">
+                                        <v-col cols="12" md="2" class="emailcol">
                                             <div class="data-label">Email</div>
                                         </v-col>
-                                        <v-col cols="12" md="6">
-                                            <v-text-field v-model="email" style="padding-top: 20px;"></v-text-field>
+                                        <v-col cols="12" md="7">
+                                            <v-text-field class="tf" v-model="email"></v-text-field>
                                         </v-col>
-                                        <v-col cols="12" md="2" class="search">
-                                            <v-btn @click="searchMember()">검색</v-btn>
+                                        <v-col cols="12" md="3" class="search">
+                                            <v-btn @click="searchMember()" style="color: white;" color="#7A6C5B">Search</v-btn>
                                         </v-col>
                                     </v-row>
                                 </v-col>
                             </v-row>
-                            <br>
                             <v-row class="justify-center">
                                 <v-col cols="12">
                                     <v-data-table class="elevation-1">
@@ -41,7 +40,7 @@
                                                 <td>{{ formatDate(dining.reservationDateTime) }}</td>
                                                 <td>{{ formatTime(dining.reservationDateTime) }}</td>
                                                 <td>
-                                                    <v-btn>Detail</v-btn>
+                                                    <v-btn @click="diningDetail(dining.diningReservationId)">Detail</v-btn>
                                                 </td>
                                             </tr>
                                         </tbody>
@@ -70,9 +69,16 @@ export default {
             diningReservations: [],
             diningDate: "",
             diningTime: "",
+           
         };
     },
     methods: {
+        async diningDetail(diningReservationId){
+
+            this.$router.push({
+                 path: `/employee/dining/detail/${diningReservationId}`
+            });
+        },
         async searchMember() {
             try {
                 const response = await axios.get(`${process.env.VUE_APP_API_BASE_URL}/employee/dining/reserve`, {
@@ -132,25 +138,24 @@ export default {
     flex-direction: column;
     padding-left: 40px;
     padding-right: 40px;
-    overflow: hidden;
+    overflow: scroll;
 }
 
 .custom-title {
     padding-left: 9%;
-    font-family: "playfire Display", serif;
+    font-family: "Noto Serif KR", serif;
     color: #787878;
     text-align: left;
     border-bottom: 3px solid;
 }
 
 .confirmation-card {
-    margin-top: 15px;
     padding: 20px;
     border-radius: 8px;
     border: none;
     width: 100%;
     box-sizing: border-box;
-    font-family: "Playfair Display", serif;
+    font-family: "Noto Serif KR", serif;
     height: 90%;
     box-shadow: none;
 }
@@ -172,9 +177,16 @@ export default {
     padding-bottom: 20px;
     font-family: "Noto Serif KR", serif;
 }
-
+.tf {
+    margin-right: -20px;
+    padding-top:20px;
+}
 .search {
     padding-top: 40px;
+}
+.searchrow {
+    margin-right: -20px;
+    margin-bottom: -40px;
 }
 
 .v-radio-group {
@@ -200,6 +212,8 @@ export default {
     display: flex;
     height: 100%;
     padding-top: 40px;
-    padding-left: 20px;
+}
+.emailcol {
+    margin-right: -20px;
 }
 </style>

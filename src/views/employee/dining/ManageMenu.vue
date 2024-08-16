@@ -241,10 +241,12 @@ export default {
 
 <style scoped>
 .main-container {
+    max-width: 1200px;
     margin-top: 120px;
 }
 
 .search-bar {
+    margin-top: 20px;
     margin-bottom: 16px;
 }
 

@@ -73,33 +73,12 @@
                     <h3 class="section-title">○ 예약 정보</h3>
                     <!-- 예약정보 -->
                     <v-row>
-                      <v-col cols="12" md="8">
-                        <div class="data-label">Breakfast Option (Adult)</div>
+                      <v-col cols="12" md="3">
+                        <div class="data-label">Check in</div>
                       </v-col>
-                      <v-col cols="12" md="4">
+                      <v-col cols="12" md="9">
                         <v-text-field
-                          outlined
-                          readonly
-                        ></v-text-field>
-                      </v-col>
-                    </v-row>
-                    <v-row>
-                      <v-col cols="12" md="8">
-                        <div class="data-label">Breakfast Option (Child)</div>
-                      </v-col>
-                      <v-col cols="12" md="4">
-                        <v-text-field
-                          outlined
-                          readonly
-                        ></v-text-field>
-                      </v-col>
-                    </v-row>
-                    <v-row>
-                      <v-col cols="12" md="8">
-                        <div class="data-label">Parking Option</div>
-                      </v-col>
-                      <v-col cols="12" md="4">
-                        <v-text-field
+                          v-model="checkInDate"
                           outlined
                           readonly
                         ></v-text-field>
@@ -107,10 +86,23 @@
                     </v-row>
                     <v-row>
                       <v-col cols="12" md="3">
-                        <div class="data-label">Request</div>
+                        <div class="data-label">Check out</div>
                       </v-col>
                       <v-col cols="12" md="9">
                         <v-text-field
+                          v-model="checkOutDate"
+                          outlined
+                          readonly
+                        ></v-text-field>
+                      </v-col>
+                    </v-row>
+                    <v-row>
+                      <v-col cols="12" md="3">
+                        <div class="data-label">Room Type</div>
+                      </v-col>
+                      <v-col cols="12" md="9">
+                        <v-text-field
+                          v-model="roomType"
                           outlined
                           readonly
                         ></v-text-field>
@@ -129,7 +121,7 @@
   
   <script>
   import FlintView from '@/views/FlintView.vue';
-  import axios from 'axios';
+  import axios from '@/axios';
 
   export default {
     components: {
@@ -140,31 +132,54 @@
         firstName: "",
         lastName: "",
         email: "",
-        phoneNumber: ""
+        phoneNumber: "",
+
+        checkInDate:"",
+        checkOutDate:"",
+        roomType: ""
       };
     },
     mounted() {
       this.memberInfo()
+      this.reservationInfo()
     },
     methods: {
       async memberInfo() {
+        try {
+          const response = await axios.get(`/member/detail`);
+          console.log(response.data);
 
-      const token = localStorage.getItem('membertoken');
-      const headers = { Authorization: `Bearer ${token}` };
-      console.log(headers)
+          this.firstName = response.data.result.firstName;
+          this.lastName = response.data.result.lastName;
+          this.email = response.data.result.email;
+          this.phoneNumber = response.data.result.phoneNumber;
 
-      try {
-        const response = await axios.get(`${process.env.VUE_APP_API_BASE_URL}/member/detail`, {headers});
-        console.log(response.data);
+        } catch(e) {
+          if (e.response) {
+              console.error("Error Status:", e.response.status);  
+              console.error("Error Data:", e.response.data);  
+          } else {
+              console.error("Error Message:", e.message);
+          }
+        }
+      },
+      async reservationInfo() {
+        try {
+          const response = await axios.get(`/reserve/room/list`);
+          const reservations = response.data.content;
+          const lastReservation = reservations[reservations.length - 1];
 
-        this.firstName = response.data.result.firstName;
-        this.lastName = response.data.result.lastName;
-        this.email = response.data.result.email;
-        this.phoneNumber = response.data.result.phoneNumber;
-
-      } catch(e) {
-        console.log(e);
-      }
+          this.checkInDate = lastReservation.checkInDate;
+          this.checkOutDate = lastReservation.checkOutDate;
+          this.roomType = lastReservation.roomType;
+        } catch(e) {
+          if (e.response) {
+              console.error("Error Status:", e.response.status);  
+              console.error("Error Data:", e.response.data);  
+          } else {
+              console.error("Error Message:", e.message);
+          }
+        }
       }
     }
   };
@@ -211,7 +226,7 @@
     border-radius: 8px;
     width: 100%;
     box-sizing: border-box;
-    font-family: "Playfair Display", serif;
+    font-family: "Noto Serif KR", serif;
   }
   
   .confirmation-title {
