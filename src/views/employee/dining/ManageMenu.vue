@@ -1,93 +1,73 @@
 <template>
-    <BackGround />
-    <v-container class="main-container">
-        <v-row class="d-flex justify-content-between align-items-center search-bar">
-            <v-col>
-                <v-form @submit.prevent="searchMenus">
-                    <v-row>
-                        <v-col cols="2">
-                            <v-select
-                                v-model="searchType"
-                                :items="searchOptions"
-                                item-title="text"
-                                item-value="value"
-                                dense
-                                hide-details
-                                class="search-type"
-                            >
-                            </v-select>
-                        </v-col>
-                        <v-col>
-                            <v-text-field
-                                v-model="searchValue"
-                                label="검색어 입력"
-                                dense
-                                hide-details
-                            >
-                            </v-text-field>
-                        </v-col>
-                        <v-col cols="auto">
-                            <v-btn type="submit" color="grey" elevation="0" outlined>검색</v-btn>
-                        </v-col>
-                    </v-row>
-                </v-form>
-            </v-col>
+    <div>
+        <BackGround />
+        <v-container class="main-container">
+            <v-row class="d-flex justify-content-between align-items-center search-bar">
+                <v-col>
+                    <v-form @submit.prevent="searchMenus">
+                        <v-row>
+                            <v-col cols="2">
+                                <v-select v-model="searchType" :items="searchOptions" item-title="text"
+                                    item-value="value" dense hide-details class="search-type">
+                                </v-select>
+                            </v-col>
+                            <v-col>
+                                <v-text-field v-model="searchValue" label="검색어 입력" dense hide-details>
+                                </v-text-field>
+                            </v-col>
+                            <v-col cols="auto">
+                                <v-btn type="submit" color="grey" elevation="0" outlined>검색</v-btn>
+                            </v-col>
+                        </v-row>
+                    </v-form>
+                </v-col>
 
-            <v-col cols="auto" v-if="canAccess">
-                <v-btn @click="openCreateMenuDialog()" color="grey" elevation="0" outlined>메뉴 추가</v-btn>
-            </v-col>
-        </v-row>
-        <v-row>
-            <v-col>
-                <v-card elevation="0" class="pa-4 table-card">
-                    <v-card-text>
-                        <v-simple-table>
-                            <thead>
-                                <tr>
-                                    <th class="id-column">Id</th>
-                                    <th class="name-column">메뉴 이름</th>
-                                    <th class="price-column">가격</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr v-for="p in menuList" :key="p.menuId">
-                                    <td class="id-column-value" >{{ p.menuId }}</td>
-                                    <td class="name-column-value">{{ p.menuName }}</td>
-                                    <td class="price-column-value">{{ p.cost }}원</td>
-                                    <td class="col-action">
-                                        <v-btn color="grey" @click="openEditMenuDialog(p)" elevation="0" outlined small>수정</v-btn>
-                                        <v-btn color="grey" @click="openDeleteMenuDialog(p.menuId)" elevation="0" outlined small>삭제</v-btn>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </v-simple-table>
-                    </v-card-text>
-                </v-card>
-            </v-col>
-        </v-row>
-        <!-- 추가 모달 -->
-        <AddMenuModal
-            v-model="createDialog"
-            @input="createDialog = $event"
-            :menuData="createMenuData"
-            @create-menu="confirmCreateMenu"
-        />
+                <v-col cols="auto" v-if="canAccess">
+                    <v-btn @click="openCreateMenuDialog()" color="grey" elevation="0" outlined>메뉴 추가</v-btn>
+                </v-col>
+            </v-row>
+            <v-row>
+                <v-col>
+                    <v-card elevation="0" class="pa-4 table-card">
+                        <v-card-text>
+                            <v-simple-table>
+                                <thead>
+                                    <tr>
+                                        <th class="id-column">Id</th>
+                                        <th class="name-column">메뉴 이름</th>
+                                        <th class="price-column">가격</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr v-for="p in menuList" :key="p.menuId">
+                                        <td class="id-column-value">{{ p.menuId }}</td>
+                                        <td class="name-column-value">{{ p.menuName }}</td>
+                                        <td class="price-column-value">{{ p.cost }}원</td>
+                                        <td class="col-action">
+                                            <v-btn color="grey" @click="openEditMenuDialog(p)" elevation="0" outlined
+                                                small>수정</v-btn>
+                                            <v-btn color="grey" @click="openDeleteMenuDialog(p.menuId)" elevation="0"
+                                                outlined small>삭제</v-btn>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </v-simple-table>
+                        </v-card-text>
+                    </v-card>
+                </v-col>
+            </v-row>
+            <!-- 추가 모달 -->
+            <AddMenuModal v-model="createDialog" @input="createDialog = $event" :menuData="createMenuData"
+                @create-menu="confirmCreateMenu" />
 
-        <!-- 수정 모달 -->
-        <ModMenuModal
-            v-model="editDialog"
-            @input="editDialog = $event"
-            :menuData="editMenuData"
-            @edit-menu="confirmEditMenu"
-        />
+            <!-- 수정 모달 -->
+            <ModMenuModal v-model="editDialog" @input="editDialog = $event" :menuData="editMenuData"
+                @edit-menu="confirmEditMenu" />
 
-        <!-- 삭제 확인 모달 -->
-        <DeleteModal
-            v-model="deleteDialog"
-            :menuId="menuIdToDelete"
-            @delete-menu="confirmDeleteMenu"
-        />
-    </v-container>
+            <!-- 삭제 확인 모달 -->
+            <DeleteModal v-model="deleteDialog" :menuId="menuIdToDelete" @delete-menu="confirmDeleteMenu" />
+        </v-container>
+    </div>
 </template>
 
 <script>
@@ -224,7 +204,7 @@ export default {
             this.deleteDialog = true
         },
         closeDeleteMenuDialog() {
-            this.deleteDialog = false   
+            this.deleteDialog = false
         },
         async confirmDeleteMenu(menuId) {
             try {
@@ -250,9 +230,9 @@ export default {
     margin-bottom: 16px;
 }
 
-.search-type{
+.search-type {
     max-width: 133px;
-    font-size: 0.5rem; 
+    font-size: 0.5rem;
     line-height: 1.25rem;
 }
 
@@ -299,8 +279,8 @@ export default {
     padding-left: 150px;
     display: flex;
     justify-content: space-between;
-    gap: -10px; /* 버튼 사이의 간격 */
+    gap: -10px;
+    /* 버튼 사이의 간격 */
     border-bottom: 1px solid #e0e0e0;
 }
-
 </style>

@@ -1,34 +1,30 @@
 <template>
-    <BackGround />
-    <v-container class="main-container">
-        <v-row justify="center" align="center" class="box-container">
-            <v-col cols="12" class="departmentHeader">
-                객실 가격 관리
-            </v-col>
-            <v-simple-table>
-                <tbody>
-                    <tr v-for="r in reversedRoomList" :key="r.id">
-                        <td class="name-column-value">{{ r.roomTypeName }}</td>
-                        <td class="price-column-value">
-                            <v-text-field
-                                v-model="r.roomTypePrice"
-                                solo
-                                dense
-                                hide-details
-                                type="number"
-                                :readonly="!editMode"
-                            />
-                        </td>
-                    </tr>
-                </tbody>
-            </v-simple-table>
-            <v-col cols="12" class="menuButton">
-                <v-btn color="primary" @click="toggleEditMode">
-                    {{ editMode ? '저장' : '수정' }}
-                </v-btn>
-            </v-col>
-        </v-row>
-    </v-container>
+    <div>
+        <BackGround />
+        <v-container class="main-container">
+            <v-row justify="center" align="center" class="box-container">
+                <v-col cols="12" class="departmentHeader">
+                    객실 가격 관리
+                </v-col>
+                <v-simple-table>
+                    <tbody>
+                        <tr v-for="r in reversedRoomList" :key="r.id">
+                            <td class="name-column-value">{{ r.roomTypeName }}</td>
+                            <td class="price-column-value">
+                                <v-text-field v-model="r.roomTypePrice" solo dense hide-details type="number"
+                                    :readonly="!editMode" />
+                            </td>
+                        </tr>
+                    </tbody>
+                </v-simple-table>
+                <v-col cols="12" class="menuButton">
+                    <v-btn color="primary" @click="toggleEditMode">
+                        {{ editMode ? '저장' : '수정' }}
+                    </v-btn>
+                </v-col>
+            </v-row>
+        </v-container>
+    </div>
 </template>
 
 <script>
@@ -64,7 +60,7 @@ export default {
                 const decodedToken = jwtDecode(token)
                 this.department = decodedToken.department
 
-                if(this.department === 'Room'){
+                if (this.department === 'Room') {
                     const response = await axios.get(`/employee/room/roominfo`)
                     this.roomList = response.data.result
                 } else {
@@ -86,7 +82,7 @@ export default {
         },
         async savePrices() {
             try {
-                const requests = this.roomList.map(room => 
+                const requests = this.roomList.map(room =>
                     axios.patch(`/employee/room/modprice/${room.id}`, { newPrice: room.roomTypePrice })
                 );
                 await Promise.all(requests);
@@ -104,17 +100,19 @@ export default {
 <style scoped>
 .main-container {
     max-width: 1200px;
-    padding-top: 360px; 
+    padding-top: 360px;
     position: relative;
 }
+
 .box-container {
     max-width: 600px;
-    border: 1px solid #ccc; 
+    border: 1px solid #ccc;
     margin-left: 300px;
     margin-top: 50px;
     padding: 20px;
     background-color: white;
 }
+
 .departmentHeader {
     color: white;
     background-color: gray;
@@ -122,6 +120,7 @@ export default {
     text-align: center;
     padding: 10px 0;
 }
+
 .menuButton {
     text-align: center;
     margin-top: 20px;

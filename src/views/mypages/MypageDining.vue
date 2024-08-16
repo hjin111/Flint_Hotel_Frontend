@@ -38,9 +38,9 @@
                           <td style="text-align: center;">
                             {{ reserveState(dining.reservationDateTime) }}
                           </td>
-                          <td style="text-align: center;">
-                            <v-btn>Detail</v-btn>
-                          </td>
+                          <v-btn @click="$router.push(`/mypage/dining/detail/${dining.id}`)">
+                            상세보기
+                          </v-btn>
                         </tr>
                       </tbody>
                     </v-data-table>

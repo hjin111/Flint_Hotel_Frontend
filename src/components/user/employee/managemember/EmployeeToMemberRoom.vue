@@ -85,7 +85,7 @@ export default {
                 this.roomReservations = response.data.result.roomReservations;
                 console.log(this.roomReservations)
             } catch (e) {
-                alert(e)
+                alert(e.response.data.error_message)
             }
         },
         formatDate(dateString) {

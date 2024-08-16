@@ -26,6 +26,7 @@ export default {
         return {
             localMenuData: { 
                 ...this.menuData,
+                menuId: this.menuData.menuId,
                 originalCost: this.menuData.cost, // menuData의 cost를 originalCost로 저장
                 cost: this.menuData.cost  // 수정할 가격을 저장
             } 
@@ -36,6 +37,7 @@ export default {
             immediate: true,
             handler(newData) {
                 // menuData 변경 시 로컬 데이터 업데이트
+                this.localMenuData.menuId = this.menuData.menuId
                 this.localMenuData.originalCost = newData.cost;
                 this.localMenuData.cost = newData.cost;
             }
