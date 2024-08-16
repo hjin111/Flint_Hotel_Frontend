@@ -25,9 +25,6 @@
                                     </td>
                                     <td>{{ item.memberEmail }}</td>
                                     <td>{{ formatDate(item.writeTime) }}</td>
-                                    <!-- <td>
-                                        <v-btn style="color: white;" color="#C7BDC7">Modify</v-btn>
-                                    </td> -->
                                 </tr>
                             </template>
                         </v-data-table>
@@ -41,7 +38,7 @@
   
   <script>
   import QnaView from '@/views/QnaView.vue';
-import axios from 'axios';
+import axios from '@/axios';
   export default {
     components: {
         QnaView
@@ -64,14 +61,13 @@ import axios from 'axios';
     methods: {
         async loadList() {
             try {
-                const token = localStorage.getItem('membertoken');
-                // {headers: {Authorization: 'Bearer 토큰 값'}}}
-                const headers = {Authorization: `Bearer ${token}`};
-                console.log(headers);
-                const response = await axios.get(`${process.env.VUE_APP_API_BASE_URL}/mypage/qna/list`, {headers});
+                const response = await axios.get(`${process.env.VUE_APP_API_BASE_URL}/mypage/qna/list`);
+                
+                // this.qnaList = response.data; // setting 
+                this.qnaList = response.data.sort((a, b) => {
+                    return new Date(b.writeTime) - new Date(a.writeTime);
+                });
 
-                console.log('Response: ', response.data);
-                this.qnaList = response.data; // setting 
             } catch(e) {
                 console.log('Error: ', e);
             }
@@ -89,7 +85,7 @@ import axios from 'axios';
   
   <style scoped>
   .custom-title {
-    font-family: "Playfair Display", serif;
+    font-family: "Noto Serif KR", serif;
     color: #787878;
     font-size:20px;
     border-bottom: 3px solid #787878;

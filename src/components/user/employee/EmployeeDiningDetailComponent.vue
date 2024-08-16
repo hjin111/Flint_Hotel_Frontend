@@ -57,7 +57,7 @@
                                             <div class="data-label"> Breakfast Option (Adult) </div>
                                         </v-col>
                                         <v-col cols="12" md="7">
-                                            <v-text-field  readonly></v-text-field>
+                                            <v-text-field  readonly :value="`성인 : ${adult}명`"></v-text-field>
                                         </v-col>
                                     </v-row>
                                     <v-row>
@@ -70,7 +70,7 @@
                                     </v-row>
                                     <v-row>
                                         <v-col cols="12" md="5">
-                                            <div class="data-label">Parking Option </div>
+                                            <div class="data-label">Date Time </div>
                                         </v-col>
                                         <v-col cols="12" md="7">
                                             <v-text-field  readonly></v-text-field>
@@ -101,7 +101,7 @@
 
 <script>
 import EmployeeView from '@/views/EmployeeView.vue';
-//import axios from 'axios';
+import axios from 'axios';
 
 export default {
     components: {
@@ -109,9 +109,36 @@ export default {
     },
     data() {
         return {
+            diningReservationId: null,
+            adult: "",
+            child: "",
+            firstName: "",
+            lastName: "",
+            email: "",
+            phoneNumber: "",
         };
     },
-    
+    created() {
+        this.fetchDiningDetails();
+    },
+    methods: {
+        async fetchDiningDetails() {
+            try {
+                // 라우트 파라미터에서 diningReservationId 가져오기
+                this.diningReservationId = this.$route.params.diningReservationId;
+                
+                // API 요청
+                const response = await axios.get(`${process.env.VUE_APP_API_BASE_URL}/reserve/dining/detail/${this.diningReservationId}`);
+                
+                console.log(response.data.result);
+                this.adult = response.data.result.adult;
+               
+                
+            } catch (error) {
+                console.error('Error fetching dining details:', error.response ? error.response.data : error.message);
+            }
+        }
+    }
 };
 </script>
 
@@ -137,7 +164,7 @@ export default {
 
 .custom-title {
     padding-left: 9%;
-    font-family: "playfire Display", serif;
+    font-family: "Noto Serif KR", serif;
     color: #787878;
     text-align: left;
     border-bottom: 3px solid;
@@ -150,7 +177,7 @@ export default {
     border: none;
     width: 100%;
     box-sizing: border-box;
-    font-family: "Playfair Display", serif;
+    font-family: "Noto Serif KR", serif;
     padding-bottom: 10px;
     height: 100%;
 }

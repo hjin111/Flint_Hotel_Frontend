@@ -11,6 +11,12 @@ import EmployeeToMember from "@/components/user/employee/EmployeeToMember.vue";
 import EmployeeToMemberList from "@/components/user/employee/EmployeeToMemberList.vue";
 import EmployeeTaskComponent from "@/components/user/employee/EmployeeTaskComponent.vue"
 import EmployeeRoomPriceModify from "@/views/employee/room/EmployeeModRoomPrice.vue"
+import EmployeeQnaListComponent from "@/components/support/qna/EmployeeQnaListComponent.vue";
+import EmployeeQnaDetailComponent from "@/components/support/qna/EmployeeQnaDetailComponent.vue";
+import EmployeeQnaCreateComponent from "@/components/support/qna/EmployeeQnaCreateComponent.vue";
+import EmployeeQnaModifyComponent from "@/components/support/qna/EmployeeQnaModifyComponent.vue";
+import EmployeeToMemberRoomDetail from "@/components/user/employee/EmployeeToMemberRoomDetail.vue";
+import EmployeeToMemberRoomModDetail from "@/components/user/employee/EmployeeToMemberRoomModDetail.vue";
 
 export const employeeRouter = [
     {
@@ -61,6 +67,18 @@ export const employeeRouter = [
         meta : {header: 'EmployeeHeaderComponent'}
     },
     {
+        path: '/employee/room/:id', 
+        name: 'EmployeeToMemberRoomDetail',
+        component: EmployeeToMemberRoomDetail,
+        meta : {header: 'EmployeeHeaderComponent'}
+    },
+    {
+        path: '/employee/room/mod/:id', 
+        name: 'EmployeeToMemberRoomModDetail',
+        component: EmployeeToMemberRoomModDetail,
+        meta : {header: 'EmployeeHeaderComponent'}
+    },
+    {
         path: '/employee/member',
         name: 'EmployeeToMember',
         component: EmployeeToMember,
@@ -79,7 +97,7 @@ export const employeeRouter = [
         meta : {header: 'EmployeeHeaderComponent'}
     },
     {
-        path: '/employee/dining/detail/:id', 
+        path: '/employee/dining/detail/:diningReservationId',
         name: 'EmployeeDiningDetailComponent',
         component: EmployeeDiningDetailComponent,
         meta : {header: 'EmployeeHeaderComponent'}
@@ -94,6 +112,29 @@ export const employeeRouter = [
         path: '/employee/room/modprice',
         name: 'EmployeeRoomPriceModify',
         component: EmployeeRoomPriceModify,
+        meta : {header: 'EmployeeHeaderComponent'}
+    },
+        path: '/employee/qna/list',
+        name: 'EmployeeQnaListComponent',
+        component: EmployeeQnaListComponent,
+        meta : {header: 'EmployeeHeaderComponent'}
+    },
+    {
+        path: '/employee/qna/detail/:id',
+        name: 'EmployeeQnaDetailComponent',
+        component: EmployeeQnaDetailComponent,
+        meta : {header: 'EmployeeHeaderComponent'}
+    },
+    {
+        path: '/employee/qna/answer/create/:id',
+        name: 'EmployeeQnaCreateComponent',
+        component: EmployeeQnaCreateComponent,
+        meta : {header: 'EmployeeHeaderComponent'}
+    },
+    {
+        path: '/employee/qna/answer/update/:id',
+        name: 'EmployeeQnaModifyComponent',
+        component: EmployeeQnaModifyComponent,
         meta : {header: 'EmployeeHeaderComponent'}
     },
 ]
