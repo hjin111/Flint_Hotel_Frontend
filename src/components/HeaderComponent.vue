@@ -13,7 +13,7 @@
         <v-btn text style="font-size: 13px; color:#FFFFFF; margin-left:auto; margin-right:-20px;" v-if="!isLogin" @click="login()">LOGIN</v-btn>
         <v-btn text style="font-size: 13px; color:#FFFFFF; margin-right:-20px;" v-if="!isLogin">JOIN</v-btn>
         <v-btn text style="font-size: 13px; color:#FFFFFF; margin-left:auto; margin-right:-20px;" v-if="isLogin"
-          :to="{path:`./mypage`}">MYPAGE</v-btn>
+          :to="{path:`/mypage`}">MYPAGE</v-btn>
         <!-- 바로 위, 아래 수정 -->
         <v-btn text style="font-size: 13px; color:#FFFFFF; margin-right:-20px;" v-if="isLogin" @click="logout()">LOGOUT</v-btn>
         <v-btn text style="font-size: 13px; color:#FFFFFF; margin-right:-20px;" @click="$router.push('/mypage/qna/list')">INQUIRY</v-btn>
@@ -34,9 +34,13 @@
         <v-btn text style="color:#FFFFFF">INTRODUCE</v-btn>
         <v-btn text style="color:#FFFFFF">RESERVATION</v-btn>
         <v-btn text style="font-size: 40px; color:#FFFFFF" @click="$router.push('/')">FLINT HOTEL</v-btn>
-        <v-btn text style="color:#FFFFFF" :to="{path:'/reserve/dining/create'}">DINING</v-btn>
+        <v-btn text style="color:#FFFFFF">DINING</v-btn>
         <v-btn text style="color:#FFFFFF">ROOM</v-btn>
       </v-row>
+
+      <!-- reservation 클릭 후 > 모달창 -->
+      
+
     </v-container>
   </v-app-bar>
 </div>
