@@ -7,7 +7,8 @@
             <!-- 콜 전체를 왼쪽정 렬되게 해줌 -->
             <v-col class="d-flex justify-start"> 
                 <v-btn :to="{path:'/employee/member'}">Member</v-btn>
-                <v-btn :to="{path:'/employee/task'}">Employee</v-btn>
+                <v-btn v-if="department === 'Office' " 
+                      :to="{path:'/employee/office'}"> {{ manage }}</v-btn>
             </v-col>
             <v-col class="text-center">
               <v-btn class="flint-hotel-title" :to="{path:'/employee'}">FLINT HOTEL</v-btn>
@@ -22,7 +23,21 @@
   </template>
     
   <script>
+import { jwtDecode } from 'jwt-decode';
+
   export default {
+    data(){
+      return{
+        department:"",
+        manage: "",
+      }
+    },
+    mounted() {
+      const payload = jwtDecode(localStorage.getItem('employeetoken'));
+      this.department = payload.department;
+      this.manage = payload.department + " " + "Manage";
+      console.log(this.department)
+    },
   };
   </script>
   

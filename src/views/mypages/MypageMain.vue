@@ -50,7 +50,7 @@ export default {
       this.memberDetail = response.data.result
       console.log(this.memberDetail)
     } catch (e) {
-      console("비어있음")
+      console.log("비어있음")
     }
   },
 }

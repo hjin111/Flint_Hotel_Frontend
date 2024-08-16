@@ -6,12 +6,10 @@
                 <v-col cols="12" class="d-flex justify-center">
                     <v-card class="confirmation-card" style="width:1100px">
                         <v-card-title class="confirmation-title">직원 정보</v-card-title>
-                        <br>
                         <v-card-text>
                             <v-row>
                                 <v-col cols="12" md="6">
-                                    <h3 class="section-title">○ 직원 정보</h3>
-                                    <!-- 고객정보 -->
+                                    <br>
                                     <v-row>
                                         <v-col cols="12" md="3">
                                             <div class="data-label">Emp No</div>
@@ -49,9 +47,8 @@
                                         </v-col>
                                     </v-row>
                                 </v-col>
-
                                 <v-col cols="12" md="6">
-                                    <br><br>
+                                    <br>
                                     <v-row>
                                         <v-col cols="12" md="3">
                                             <div class="data-label"> Rank </div>
@@ -87,6 +84,10 @@
                                             <v-text-field v-model="gender"
                                                 readonly></v-text-field>
                                         </v-col>
+                                        <v-row>
+                                            <v-btn @click="modifyRank()"> 직급 변경</v-btn>
+                                            <v-btn> 직원 삭제</v-btn>
+                                        </v-row>
                                     </v-row>
                                 </v-col>
                             </v-row>
@@ -119,9 +120,11 @@ export default {
         };
     },
     async created() {
-        const response = await axios.get(`${process.env.VUE_APP_API_BASE_URL}/employee/detail`);
+        const employeeId = this.$route.query.id;
+        console.log(this.employeeId)
+        const response = await axios.get(`/employee/detail/${employeeId}`);
         const employeeDetail = response.data.result;
-
+        console.log(employeeDetail);
         this.empNo = employeeDetail.employeeNumber
         this.name = employeeDetail.firstName + " " + employeeDetail.lastName
         this.email = employeeDetail.email
@@ -130,6 +133,11 @@ export default {
         this.department = employeeDetail.department
         this.empDate = employeeDetail.dateOfEmployment
         this.gender = employeeDetail.gender
+    },
+    methods:{
+        modifyRank(){
+
+        }
     }
 };
 </script>
@@ -145,11 +153,10 @@ export default {
     left: 50%;
     transform: translate(-50%, -50%);
     border-radius: 10px;
-    overflow-y: auto;
     flex-direction: column;
     padding-left: 40px;
     padding-right: 40px;
-    overflow: hidden;
+    overflow-y: hidden;
 }
 
 .custom-title {
@@ -169,6 +176,7 @@ export default {
     box-sizing: border-box;
     font-family: "Playfair Display", serif;
     height: 90%;
+    overflow-y: auto;
 }
 
 .confirmation-title {

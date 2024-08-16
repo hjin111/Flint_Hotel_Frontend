@@ -5,19 +5,26 @@
             <v-row>
                 <v-col cols="12" class="d-flex justify-center">
                     <v-card class="confirmation-card" style="width:1100px">
-                        <v-card-title class="confirmation-title"> Member Room Reservation Info </v-card-title>
+                        <v-card-title class="confirmation-title"> Employee List </v-card-title>
                         <v-card-text>
                             <v-row>
-                                <v-col cols="12" md="6">
+                                <!-- <v-col cols="12" md="7">
                                     <v-row>
-                                        <v-col cols="12" md="2">
-                                            <div class="data-label">Email</div>
+                                        <v-col cols="12" md="3">
+                                            <div class="data-label">검색(부서)</div>
                                         </v-col>
                                         <v-col cols="12" md="6">
                                             <v-text-field v-model="email" style="padding-top: 20px;"></v-text-field>
                                         </v-col>
                                         <v-col cols="12" md="2" class="search">
                                             <v-btn @click="searchMember()">검색</v-btn>
+                                        </v-col>
+                                    </v-row>
+                                </v-col> -->
+                                <v-col cols="12" class="justify-end">
+                                    <v-row style="padding-top: 30px;">
+                                        <v-col>
+                                            <v-btn>직원 등록</v-btn>
                                         </v-col>
                                     </v-row>
                                 </v-col>
@@ -29,18 +36,31 @@
                                         <thead>
                                             <tr>
                                                 <th style="text-align: center;">Id</th>
-                                                <th style="text-align: center;">Check In Date</th>
-                                                <th style="text-align: center;">Check Out Time</th>
+                                                <th style="text-align: center;">Employee Number</th>
+                                                <th style="text-align: center;">Name</th>
+                                                <th style="text-align: center;">
+                                                    <select id="departmentSelect" @change="onDepartmentChange"
+                                                        style="width: 100%; text-align: center;">
+                                                        <option value="">Department</option>
+                                                        <option v-for="department in departments" :key="department.id"
+                                                            :value="department.name">
+                                                            {{ department.name }}
+                                                        </option>
+                                                    </select>
+                                                </th>
                                                 <th style="text-align: center;">Detail</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr class="text-center" v-for="room in roomReservations" :key="room.id">
-                                                <td>{{ room.roomReservationId }}</td>
-                                                <td>{{ room.reservationCheckin }}</td>
-                                                <td>{{ room.reservationCheckout }}</td>
+                                            <tr class="text-center" v-for="employee in filteredDepartment"
+                                                :key="employee.id">
+                                                <td>{{ employee.id }}</td>
+                                                <td>{{ employee.empNo }}</td>
+                                                <td>{{ employee.name }}</td>
+                                                <td>{{ employee.department }}</td>
                                                 <td>
-                                                    <v-btn>Detail</v-btn>
+                                                    <v-btn
+                                                        :to="{ path: './office/manage', query: { id: employee.id } }">Detail</v-btn>
                                                 </td>
                                             </tr>
                                         </tbody>
@@ -65,54 +85,41 @@ export default {
     },
     data() {
         return {
-            email: "",
-            roomReservations: [],
+            employeeList: [],
+            selectedDepartment: "",
+            departments: [
+                { id: 1, name: 'Office' },
+                { id: 2, name: 'KorDining' },
+                { id: 3, name: 'ChiDining' },
+                { id: 4, name: 'JapDining' },
+                { id: 5, name: 'Lounge' },
+                { id: 6, name: 'Room' },
+            ]
         };
     },
-    methods: {
-        async searchMember() {
-            try {
-                const token = localStorage.getItem('employeetoken');
-                // {headers: {Authorization: 'Bearer 토큰 값'}}}
-                const headers = { Authorization: `Bearer ${token}` };
-                const response = await axios.get(`${process.env.VUE_APP_API_BASE_URL}/employee/list_reserve`, {
-                    params: {
-                        email: this.email
-                    },
-                    headers: {
-                        ...headers,
-                        'Content-Type': 'text/plain' // 사실 GET 요청에서는 Content-Type을 설정할 필요가 없습니다.
-                    }
-                });
-                this.roomReservations = response.data.result.roomReservations;
-                console.log(this.roomReservations)
-            } catch (e) {
-                alert(e)
+    async created() {
+        const response = await axios.get(`${process.env.VUE_APP_API_BASE_URL}/employee/employeelist`);
+        this.employeeList = response.data.result
+        console.log(this.employeeList)
+    },
+    computed: {
+        filteredDepartment() {
+            console.log(this.selectedDepartment)
+            if (!this.selectedDepartment) {
+                return this.employeeList
             }
+            return this.employeeList.filter(employee => employee.department === this.selectedDepartment);
         },
-        formatDate(dateString) {
-            const dateOptions = {
-                year: "numeric",
-                month: "2-digit",
-                day: "2-digit",
-            };
-            const datePart = new Date(dateString).toLocaleDateString(
-                undefined,
-                dateOptions
-            );
-            return datePart;
+    },
+    methods: {
+        onDepartmentChange(event) {
+            this.selectedDepartment = event.target.value;
         },
-        formatTime(dateString) {
-            const timeOptions = {
-                hour: "2-digit",
-                minute: "2-digit",
-            };
-            const timePart = new Date(dateString).toLocaleTimeString(
-                undefined,
-                timeOptions
-            );
-            return timePart;
-        },
+        employeeId() {
+            // $route.query를 통해 쿼리 파라미터에 접근
+            console.log(this.$router.query.id);
+            return this.$route.query.id;
+        }
     }
 };
 </script>
@@ -151,8 +158,8 @@ export default {
     width: 100%;
     box-sizing: border-box;
     font-family: "Playfair Display", serif;
-    box-shadow: none;
     height: 90%;
+    box-shadow: none;
 }
 
 .confirmation-title {
@@ -201,5 +208,14 @@ export default {
     height: 100%;
     padding-top: 40px;
     padding-left: 20px;
+}
+
+.elevation-1td {
+    min-width: 150px;
+    /* 각 테이블 셀의 최소 너비 */
+    min-height: 50px;
+    /* 각 테이블 셀의 최소 높이 */
+    text-align: center;
+    /* 텍스트 가운데 정렬 */
 }
 </style>

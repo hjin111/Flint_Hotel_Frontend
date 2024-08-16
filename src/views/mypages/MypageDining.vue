@@ -17,25 +17,29 @@
                       <thead>
                         <tr>
                           <!-- <th>예약번호</th> -->
-                          <th>호텔</th>
-                          <th>레스토랑</th>
-                          <th>예약인원</th>
-                          <th>예약일</th>
-                          <th>예약상태</th>
+                          <th style="text-align: center;">호텔</th>
+                          <th style="text-align: center;">레스토랑</th>
+                          <th style="text-align: center;">예약인원</th>
+                          <th style="text-align: center;">예약일</th>
+                          <th style="text-align: center;">예약상태</th>
+                          <th style="text-align: center;">Detail</th>
                         </tr>
                       </thead>
                       <tbody>
                         <tr v-for="dining in diningList" :key="dining.no">
                           <!-- <td></td> -->
-                          <td>Seoul</td>
-                          <td>{{ dining.diningName }}</td>
-                          <td>{{ dining.adult + dining.child }}</td>
-                          <td>
+                          <td style="text-align: center;">Seoul</td>
+                          <td style="text-align: center;">{{ dining.diningName }}</td>
+                          <td style="text-align: center;">{{ dining.adult + dining.child }}</td>
+                          <td style="text-align: center;">
                             {{ formatDate(dining.reservationDateTime) }}<br />
                             {{ formatTime(dining.reservationDateTime) }}
                           </td>
-                          <td>
+                          <td style="text-align: center;">
                             {{ reserveState(dining.reservationDateTime) }}
+                          </td>
+                          <td style="text-align: center;">
+                            <v-btn>Detail</v-btn>
                           </td>
                         </tr>
                       </tbody>
