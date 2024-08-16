@@ -1,11 +1,13 @@
 import EmployeeBasicComponent from "@/components/user/employee/EmployeeBasicComponent.vue";
 import EmployeeInfoComponent from "@/components/user/employee/EmployeeInfoComponent.vue";
 import EmployeeModifyPasswordComponent from "@/components/user/employee/EmployeeModifyPasswordComponent.vue";
-import EmployeeToMemberDining from "@/components/user/employee/EmployeeToMemberDining.vue";
+import EmployeeToMemberDining from "@/components/user/employee/managemember/EmployeeToMemberDining.vue";
 import EmployeeLogin from '@/views/employee/EmployeeLogin.vue'
 import EmployeeCreate from '@/views/employee/EmployeeCreate.vue'
 import DiningMenu from '@/views/employee/dining/ManageMenu.vue'
 import EmployeeDiningDetailComponent from "@/components/user/employee/EmployeeDiningDetailComponent.vue";
+import EmployeeList from "@/components/user/employee/manageemployee/EmployeeList.vue";
+import EmployeeManage from "@/components/user/employee/manageemployee/EmployeeManage.vue";
 import EmployeeToMemberRoom from "@/components/user/employee/EmployeeToMemberRoom.vue";
 import EmployeeToMember from "@/components/user/employee/EmployeeToMember.vue";
 import EmployeeToMemberList from "@/components/user/employee/EmployeeToMemberList.vue";
@@ -91,15 +93,21 @@ export const employeeRouter = [
         meta : {header: 'EmployeeHeaderComponent'}
     },
     {
-        path: '/employee/dining', 
-        name: 'EmployeeToMemberDining',
-        component: EmployeeToMemberDining,
-        meta : {header: 'EmployeeHeaderComponent'}
-    },
-    {
         path: '/employee/dining/detail/:diningReservationId',
         name: 'EmployeeDiningDetailComponent',
         component: EmployeeDiningDetailComponent,
+        meta : {header: 'EmployeeHeaderComponent'}
+    },
+    {
+        path: '/employee/office', 
+        name: 'EmployeeList',
+        component: EmployeeList,
+        meta : {header: 'EmployeeHeaderComponent'}
+    },
+    {
+        path: '/employee/office/manage', 
+        name: 'EmployeeManage',
+        component: EmployeeManage,
         meta : {header: 'EmployeeHeaderComponent'}
     },
     {
@@ -114,6 +122,7 @@ export const employeeRouter = [
         component: EmployeeRoomPriceModify,
         meta : {header: 'EmployeeHeaderComponent'}
     },
+    {
         path: '/employee/qna/list',
         name: 'EmployeeQnaListComponent',
         component: EmployeeQnaListComponent,

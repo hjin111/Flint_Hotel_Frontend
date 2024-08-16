@@ -11,7 +11,7 @@
                     </v-col>
                     <v-col cols="6" md="6" class="left-bar">
                         <v-btn class="custom-btn" size="large"
-                        :to="{path: `./qna/list`}"    >QnA 관리</v-btn>
+                        :to="{path: `./qna/list`}">QnA 관리</v-btn>
                     </v-col>
                 </v-row>
             </v-card>

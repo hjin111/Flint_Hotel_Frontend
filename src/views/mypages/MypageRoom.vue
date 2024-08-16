@@ -16,26 +16,30 @@
                     <v-data-table>
                       <thead>
                         <tr>
-                          <th>예약번호</th>
-                          <th>호텔</th>
-                          <th>객실</th>
-                          <th>체크인/<br />체크아웃</th>
-                          <th>예약상태</th>
+                          <th style="text-align: center;">예약번호</th>
+                          <th style="text-align: center;">호텔</th>
+                          <th style="text-align: center;">객실</th>
+                          <th style="text-align: center;">체크인/<br />체크아웃</th>
+                          <th style="text-align: center;">예약상태</th>
+                          <th style="text-align: center;">상세정보</th>
                         </tr>
                       </thead>
                       <tbody>
                         <tr v-for="room in roomList" :key="room.no">
-                          <td>{{ room.no }}</td>
-                          <td>Seoul</td>
-                          <td>{{ room.roomType }}</td>
-                          <td>
+                          <td style="text-align: center;">{{ room.no }}</td>
+                          <td style="text-align: center;">Seoul</td>
+                          <td style="text-align: center;">{{ room.roomType }}</td>
+                          <td style="text-align: center;">
                             {{ room.checkInDate }}/<br />
                             {{ room.checkOutDate }}
                           </td>
-                          <td>
+                          <td style="text-align: center;">
                             {{
                               reserveState(room.checkInDate, room.checkOutDate)
                             }}
+                          </td>
+                          <td style="text-align: center;">
+                            <v-btn>상세보기</v-btn>
                           </td>
                         </tr>
                       </tbody>
