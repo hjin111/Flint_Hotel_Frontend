@@ -212,7 +212,7 @@ export default {
     border-radius: 8px;
     width: 100%;
     box-sizing: border-box;
-    font-family: "Playfair Display", serif;
+    font-family: "Noto Serif KR", serif;
   }
   
   .confirmation-title {

@@ -5,12 +5,12 @@
         <v-row justify="center">
           <v-col>
             <v-card>
-              <v-card-title class="text-center text-h5" style="font-family: 'Playfair Display', serif; font-weight: 600; ">
+              <v-card-title class="text-center text-h5" style=" font-family: Noto Serif KR, serif; font-weight: 600; ">
                 DINING RESERVATION
               </v-card-title>
               <v-card-text >
                 <v-form @submit.prevent="diningReservation">
-                  <v-table style="font-family: 'Playfair Display', serif;">
+                  <v-table style=" font-family: Noto Serif KR, serif;">
                     <thead>
                       <tr>
                         <th class="text-center">SELECT</th>

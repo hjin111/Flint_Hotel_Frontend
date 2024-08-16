@@ -41,7 +41,7 @@
                                                 <td>{{ formatDate(dining.reservationDateTime) }}</td>
                                                 <td>{{ formatTime(dining.reservationDateTime) }}</td>
                                                 <td>
-                                                    <v-btn>Detail</v-btn>
+                                                    <v-btn @click="diningDetail(dining.diningReservationId)">Detail</v-btn>
                                                 </td>
                                             </tr>
                                         </tbody>
@@ -70,9 +70,16 @@ export default {
             diningReservations: [],
             diningDate: "",
             diningTime: "",
+           
         };
     },
     methods: {
+        async diningDetail(diningReservationId){
+
+            this.$router.push({
+                 path: `/employee/dining/detail/${diningReservationId}`
+            });
+        },
         async searchMember() {
             try {
                 const token = localStorage.getItem('employeetoken');
@@ -136,12 +143,12 @@ export default {
     flex-direction: column;
     padding-left: 40px;
     padding-right: 40px;
-    overflow: hidden;
+    overflow: scroll;
 }
 
 .custom-title {
     padding-left: 9%;
-    font-family: "playfire Display", serif;
+    font-family: "Noto Serif KR", serif;
     color: #787878;
     text-align: left;
     border-bottom: 3px solid;
@@ -154,7 +161,7 @@ export default {
     border: none;
     width: 100%;
     box-sizing: border-box;
-    font-family: "Playfair Display", serif;
+    font-family: "Noto Serif KR", serif;
     height: 90%;
     box-shadow: none;
 }
