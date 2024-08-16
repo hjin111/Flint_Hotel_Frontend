@@ -8,7 +8,7 @@
           <v-col cols="9" justify="center">
             <v-card-title class="custom-title">
               <div>
-                <h1>사용자 정보</h1><br>
+                <h1>Member Info</h1><br>
                 <v-divider class="custom-divider"></v-divider>
               </div>
               <h2>{{ memberDetail.lastName + " " + memberDetail.firstName }} 님 안녕하세요.</h2>
