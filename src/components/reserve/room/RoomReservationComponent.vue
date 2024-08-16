@@ -71,22 +71,22 @@
         <v-row v-if="showRoom">
           <v-col>
             <v-card>
-              <v-card-text>
+              <v-card-text class="selectCard">
                 <v-table>
                   <thead>
                     <tr>
-                      <th>Room Image</th>
-                      <th>Room Name</th>
-                      <th>Room Base Price</th>
-                      <th></th>
+                      <th style="padding-left: 50px;">Room Image</th>
+                      <th style="padding-left: 50px;">Room Name</th>
+                      <th style="padding-left: 50px;">Room Base Price</th>
+                      <th style="padding-left: 50px;"></th>
                     </tr>
                   </thead>
                   <tbody>
                     <tr v-for="(room, index) in roomList" :key="index">
-                      <td>이미지</td>
-                      <td>{{ room.roomTypeName }}</td>
-                      <td>{{ room.roomPrice.toLocaleString() }}원 ~</td>
-                      <td>
+                      <td style="padding-left: 50px;">이미지</td>
+                      <td style="padding-left: 50px;">{{ room.roomTypeName }}</td>
+                      <td style="padding-left: 50px;">{{ room.roomPrice.toLocaleString() }}원 ~</td>
+                      <td style="padding-left: 50px;">
                         <v-btn @click="selectRoom(index)" style="color: white;" color="#CFB18E">Select</v-btn>
                       </td>
                     </tr>
@@ -159,8 +159,13 @@
           this.roomList = response.data;
 
           this.showRoom = true;
-        } catch (error) {
-          console.error('Error: ', error);
+        } catch (e) {
+          if (e.response) {
+                    console.error("Error Status:", e.response.status);  
+                    console.error("Error Data:", e.response.data); 
+                } else {
+                    console.error("Error Message:", e.message);
+                }
         }
       },
       selectRoom(index) {
@@ -186,58 +191,63 @@
   };
   </script>
   
-  <style scoped>
-    html,
-    body,
-    #app,
-    .v-application--wrap {
-      height: 100%;
-      margin: 0;
-      padding: 0;
-      overflow: hidden;
-    }
-    
-    .reserve-contianer {
-      background-color: white;
-      position: absolute;
-      width: 90%;
-      max-width: 1200px;
-      height: 82%;
-      top: 57%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      border-radius: 10px;
-      overflow-y: auto;
-    }
-    
-    .custom-title {
-      font-family: "Playfair Display", serif;
-      color: #787878;
-      font-size:18px;
-    }
-    
-    .custom-search-btn {
-      max-width: 200px; 
-      border-radius: 5px;
-      color: white; 
-      background-color: #7A6C5B;
-      transition: background-color 0.3s ease; 
-    }
-    .date-label {
-      font-size: 13px;
-      font-weight: bold;
-      margin-bottom: 4px;
-      color: #787878;
-      margin-left: 8px;
-      display: block; 
-      text-align: left; 
-    }
-    .mx-2 {
-      margin-left: 6px !important;
-      margin-right: 6px !important;
-    }
+<style scoped>
+  html,
+  body,
+  #app,
+  .v-application--wrap {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+  }
+  
+  .reserve-contianer {
+    background-color: white;
+    position: absolute;
+    width: 90%;
+    max-width: 1200px;
+    height: 82%;
+    top: 57%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 10px;
+    overflow-y: auto;
+  }
+  
+  .custom-title {
+    font-family: "Noto Serif KR", serif;
+    color: #787878;
+    font-size:18px;
+  }
+  
+  .custom-search-btn {
+    max-width: 200px; 
+    border-radius: 5px;
+    color: white; 
+    background-color: #7A6C5B;
+    transition: background-color 0.3s ease; 
+  }
+  .date-label {
+    font-family: "Noto Serif KR", serif;
+    font-size: 13px;
+    font-weight: bold;
+    margin-bottom: 4px;
+    color: #787878;
+    margin-left: 8px;
+    display: block; 
+    text-align: left; 
+  }
+  .mx-2 {
+    margin-left: 6px !important;
+    margin-right: 6px !important;
+  }
 
-    .v-card-text {
-      padding: 0 8px; /* Reduced padding */
-    }
-  </style>
+  .v-card-text {
+    padding: 0 8px; /* Reduced padding */
+  }
+  .selectCard {
+    font-family: "Noto Serif KR", serif;
+  }
+  
+</style>
