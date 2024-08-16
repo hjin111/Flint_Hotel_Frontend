@@ -9,6 +9,8 @@ import EmployeeDiningDetailComponent from "@/components/user/employee/EmployeeDi
 import EmployeeToMemberRoom from "@/components/user/employee/EmployeeToMemberRoom.vue";
 import EmployeeToMember from "@/components/user/employee/EmployeeToMember.vue";
 import EmployeeToMemberList from "@/components/user/employee/EmployeeToMemberList.vue";
+import EmployeeTaskComponent from "@/components/user/employee/EmployeeTaskComponent.vue"
+import EmployeeRoomPriceModify from "@/views/employee/room/EmployeeModRoomPrice.vue"
 import EmployeeQnaListComponent from "@/components/support/qna/EmployeeQnaListComponent.vue";
 import EmployeeQnaDetailComponent from "@/components/support/qna/EmployeeQnaDetailComponent.vue";
 import EmployeeQnaCreateComponent from "@/components/support/qna/EmployeeQnaCreateComponent.vue";
@@ -101,6 +103,17 @@ export const employeeRouter = [
         meta : {header: 'EmployeeHeaderComponent'}
     },
     {
+        path: '/employee/task',
+        name: 'EmployeeTaskComponent',
+        component: EmployeeTaskComponent,
+        meta : {header: 'EmployeeHeaderComponent'}
+    },
+    {
+        path: '/employee/room/modprice',
+        name: 'EmployeeRoomPriceModify',
+        component: EmployeeRoomPriceModify,
+        meta : {header: 'EmployeeHeaderComponent'}
+    },
         path: '/employee/qna/list',
         name: 'EmployeeQnaListComponent',
         component: EmployeeQnaListComponent,
@@ -124,6 +137,4 @@ export const employeeRouter = [
         component: EmployeeQnaModifyComponent,
         meta : {header: 'EmployeeHeaderComponent'}
     },
-
-
 ]
