@@ -7,7 +7,7 @@
       <button @click="login" class="login-button">LOGIN</button>
       <div class="links">
         <a v-if="showFindId" @click.prevent="openFindEmailModal" class="link">FIND ID</a>
-        <a @click.prevent="openFindPasswordModal" class="link">FIND Password</a>
+        <a @click.prevent="openFindPasswordModal" class="link">FIND PWD</a>
         <a v-if="showJoinLink" :href="joinLink" class="link">JOIN</a>
       </div>
     </div>
@@ -120,9 +120,10 @@ export default {
 <style scoped>
 /* 기존 스타일 유지 */
 .login-form {
-  width: 80%;
+  font-family: "Playfair Display", serif;
+  width: 100% !important;
   /* 너비 80% */
-  max-width: 400px;
+  max-width: 700px !important;
   /* 최대 너비 400px */
   padding: 20px;
   /* 내부 여백 20px */

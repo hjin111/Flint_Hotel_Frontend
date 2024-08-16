@@ -54,6 +54,7 @@
                         </v-form>
                         <v-row class="justify-end">
                             <v-btn class="leftbtn" @click="modQna()" style="color: white;" color="#7A6C5B">Submit</v-btn>
+                            <v-btn style="color: white;" color="#CFB18E" @click="back()">Cancel</v-btn>
                         </v-row>
                     </v-card-text>
                 </v-card>
@@ -126,6 +127,10 @@
                     console.error("Error Message:", e.message);
                 }
             }
+        },
+        async back() {
+            const qnaId = this.$route.params.id;
+            this.$router.push(`/mypage/qna/detail/${qnaId}`);
         }
     }
     
@@ -176,6 +181,6 @@
     color: #787878;
   }
   .leftbtn {
-    margin-right:10px;
+    margin-right: -8px;
   }
   </style>
