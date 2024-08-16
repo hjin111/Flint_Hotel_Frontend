@@ -24,7 +24,7 @@
                                 </v-col>
                             </v-row>
                             <!-- title -->
-                            <v-row>
+                            <v-row style="margin-top: -25px;">
                                 <v-col cols="12" md="2" class="custom-col-title">
                                     <v-input>
                                         Title
@@ -38,7 +38,7 @@
                                 </v-col>
                             </v-row>
                             <!-- content -->
-                            <v-row>
+                            <v-row style="margin-top: -25px;">
                                 <v-col cols="12" md="2" class="custom-col-content">
                                     <v-input>
                                         Content
@@ -54,6 +54,7 @@
                         </v-form>
                         <v-row class="justify-end">
                             <v-btn class="leftbtn" @click="modQna()" style="color: white;" color="#7A6C5B">Submit</v-btn>
+                            <v-btn style="color: white;" color="#CFB18E" @click="back()">Cancel</v-btn>
                         </v-row>
                     </v-card-text>
                 </v-card>
@@ -85,7 +86,10 @@
     methods: {
         async fetchQnaDetail(qnaId) {
             try {
-                const response = await axios.get(`/mypage/qna/detail/${qnaId}`);
+                const token = localStorage.getItem('membertoken');
+                const headers = {Authorization: `Bearer ${token}`};
+
+                const response = await axios.get(`/mypage/qna/detail/${qnaId}`, {headers});
                 console.log(response);
 
                 this.selectedSerivce = response.data.result.service;
@@ -93,7 +97,12 @@
                 this.contents = response.data.result.contents;
 
             } catch(e) {
-                console.log(e);
+                if (e.response) {
+                    console.error("Error Status:", e.response.status);  
+                    console.error("Error Data:", e.response.data); 
+                } else {
+                    console.error("Error Message:", e.message);
+                }
             }
         },
         async modQna() {
@@ -111,8 +120,17 @@
 
                 this.$router.push(`/mypage/qna/detail/${qnaId}`);
             } catch(e) {
-                console.log(e);
+                if (e.response) {
+                    console.error("Error Status:", e.response.status);  
+                    console.error("Error Data:", e.response.data); 
+                } else {
+                    console.error("Error Message:", e.message);
+                }
             }
+        },
+        async back() {
+            const qnaId = this.$route.params.id;
+            this.$router.push(`/mypage/qna/detail/${qnaId}`);
         }
     }
     
@@ -163,6 +181,6 @@
     color: #787878;
   }
   .leftbtn {
-    margin-right:10px;
+    margin-right: -8px;
   }
   </style>

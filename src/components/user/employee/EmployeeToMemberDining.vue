@@ -5,24 +5,23 @@
             <v-row>
                 <v-col cols="12" class="d-flex justify-center">
                     <v-card class="confirmation-card" style="width:1100px">
-                        <v-card-title class="confirmation-title"> Member Dining Reservation Info </v-card-title>
+                        <v-card-title class="confirmation-title"> Dining Reservation Info </v-card-title>
                         <v-card-text>
-                            <v-row>
+                            <v-row class="justify-end searchrow">
                                 <v-col cols="12" md="6">
                                     <v-row>
-                                        <v-col cols="12" md="2">
+                                        <v-col cols="12" md="2" class="emailcol">
                                             <div class="data-label">Email</div>
                                         </v-col>
-                                        <v-col cols="12" md="6">
-                                            <v-text-field v-model="email" style="padding-top: 20px;"></v-text-field>
+                                        <v-col cols="12" md="7">
+                                            <v-text-field class="tf" v-model="email"></v-text-field>
                                         </v-col>
-                                        <v-col cols="12" md="2" class="search">
-                                            <v-btn @click="searchMember()">검색</v-btn>
+                                        <v-col cols="12" md="3" class="search">
+                                            <v-btn @click="searchMember()" style="color: white;" color="#7A6C5B">Search</v-btn>
                                         </v-col>
                                     </v-row>
                                 </v-col>
                             </v-row>
-                            <br>
                             <v-row class="justify-center">
                                 <v-col cols="12">
                                     <v-data-table class="elevation-1">
@@ -155,7 +154,6 @@ export default {
 }
 
 .confirmation-card {
-    margin-top: 15px;
     padding: 20px;
     border-radius: 8px;
     border: none;
@@ -183,9 +181,16 @@ export default {
     padding-bottom: 20px;
     font-family: "Noto Serif KR", serif;
 }
-
+.tf {
+    margin-right: -20px;
+    padding-top:20px;
+}
 .search {
     padding-top: 40px;
+}
+.searchrow {
+    margin-right: -20px;
+    margin-bottom: -40px;
 }
 
 .v-radio-group {
@@ -211,6 +216,8 @@ export default {
     display: flex;
     height: 100%;
     padding-top: 40px;
-    padding-left: 20px;
+}
+.emailcol {
+    margin-right: -20px;
 }
 </style>

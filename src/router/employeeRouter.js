@@ -13,6 +13,8 @@ import EmployeeQnaListComponent from "@/components/support/qna/EmployeeQnaListCo
 import EmployeeQnaDetailComponent from "@/components/support/qna/EmployeeQnaDetailComponent.vue";
 import EmployeeQnaCreateComponent from "@/components/support/qna/EmployeeQnaCreateComponent.vue";
 import EmployeeQnaModifyComponent from "@/components/support/qna/EmployeeQnaModifyComponent.vue";
+import EmployeeToMemberRoomDetail from "@/components/user/employee/EmployeeToMemberRoomDetail.vue";
+import EmployeeToMemberRoomModDetail from "@/components/user/employee/EmployeeToMemberRoomModDetail.vue";
 
 export const employeeRouter = [
     {
@@ -60,6 +62,18 @@ export const employeeRouter = [
         path: '/employee/room', 
         name: 'EmployeeToMemberRoom',
         component: EmployeeToMemberRoom,
+        meta : {header: 'EmployeeHeaderComponent'}
+    },
+    {
+        path: '/employee/room/:id', 
+        name: 'EmployeeToMemberRoomDetail',
+        component: EmployeeToMemberRoomDetail,
+        meta : {header: 'EmployeeHeaderComponent'}
+    },
+    {
+        path: '/employee/room/mod/:id', 
+        name: 'EmployeeToMemberRoomModDetail',
+        component: EmployeeToMemberRoomModDetail,
         meta : {header: 'EmployeeHeaderComponent'}
     },
     {
