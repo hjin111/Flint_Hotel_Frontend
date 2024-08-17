@@ -105,7 +105,7 @@
   <script>
   import FlintView from '@/views/FlintView.vue';
   import dayjs from 'dayjs';
-  import axios from 'axios';
+  import axios from '@/axios';
 
   export default {
     components: {
@@ -147,14 +147,12 @@
         const params = {
           checkInDate: this.formattedCheckInDate,
           checkOutDate: this.formattedCheckOutDate,
+          adultCnt: this.numAdults, // 인원수 추가 (제한걸기 위해서)
+          childCnt: this.numChildren
         };
 
         try {
-          console.log('start');
-          const token = localStorage.getItem('membertoken');
-          const headers = {Authorization: `Bearer ${token}`};
-
-          const response = await axios.get(`${process.env.VUE_APP_API_BASE_URL}/reserve/room/remain`, {params, headers});
+          const response = await axios.get(`/reserve/room/remain`, {params});
           console.log(response);
           this.roomList = response.data;
 
@@ -163,6 +161,7 @@
           if (e.response) {
                     console.error("Error Status:", e.response.status);  
                     console.error("Error Data:", e.response.data); 
+                    alert(e.response.data.error_message);
                 } else {
                     console.error("Error Message:", e.message);
                 }
