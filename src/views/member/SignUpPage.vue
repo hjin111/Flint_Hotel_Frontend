@@ -1,12 +1,13 @@
 <template>
-  <v-app>
+  <div>
+    <FlintView />
     <!-- 회원가입 폼 -->
-    <v-main class="main-background">
+    <!-- <v-main class="main-background"> -->
       <v-container class="join-now-container">
         <v-row>
           <v-col cols="12">
             <h1 class="join-now-title">JOIN NOW</h1>
-            <p class="welcome-text">플린트호텔에 오신 것을 환영합니다.</p>
+            <p class="korFont">플린트호텔에 오신 것을 환영합니다.</p>
           </v-col>
         </v-row>
         <v-row>
@@ -67,7 +68,7 @@
         </v-row>
         <v-row>
           <v-col cols="12">
-            <v-btn @click="SignUp" class="sign-up-btn" color="primary">이메일 인증하기</v-btn>
+            <v-btn @click="SignUp" class="emailBtn">이메일 인증하기</v-btn>
           </v-col>
         </v-row>
         <EmailVerifyModal
@@ -76,18 +77,20 @@
         >
         </EmailVerifyModal>
       </v-container>
-    </v-main>
-  </v-app>
+    <!-- </v-main> -->
+  </div>
 </template>
 
 <script>
 import axios from '@/axios'
 import { ref } from 'vue'
 import EmailVerifyModal from './EmailVerifyModal.vue'
+import FlintView from '@/views/FlintView.vue';
 
 export default {
   components: {
-    EmailVerifyModal
+    EmailVerifyModal,
+    FlintView
   },
   setup() {
     const email = ref('')
@@ -155,3 +158,29 @@ export default {
   },
 }
 </script>
+
+<style scoped>
+  .join-now-container {
+    font-family: 'Playfair Display', serif;
+    background-color: white;
+    position: absolute;
+    width: 90%;
+    max-width: 1200px;
+    height: 82%;
+    top: 50%;
+    left: 50%;
+    padding: 20px;
+    transform: translate(-50%, -50%);
+    border-radius: 10px;
+    overflow-y: auto;
+  }
+.korFont {
+  font-family: "Noto Serif KR", serif;
+}
+.emailBtn {
+  font-family: "Noto Serif KR", serif;
+  background-color: #7A6C5B;
+  color: white;
+  margin-left: 85%;
+}
+</style>

@@ -1,15 +1,13 @@
 <template>
     <v-dialog v-model="dialog" max-width="400px">
-        <v-card>
-            <v-card-title>메뉴 삭제</v-card-title>
-            <v-card-text>
-                이 메뉴를 삭제하시겠습니까?
-            </v-card-text>
+        <v-card class="modal">
+            <v-card-title>
+                정말 삭제하시겠습니까?
+            </v-card-title>
             <v-card-actions>
-                <v-row style="display: flex; justify-content: center;">
-                    <v-btn class="submitButton" @click="confirmDelete">확인</v-btn>
-                    <v-btn class="cancelButton" @click="closeDialog">취소</v-btn>
-                </v-row>
+                <v-spacer></v-spacer>
+                    <v-btn class="leftbtn" color="black" @click="confirmDelete">Yes</v-btn>
+                    <v-btn @click="closeDialog" color="black">No</v-btn>
             </v-card-actions>
         </v-card>
     </v-dialog>
@@ -48,6 +46,12 @@ export default {
 </script>
 
 <style scoped>
-
+.modal {
+    font-family: "Noto Serif KR", serif;
+    font-size: 16px;
+}
+  .leftbtn {
+    margin-right: -8px;
+  }
 
 </style>
