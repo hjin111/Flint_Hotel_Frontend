@@ -170,7 +170,6 @@ export default {
     flex-direction: column;
     padding-left: 40px;
     padding-right: 40px;
-    overflow: scroll;
 }
 
 .confirmation-card {
