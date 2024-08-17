@@ -44,7 +44,7 @@
                       <v-row>
                         <v-col cols="5" style="padding-left: 50px">
                           <v-calendar
-                            v-model:date="selectedDate"
+                            v-model="selectedDate"
                             :attributes="calendarAttributes"
                             is-range
                             is-month-picker
