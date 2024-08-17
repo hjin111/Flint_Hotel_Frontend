@@ -45,12 +45,12 @@
             <v-card-text class="cardText" style="padding: 24px;">
               <v-row class="button-row" justify="center">
                 <v-col cols="6" md="6" class="d-flex justify-center">
-                  <v-btn class="custom-btn" size="large" style="color: black; background-color: #E5E5E5; 
-                  padding-top:10px; padding-bottom:30px; width: 100%; max-width: 160px; border: none;" @click="RoomReservationBtn">Room</v-btn>
+                  <v-btn class="custom-btn" size="large" style="color: black; background-color: white; border-color: #D5DCEA; border-width: 3px;
+                  padding-top:10px; padding-bottom:30px; width: 100%; max-width: 160px; box-shadow: none;" @click="RoomReservationBtn">Room</v-btn>
                 </v-col>
                 <v-col cols="6" md="6" class="d-flex justify-center">
-                  <v-btn class="custom-btn" size="large" style="color: black; background-color: #E5E5E5;
-                  padding-top:10px; padding-bottom:30px; width: 100%; max-width: 160px; border: none;" @click="DiningReservationBtn">Dining</v-btn>
+                  <v-btn class="custom-btn" size="large" style="color: black; background-color: white; border-color: #D5DCEA; border-width: 3px;
+                  padding-top:10px; padding-bottom:30px; width: 100%; max-width: 160px; box-shadow: none;" @click="DiningReservationBtn">Dining</v-btn>
                 </v-col>
               </v-row>
             </v-card-text>
