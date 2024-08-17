@@ -66,7 +66,7 @@ export default {
                 const decodedToken = jwtDecode(token)
                 this.department = decodedToken.department
 
-                if(this.department === 'Room'){
+                if (this.department === 'Room') {
                     const response = await axios.get(`/employee/room/roominfo`)
                     this.roomList = response.data.result
                 } else {
@@ -88,7 +88,7 @@ export default {
         },
         async savePrices() {
             try {
-                const requests = this.roomList.map(room => 
+                const requests = this.roomList.map(room =>
                     axios.patch(`/employee/room/modprice/${room.id}`, { newPrice: room.roomTypePrice })
                 );
                 await Promise.all(requests);

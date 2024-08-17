@@ -235,7 +235,7 @@ export default {
             this.deleteDialog = true
         },
         closeDeleteMenuDialog() {
-            this.deleteDialog = false   
+            this.deleteDialog = false
         },
         async confirmDeleteMenu(menuId) {
             try {
@@ -278,6 +278,11 @@ export default {
     box-shadow: none;
 }
 
+.search-type {
+    max-width: 133px;
+    font-size: 0.5rem;
+    line-height: 1.25rem;
+}
 .confirmation-title {
     font-size: 20px;
     font-weight: bold;
@@ -343,6 +348,10 @@ export default {
     font-weight: bold;
     color: #787878;
     display: flex;
+    justify-content: space-between;
+    gap: -10px;
+    /* 버튼 사이의 간격 */
+    border-bottom: 1px solid #e0e0e0;
     height: 100%;
     padding-top: 40px;
 }

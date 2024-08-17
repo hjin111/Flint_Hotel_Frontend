@@ -43,7 +43,7 @@
 
 <script>
 import EmployeeView from '@/views/EmployeeView.vue';
-import axios from 'axios';
+import axios from '@/axios';
 
 export default {
     components: {
@@ -55,10 +55,7 @@ export default {
         }
     },
     async created() {
-        const token = localStorage.getItem('employeetoken');
-        // {headers: {Authorization: 'Bearer 토큰 값'}}}
-        const headers = { Authorization: `Bearer ${token}` };
-        const response = await axios.get(`${process.env.VUE_APP_API_BASE_URL}/employee/memberlist`, {headers});
+        const response = await axios.get(`${process.env.VUE_APP_API_BASE_URL}/employee/memberlist`);
         this.member = response.data.result
         console.log(this.member)
     }

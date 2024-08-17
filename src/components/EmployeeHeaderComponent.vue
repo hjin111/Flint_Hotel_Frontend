@@ -123,7 +123,7 @@ import { useRouter } from 'vue-router';
   
   <style>
 .flint-hotel-title {
-  font-size: 24px; 
+  font-size: 24px;
   font-family: "Playfair Display", serif;
 }
 

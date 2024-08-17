@@ -37,9 +37,11 @@
                             {{
                               reserveState(room.checkInDate, room.checkOutDate)
                             }}
-                          </td>
+                          </td> 
                           <td style="text-align: center;">
-                            <v-btn>상세보기</v-btn>
+                            <v-btn @click="$router.push(`/mypage/room/detail/${room.id}`)">
+                              상세보기
+                            </v-btn>
                           </td>
                         </tr>
                       </tbody>
@@ -78,6 +80,7 @@ export default {
         { headers }
       );
       this.roomList = response.data.content;
+      console.log(this.roomList)
     } catch (e) {
       console.log(e);
     }

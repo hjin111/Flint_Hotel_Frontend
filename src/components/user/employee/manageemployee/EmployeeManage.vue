@@ -53,10 +53,12 @@
                                         <v-col cols="12" md="3">
                                             <div class="data-label"> Rank </div>
                                         </v-col>
-                                        <v-col cols="12" md="9">
-                                            <v-text-field v-model="rank"
-                                                readonly></v-text-field>
-                                        </v-col>
+                                        <v-select
+                                        v-model="rank"
+                                        :items="ranks"
+                                        >
+                                        </v-select>
+                                        
                                     </v-row>
                                     <v-row>
                                         <v-col cols="12" md="3">
@@ -86,7 +88,7 @@
                                         </v-col>
                                         <v-row>
                                             <v-btn @click="modifyRank()"> 직급 변경</v-btn>
-                                            <v-btn> 직원 삭제</v-btn>
+                                            <v-btn @click="confirmDelEmployee()">퇴사 처리</v-btn>
                                         </v-row>
                                     </v-row>
                                 </v-col>
@@ -96,12 +98,24 @@
                 </v-col>
             </v-row>
         </v-container>
+        <v-dialog v-model="showConfirmDialog" max-width="400px">
+            <v-card>
+                <v-card-title class="headline">퇴사 처리 확인</v-card-title>
+                <v-card-text>{{ modalMessage }}</v-card-text>
+                <v-card-actions>
+                    <v-spacer></v-spacer>
+                    <v-btn color="green darken-1" text @click="handleConfirm">Yes</v-btn>
+                    <v-btn color="red darken-1" text @click="closeDialog">No</v-btn>
+                </v-card-actions>
+            </v-card>
+        </v-dialog>
     </div>
 </template>
 
 <script>
 import EmployeeView from '@/views/EmployeeView.vue';
 import axios from '@/axios';
+import { useRouter } from 'vue-router';
 
 export default {
     components: {
@@ -117,6 +131,15 @@ export default {
             department: "",
             empDate:"",
             gender:"",
+            showConfirmDialog: false,
+            ranks: ['사원', '대리', '과장', '부장', '이사', '사장'],
+            modData: [],
+            router: useRouter(),
+            targetId: "",
+            employeeRank: "",
+            selectedEmployee: null,
+            employee: "",
+            employeeId: "",
         };
     },
     async created() {
@@ -133,11 +156,43 @@ export default {
         this.department = employeeDetail.department
         this.empDate = employeeDetail.dateOfEmployment
         this.gender = employeeDetail.gender
+        this.targetId = employeeId; 
     },
     methods:{
-        modifyRank(){
-
-        }
+        async modifyRank(){
+            this.modData = {
+                targetId: this.targetId,
+                employeeRank: this.rank
+            }
+            console.log(this.modData)
+            try{
+                const response = await axios.put(`/employee/mod_rank`, this.modData)
+                alert(response.data.status_message)
+                window.location.reload()
+            } catch(e){
+                console.log(e)
+            }
+        },
+        confirmDelEmployee() {
+            this.modalMessage = `${this.name}님을 퇴사 처리 하시겠습니까?`
+            this.showConfirmDialog = true
+        },
+        async handleConfirm() {
+            try {
+                const response = await axios.patch(`/employee/delaccount`, { employeeId: this.targetId })
+                if (response.status === 200) {
+                    console.log(response.data)
+                    alert(response.data.status_message)
+                    return this.router.push('/employee/office')
+                }
+            } catch (error) {
+                alert('퇴사 처리 중 오류가 발생했습니다: ' + error.response?.data.message)
+            }
+        },
+        closeDialog() {
+            this.showConfirmDialog = false
+            this.selectedEmployee = null
+        },
     }
 };
 </script>
