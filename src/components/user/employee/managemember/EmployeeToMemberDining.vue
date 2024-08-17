@@ -40,7 +40,7 @@
                                                 <td>{{ formatDate(dining.reservationDateTime) }}</td>
                                                 <td>{{ formatTime(dining.reservationDateTime) }}</td>
                                                 <td>
-                                                    <v-btn @click="diningDetail(dining.diningReservationId)">Detail</v-btn>
+                                                    <v-btn style="background-color: #DCC8B0; color:white;" @click="diningDetail(dining.diningReservationId)">Detail</v-btn>
                                                 </td>
                                             </tr>
                                         </tbody>
@@ -134,11 +134,10 @@ export default {
     left: 50%;
     transform: translate(-50%, -50%);
     border-radius: 10px;
-    overflow-y: auto;
     flex-direction: column;
     padding-left: 40px;
     padding-right: 40px;
-    overflow: scroll;
+    overflow-y: auto;
 }
 
 .custom-title {
