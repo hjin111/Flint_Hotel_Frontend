@@ -42,6 +42,7 @@
                                                 <td>{{ room.reservationCheckout }}</td>
                                                 <td>
                                                     <v-btn
+                                                        style="background-color: #DCC8B0; color:white;"
                                                         @click="$router.push(`/employee/room/${room.roomReservationId}`)">Detail</v-btn>
                                                 </td>
                                             </tr>
@@ -85,7 +86,7 @@ export default {
                 this.roomReservations = response.data.result.roomReservations;
                 console.log(this.roomReservations)
             } catch (e) {
-                alert(e.response.data.error_message)
+                alert(e.response.data.error_message);
             }
         },
         formatDate(dateString) {

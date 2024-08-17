@@ -1,90 +1,121 @@
 <template>
     <div>
-        <BackGround />
-        <v-container class="main-container">
-            <v-row class="d-flex justify-content-between align-items-center search-bar">
-                <v-col>
-                    <v-form @submit.prevent="searchMenus">
-                        <v-row>
-                            <v-col cols="2">
-                                <v-select v-model="searchType" :items="searchOptions" item-title="text"
-                                    item-value="value" dense hide-details class="search-type">
-                                </v-select>
-                            </v-col>
-                            <v-col>
-                                <v-text-field v-model="searchValue" label="검색어 입력" dense hide-details>
-                                </v-text-field>
-                            </v-col>
-                            <v-col cols="auto">
-                                <v-btn type="submit" color="grey" elevation="0" outlined>검색</v-btn>
-                            </v-col>
-                        </v-row>
-                    </v-form>
-                </v-col>
-
-                <v-col cols="auto" v-if="canAccess">
-                    <v-btn @click="openCreateMenuDialog()" color="grey" elevation="0" outlined>메뉴 추가</v-btn>
-                </v-col>
-            </v-row>
+        <EmployeeView />
+        <v-container class="content-container">
             <v-row>
-                <v-col>
-                    <v-card elevation="0" class="pa-4 table-card">
-                        <v-card-text>
-                            <v-simple-table>
-                                <thead>
-                                    <tr>
-                                        <th class="id-column">Id</th>
-                                        <th class="name-column">메뉴 이름</th>
-                                        <th class="price-column">가격</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr v-for="p in menuList" :key="p.menuId">
-                                        <td class="id-column-value">{{ p.menuId }}</td>
-                                        <td class="name-column-value">{{ p.menuName }}</td>
-                                        <td class="price-column-value">{{ p.cost }}원</td>
-                                        <td class="col-action">
-                                            <v-btn color="grey" @click="openEditMenuDialog(p)" elevation="0" outlined
-                                                small>수정</v-btn>
-                                            <v-btn color="grey" @click="openDeleteMenuDialog(p.menuId)" elevation="0"
-                                                outlined small>삭제</v-btn>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </v-simple-table>
+                <v-col cols="12" class="d-flex justify-center">
+                    <v-card class="confirmation-card" style="width:1100px">
+                        <v-card-title class="confirmation-title"> Menu Management </v-card-title>
+                        <v-card-text class="cardText">
+                            <v-row class="searchrow d-flex justify-space-between">
+                                <!-- 메뉴 추가 버튼: 왼쪽 정렬 -->
+                                <v-col cols="12" md="3" v-if="canAccess" class="d-flex justify-start" style="margin-top:10px; margin-left:-30px;">
+                                    <v-btn @click="openCreateMenuDialog()" color="#7A6C5B" elevation="0" outlined>Add Menu</v-btn>
+                                </v-col>
+                                <!-- 검색 관련 요소: 오른쪽 정렬 -->
+                                <v-col cols="12" md="9" class="justify-end">
+                                    <v-form @submit.prevent="searchMenus" class="d-flex justfiy-end formCustom">
+                                        <v-col cols="auto" class="modSearch">
+                                            <v-select
+                                                v-model="searchType"
+                                                :items="searchOptions"
+                                                item-title="text"
+                                                item-value="value"
+                                                dense
+                                                hide-details
+                                                class="search-type"
+                                            >
+                                            </v-select>
+                                        </v-col>
+                                        <v-col cols="7" class="modSearch" style="margin-right: -8px;">
+                                            <v-text-field
+                                                v-model="searchValue"
+                                                label="입력하세요."
+                                                dense
+                                                hide-details
+                                            >
+                                            </v-text-field>
+                                        </v-col>
+                                        <v-col cols="auto">
+                                            <v-btn type="submit" style="background-color:#DCC8B0; color:white;" elevation="0" outlined>Search</v-btn>
+                                        </v-col>
+                                    </v-form>
+                                </v-col>
+                            </v-row>
+                            <br>
+                            <v-row class="justify-center">
+                                <v-col cols="12">
+                                    <v-data-table>
+                                        <thead>
+                                            <tr>
+                                                <th style="text-align: center; padding-left:50px;">Id</th>
+                                                <th style="text-align: center; padding-left:50px;">Menu Name</th>
+                                                <th style="text-align: center; padding-left:50px;">Menu Price</th>
+                                                <th></th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr class="text-center" v-for="p in menuList" :key="p.menuId">
+                                                <td class="id-column-value" style="padding-left:50px;" >{{ p.menuId }}</td>
+                                                <td class="name-column-value" style="padding-left:50px;">{{ p.menuName }}</td>
+                                                <td class="price-column-value" style="padding-left:50px;">{{ p.cost }}원</td>
+
+                                                <td class="col-action">
+                                                    <v-btn color="grey" @click="openEditMenuDialog(p)" elevation="0" outlined small>Modify</v-btn>
+                                                    <v-btn color="grey" @click="openDeleteMenuDialog(p.menuId)" elevation="0" outlined small>Delete</v-btn>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </v-data-table>
+                                </v-col>
+                            </v-row>
                         </v-card-text>
                     </v-card>
                 </v-col>
             </v-row>
+
             <!-- 추가 모달 -->
-            <AddMenuModal v-model="createDialog" @input="createDialog = $event" :menuData="createMenuData"
-                @create-menu="confirmCreateMenu" />
+            <AddMenuModal
+                v-model="createDialog"
+                @input="createDialog = $event"
+                :menuData="createMenuData"
+                @create-menu="confirmCreateMenu"
+            />
 
             <!-- 수정 모달 -->
-            <ModMenuModal v-model="editDialog" @input="editDialog = $event" :menuData="editMenuData"
-                @edit-menu="confirmEditMenu" />
+            <ModMenuModal
+                v-model="editDialog"
+                @input="editDialog = $event"
+                :menuData="editMenuData"
+                @edit-menu="confirmEditMenu"
+            />
 
             <!-- 삭제 확인 모달 -->
-            <DeleteModal v-model="deleteDialog" :menuId="menuIdToDelete" @delete-menu="confirmDeleteMenu" />
+            <DeleteModal
+                v-model="deleteDialog"
+                :menuId="menuIdToDelete"
+                @delete-menu="confirmDeleteMenu"
+            />
         </v-container>
     </div>
 </template>
 
 <script>
+import EmployeeView from '@/views/EmployeeView.vue';
 import axios from '@/axios'
 import { jwtDecode } from 'jwt-decode'
 import { useRouter } from 'vue-router'
 import ModMenuModal from '@/views/employee/dining/ModMenuModal.vue'
 import DeleteModal from '@/views/employee/dining/DeleteModal.vue'
 import AddMenuModal from '@/views/employee/dining/AddMenuModal.vue'
-import BackGround from '@/components/user/employee/EmployeeBasicComponent.vue'
 
 export default {
     components: {
+        EmployeeView,
         AddMenuModal,
         ModMenuModal,
         DeleteModal,
-        BackGround,
     },
     data() {
         return {
@@ -115,7 +146,7 @@ export default {
 
             deleteDialog: false,
             menuIdToDelete: null
-        }
+        };
     },
     mounted() {
         this.initialize()
@@ -216,18 +247,35 @@ export default {
             }
         }
     }
-}
+};
 </script>
 
 <style scoped>
-.main-container {
+.content-container {
+    background-color: white;
+    position: absolute;
+    width: 90%;
     max-width: 1200px;
-    margin-top: 120px;
+    height: 80%;
+    top: 55%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 10px;
+    overflow-y: auto;
+    flex-direction: column;
+    padding-left: 40px;
+    padding-right: 40px;
 }
 
-.search-bar {
-    margin-top: 20px;
-    margin-bottom: 16px;
+.confirmation-card {
+    padding: 20px;
+    border-radius: 8px;
+    border: none;
+    width: 100%;
+    box-sizing: border-box;
+    font-family: "Noto Serif KR", serif;
+    height: auto;
+    box-shadow: none;
 }
 
 .search-type {
@@ -235,52 +283,80 @@ export default {
     font-size: 0.5rem;
     line-height: 1.25rem;
 }
-
-.text-h5 {
-    font-size: 1.25rem;
+.confirmation-title {
+    font-size: 20px;
+    font-weight: bold;
+    color: #787878;
+    text-align: left;
+    border-bottom: 3px solid #787878;
+    font-family: "Noto Serif KR", serif;
+}
+.cardText {
+    margin-top:20px;
+}
+.formCustom {
+    margin-left: 20%;
+    margin-bottom: 8px;
+}
+.modSearch {
+    margin-top: -10px;
+}
+.tableCustom {
+    padding-left: 2%;
+}
+.section-title {
+    font-size: 17px;
+    font-weight: bold;
+    color: #787878;
+    padding-left: 17px;
+    padding-bottom: 20px;
+    font-family: "Noto Serif KR", serif;
 }
 
-.table-card {
-    border: none;
-    box-shadow: none;
+.tf {
+    margin-right: -20px;
+    padding-top: 20px;
 }
 
-/* 열 간격 조정 */
-.id-column {
-    padding-left: 150px;
+.search {
+    padding-top: 40px;
 }
 
-.name-column {
-    padding-left: 200px;
-    text-align: center;
+.searchrow {
+    margin-right: -20px;
+    margin-bottom: -40px;
 }
 
-.price-column {
-    padding-left: 200px;
+.v-radio-group {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    flex-direction: row;
 }
 
-.id-column-value {
-    padding-left: 150px;
-    border-bottom: 1px solid #e0e0e0;
+.v-radio {
+    margin-right: 10px;
 }
 
-.name-column-value {
-    padding-left: 200px;
-    text-align: center;
-    border-bottom: 1px solid #e0e0e0;
+.v-card-title {
+    padding: 0;
+    margin: 0;
 }
 
-.price-column-value {
-    padding-left: 200px;
-    border-bottom: 1px solid #e0e0e0;
-}
-
-.col-action {
-    padding-left: 150px;
+.data-label {
+    font-size: 14px;
+    font-weight: bold;
+    color: #787878;
     display: flex;
     justify-content: space-between;
     gap: -10px;
     /* 버튼 사이의 간격 */
     border-bottom: 1px solid #e0e0e0;
+    height: 100%;
+    padding-top: 40px;
+}
+
+.emailcol {
+    margin-right: -20px;
 }
 </style>
