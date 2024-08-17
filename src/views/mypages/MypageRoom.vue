@@ -7,21 +7,20 @@
           <MypageComponent />
           <v-col cols="9" justify="center">
             <v-card-title class="custom-title">
-              <h1>예약확인 취소</h1>
-              <p>객실 예약 내역을 확인하실 수 있습니다.</p>
+              <v-text style="font-size : 50px;">Room Reservation</v-text>
+              <p>온라인 예약에 한해 조회 가능합니다.</p>
               <v-col>
                 <v-card>
-                  <v-card-title class="custom-title">Room</v-card-title>
                   <v-card-text>
                     <v-data-table>
                       <thead>
                         <tr>
-                          <th style="text-align: center;">예약번호</th>
-                          <th style="text-align: center;">호텔</th>
-                          <th style="text-align: center;">객실</th>
-                          <th style="text-align: center;">체크인/<br />체크아웃</th>
-                          <th style="text-align: center;">예약상태</th>
-                          <th style="text-align: center;">상세정보</th>
+                          <th style="text-align: center;">Reservation Number</th>
+                          <th style="text-align: center;">Hotel</th>
+                          <th style="text-align: center;">Room</th>
+                          <th style="text-align: center;">Check-in<br />Check-out</th>
+                          <th style="text-align: center;">Reservation Status</th>
+                          <th style="text-align: center;">Detail</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -38,8 +37,8 @@
                               reserveState(room.checkInDate, room.checkOutDate)
                             }}
                           </td>
-                          <td style="text-align: center;">
-                            <v-btn>상세보기</v-btn>
+                          <td style="text-align: center; ">
+                            <v-btn style="color:#69586F; border: 0.5px solid #69586F;">Detail</v-btn>
                           </td>
                         </tr>
                       </tbody>
@@ -128,16 +127,16 @@ body,
 }
 
 .custom-title {
-  font-family: "Playfair Display", serif;
-  color: #787878;
+  font-family: "Noto Serif KR", serif;
+  color: #69586F;
   font-size: 20px;
 }
 
 .custom-title h1,
 ul li {
-  font-family: "Playfair Display", serif;
-  border-bottom: 4px solid;
-  color: black;
+  font-family: "Noto Serif KR", serif;
+  border-bottom: 1px solid;
+  color: #69586F;
 }
 
 .reserve-container {
@@ -222,7 +221,7 @@ ul li {
 }
 
 body {
-  font-family: Arial, sans-serif;
+  font-family: "Noto Serif KR", serif;
   margin: 0;
   padding: 0;
   background-color: #f8f8f8;
@@ -277,19 +276,17 @@ body {
 
 .v-btn {
   margin: 0;
-  font-family: "Playfair Display", serif;
-  background-color: #ded6f4;
-  border: none !important;
+  font-family: "Noto Serif KR", serif;
   box-shadow: none !important;
 }
 
 .v-btn:hover,
 .v-btn:active {
-  background: #ded6f4;
+  background: #FFFFFF;
 }
 
 .v-btn:visited {
-  background: #ded6f4;
+  background: #FFFFFF;
 }
 
 .custom-size {

@@ -1,48 +1,31 @@
 <template>
   <v-col cols="3" align-self="center">
-    <v-row class="sidebar">
-      <a href="/mypage"><h2>마이페이지</h2></a>
-      <ul>
-        <br />
-        <h3>예약 확인/취소</h3>
+    <v-row class="sidebar" style="padding-top: 250px;">
         <ul>
-          <li>
+          <li style="padding-bottom: 10px;padding-top: 10px;">
             <v-btn class="custom-size" :to="{ path: '/mypage/dining' }"
-              >다이닝</v-btn
+            style="color:#69586F; font-size: 18px; ">Dining</v-btn
             >
           </li>
-          <li>
-            <v-btn class="custom-size" :to="{ path: '/mypage/room' }"
-              >객실</v-btn
+          <li style="padding-bottom: 10px;padding-top: 10px;">
+            <v-btn class="custom-size" :to="{ path: '/mypage/room' }" style="color:#69586F; font-size: 18px;"
+              >Room</v-btn
             >
           </li>
-        </ul>
-        <br />
-        <h3>쿠폰</h3>
-        <ul>
-          <li><v-btn class="custom-size">쿠폰함</v-btn></li>
-          <li><v-btn class="custom-size">프로모션 숙박권</v-btn></li>
-        </ul>
-        <br />
-        <h3>내정보</h3>
-        <ul>
-          <li>
-            <v-btn class="custom-size">프로필 수정</v-btn>
-          </li>
-          <li>
-            <v-btn class="custom-size" :to="{path:'/mypage/updatepassword'}">비밀번호 변경</v-btn
+          <li style="padding-bottom: 10px;padding-top: 10px;">
+            <v-btn class="custom-size" :to="{path:'/mypage/updatepassword'}"  style="color:#69586F; font-size: 18px;">Pw Change</v-btn
             >
           </li>
-          <li>
-            <v-btn class="custom-size" @click="inquiryList">문의 내역</v-btn>
+          <li style="padding-bottom: 10px;padding-top: 10px;">
+            <v-btn class="custom-size" @click="inquiryList"  style="color:#69586F; font-size: 18px;">Inquiry</v-btn>
           </li>
-          <li>
+          <li style="padding-bottom: 10px;padding-top: 10px;">
             <v-btn class="custom-size" 
               :to="{path:'/mypage/delmember'}"
-            >회원 탈퇴</v-btn>
+               style="color:#69586F; font-size: 18px; "
+            >Withdrawel</v-btn>
           </li>
         </ul>
-      </ul>
     </v-row>
   </v-col>
 </template>
@@ -97,8 +80,8 @@ body,
 }
 .custom-title h2,
 ul li {
-  font-family: "Playfair Display", serif;
-  color: black;
+  font-family: "Noto Serif KR", serif;
+  
 }
 
 .reserve-container {
@@ -194,7 +177,7 @@ body {
   padding-top: 10px;
   width: 250px;
   height: 80vh;
-  background-color: #ded6f4;
+  
   padding: 20px;
   justify-self: center;
 }
@@ -232,19 +215,13 @@ body {
 }
 .v-btn {
   margin: 0;
-  font-family: "Playfair Display", serif;
-  background-color: #ded6f4;
+  font-family: "Noto Serif KR", serif;
+ 
   border: none !important;
   box-shadow: none !important;
   
 }
-.v-btn:hover,
-.v-btn:active{
-  background: #ded6f4;
-}
-.v-btn:visited{
-  background: #ded6f4;
-}
+
 .custom-size {
   width: 200px;
   height: 60px;

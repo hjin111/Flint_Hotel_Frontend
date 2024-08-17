@@ -6,12 +6,12 @@ import EmployeeLogin from '@/views/employee/EmployeeLogin.vue'
 import EmployeeCreate from '@/views/employee/EmployeeCreate.vue'
 import DiningMenu from '@/views/employee/dining/ManageMenu.vue'
 import EmployeeDiningDetailComponent from "@/components/user/employee/EmployeeDiningDetailComponent.vue";
+import EmployeeDiningModifyComponent from "@/components/user/employee/EmployeeDiningModifyComponent.vue";
 import EmployeeList from "@/components/user/employee/manageemployee/EmployeeList.vue";
 import EmployeeManage from "@/components/user/employee/manageemployee/EmployeeManage.vue";
-import EmployeeToMemberRoom from "@/components/user/employee/EmployeeToMemberRoom.vue";
-import EmployeeToMember from "@/components/user/employee/EmployeeToMember.vue";
-import EmployeeToMemberList from "@/components/user/employee/EmployeeToMemberList.vue";
-import EmployeeTaskComponent from "@/components/user/employee/EmployeeTaskComponent.vue"
+import EmployeeToMemberRoom from "@/components/user/employee/managemember/EmployeeToMemberRoom.vue";
+
+import EmployeeToMemberList from "@/components/user/employee/managemember/EmployeeToMemberList.vue";
 import EmployeeRoomPriceModify from "@/views/employee/room/EmployeeModRoomPrice.vue"
 import EmployeeQnaListComponent from "@/components/support/qna/EmployeeQnaListComponent.vue";
 import EmployeeQnaDetailComponent from "@/components/support/qna/EmployeeQnaDetailComponent.vue";
@@ -81,12 +81,6 @@ export const employeeRouter = [
         meta : {header: 'EmployeeHeaderComponent'}
     },
     {
-        path: '/employee/member',
-        name: 'EmployeeToMember',
-        component: EmployeeToMember,
-        meta : {header: 'EmployeeHeaderComponent'}
-    },
-    {
         path: '/employee/member/list',
         name: 'EmployeeToMemberList',
         component: EmployeeToMemberList,
@@ -99,6 +93,12 @@ export const employeeRouter = [
         meta : {header: 'EmployeeHeaderComponent'}
     },
     {
+        path: '/employee/dining/update/:diningReservationId',
+        name: 'EmployeeDiningModifyComponent',
+        component: EmployeeDiningModifyComponent,
+        meta : {header: 'EmployeeHeaderComponent'}
+    },
+    {
         path: '/employee/office', 
         name: 'EmployeeList',
         component: EmployeeList,
@@ -108,12 +108,6 @@ export const employeeRouter = [
         path: '/employee/office/manage', 
         name: 'EmployeeManage',
         component: EmployeeManage,
-        meta : {header: 'EmployeeHeaderComponent'}
-    },
-    {
-        path: '/employee/task',
-        name: 'EmployeeTaskComponent',
-        component: EmployeeTaskComponent,
         meta : {header: 'EmployeeHeaderComponent'}
     },
     {
