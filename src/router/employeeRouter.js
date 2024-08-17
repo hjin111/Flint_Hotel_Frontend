@@ -9,7 +9,9 @@ import EmployeeDiningDetailComponent from "@/components/user/employee/EmployeeDi
 import EmployeeList from "@/components/user/employee/manageemployee/EmployeeList.vue";
 import EmployeeManage from "@/components/user/employee/manageemployee/EmployeeManage.vue";
 import EmployeeToMemberRoom from "@/components/user/employee/managemember/EmployeeToMemberRoom.vue";
+import EmployeeToMember from "@/components/user/employee/managemember/EmployeeToMember.vue";
 import EmployeeToMemberList from "@/components/user/employee/managemember/EmployeeToMemberList.vue";
+import EmployeeTaskComponent from "@/components/user/employee/EmployeeTaskComponent.vue"
 import EmployeeRoomPriceModify from "@/views/employee/room/EmployeeModRoomPrice.vue"
 import EmployeeQnaListComponent from "@/components/support/qna/EmployeeQnaListComponent.vue";
 import EmployeeQnaDetailComponent from "@/components/support/qna/EmployeeQnaDetailComponent.vue";
