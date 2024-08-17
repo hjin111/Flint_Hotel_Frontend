@@ -81,12 +81,6 @@ export const employeeRouter = [
         meta : {header: 'EmployeeHeaderComponent'}
     },
     {
-        path: '/employee/member',
-        name: 'EmployeeToMember',
-        component: EmployeeToMember,
-        meta : {header: 'EmployeeHeaderComponent'}
-    },
-    {
         path: '/employee/member/list',
         name: 'EmployeeToMemberList',
         component: EmployeeToMemberList,
@@ -108,12 +102,6 @@ export const employeeRouter = [
         path: '/employee/office/manage', 
         name: 'EmployeeManage',
         component: EmployeeManage,
-        meta : {header: 'EmployeeHeaderComponent'}
-    },
-    {
-        path: '/employee/task',
-        name: 'EmployeeTaskComponent',
-        component: EmployeeTaskComponent,
         meta : {header: 'EmployeeHeaderComponent'}
     },
     {

@@ -74,7 +74,13 @@
                 this.$router.push('/mypage/qna/list');
                 
             } catch(e) {
-                console.log(e);
+                if (e.response) {
+                    console.error("Error Status:", e.response.status);  
+                    console.error("Error Data:", e.response.data); 
+                    alert(e.response.data.error_message);
+                } else {
+                    console.error("Error Message:", e.message);
+                }
             }
         }
         
