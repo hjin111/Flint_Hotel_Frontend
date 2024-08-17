@@ -17,8 +17,7 @@
                                             <div class="data-label">First name</div>
                                         </v-col>
                                         <v-col cols="12" md="9">
-                                            <v-text-field v-model="firstName"
-                                                readonly></v-text-field>
+                                            <v-text-field v-model="firstName" readonly></v-text-field>
                                         </v-col>
                                     </v-row>
                                     <v-row>
@@ -26,8 +25,7 @@
                                             <div class="data-label">Last name</div>
                                         </v-col>
                                         <v-col cols="12" md="9">
-                                            <v-text-field v-model="lastName" 
-                                                readonly></v-text-field>
+                                            <v-text-field v-model="lastName" readonly></v-text-field>
                                         </v-col>
                                     </v-row>
                                     <v-row>
@@ -35,8 +33,7 @@
                                             <div class="data-label">Email</div>
                                         </v-col>
                                         <v-col cols="12" md="9">
-                                            <v-text-field v-model="email" 
-                                                readonly></v-text-field>
+                                            <v-text-field v-model="email" readonly></v-text-field>
                                         </v-col>
                                     </v-row>
                                     <v-row>
@@ -44,8 +41,7 @@
                                             <div class="data-label">Phone num</div>
                                         </v-col>
                                         <v-col cols="12" md="9">
-                                            <v-text-field v-model="phoneNumber"
-                                                readonly></v-text-field>
+                                            <v-text-field v-model="phoneNumber" readonly></v-text-field>
                                         </v-col>
                                     </v-row>
                                 </v-col>
@@ -57,7 +53,7 @@
                                             <div class="data-label">Adult</div>
                                         </v-col>
                                         <v-col cols="12" md="7">
-                                            <v-text-field  readonly :value="`${adult}명`"></v-text-field>
+                                            <v-text-field v-model="adult"></v-text-field>
                                         </v-col>
                                     </v-row>
                                     <v-row>
@@ -65,15 +61,15 @@
                                             <div class="data-label">Child</div>
                                         </v-col>
                                         <v-col cols="12" md="7">
-                                            <v-text-field readonly :value="`${child}명`"></v-text-field>
+                                            <v-text-field v-model="child"></v-text-field>
                                         </v-col>
                                     </v-row>
                                     <v-row>
                                         <v-col cols="12" md="5">
-                                            <div class="data-label">Date Time </div>
+                                            <div class="data-label">Date Time</div>
                                         </v-col>
                                         <v-col cols="12" md="7">
-                                            <v-text-field  v-model="reservationDateTime"  readonly></v-text-field>
+                                            <v-text-field v-model="reservationDateTime"></v-text-field>
                                         </v-col>
                                     </v-row>
                                     <v-row>
@@ -81,17 +77,16 @@
                                             <div class="data-label">Comment</div>
                                         </v-col>
                                         <v-col cols="12" md="8">
-                                            <v-text-field v-model="comment" readonly></v-text-field>
+                                            <v-text-field v-model="comment"></v-text-field>
                                         </v-col>
                                     </v-row>
                                 </v-col>
                             </v-row>
                         </v-card-text>
-                          <!-- 버튼 추가 -->
-                          <v-card-actions class="d-flex justify-end">
-                            <v-btn style="background-color: #787878; color:#FFFFFF; width: 150px " @click="DiningModify($route.params.diningReservationId)">Modify</v-btn>
-                            <v-btn style="background-color: #787878; color:#FFFFFF; width: 150px " @click="DiningCancel">Cancel</v-btn>
-                        </v-card-actions>              
+                        <!-- 버튼 추가 -->
+                        <v-card-actions class="d-flex justify-end">
+                            <v-btn style="background-color: #787878; color:#FFFFFF; width: 200px" @click="modify">Modify Completed</v-btn>
+                        </v-card-actions>
                     </v-card>
                 </v-col>
             </v-row>
@@ -116,60 +111,72 @@ export default {
             lastName: "",
             email: "",
             phoneNumber: "",
-            memberId : "",
-            comment:"",
-            reservationDateTime: "" // 수정된 부분
+            comment: "",
+            reservationDateTime: ""  // reservationDateTime을 여기서 관리합니다.
         };
     },
     created() {
         this.fetchDiningDetails();
     },
     methods: {
-        async DiningModify(id){
-            this.$router.push({
-                path: `/employee/dining/update/${id}`
-            });
-        },
         async fetchDiningDetails() {
             try {
-              
+                // 라우트 파라미터에서 diningReservationId 가져오기
                 this.diningReservationId = this.$route.params.diningReservationId;
-                
+
+                // API 요청
                 const response = await axios.get(`${process.env.VUE_APP_API_BASE_URL}/employee/dining/detail/${this.diningReservationId}`);
                 
-                console.log(response.data.result);
-                const diningReseve = response.data.result;
+                const diningReserve = response.data.result;
 
                 // 날짜와 시간을 분리하여 저장
-                const [date, time] = diningReseve.reservationDateTime.split('T');
-                this.reservationDateTime = `${date} ${time}`;  // 수정된 부분
-                
-                this.firstName = diningReseve.firstname
-                this.lastName = diningReseve.lastname
-                this.email = diningReseve.email
-                this.phoneNumber = diningReseve.phoneNumber;
-                this.adult = diningReseve.adult;
-                this.child = diningReseve.child;
-                this.comment = diningReseve.comment
+                const [date, time] = diningReserve.reservationDateTime.split('T');
+                this.reservationDateTime = `${date} ${time}`;  // 날짜와 시간을 결합하여 표시
+
+                // 기타 정보 설정
+                this.firstName = diningReserve.firstname;
+                this.lastName = diningReserve.lastname;
+                this.email = diningReserve.email;
+                this.phoneNumber = diningReserve.phoneNumber;
+                this.adult = diningReserve.adult;
+                this.child = diningReserve.child;
+                this.comment = diningReserve.comment;
                
             } catch (error) {
                 console.error('Error fetching dining details:', error.response ? error.response.data : error.message);
             }
         },
-        async DiningCancel(){
+        async modify() {
             try {
                 const id = this.$route.params.diningReservationId;
-                await axios.get(`/employee/dining/cancel_reserve_dining/${id}`);
 
-                this.$router.push(`/employee/dining`);
-            } catch(e) {
-                console.log(e);
+                // 현재 reservationDateTime을 `YYYY-MM-DDTHH:MM:SS` 형식으로 변환
+                const [date, time] = this.reservationDateTime.split(' ');
+                const formattedDateTime = `${date}T${time}:00`;  // "00"은 초를 추가
+
+                const params = {
+                    adult: this.adult,
+                    child: this.child,
+                    comment: this.comment,
+                    reservationDateTime: formattedDateTime
+                };
+
+                console.log("params:", params);
+
+                // API 요청
+                const response = await axios.post(`${process.env.VUE_APP_API_BASE_URL}/employee/dining/update/${id}`, params);
+                console.log("response:", response.data.result);
+
+                // 수정 성공 시 detail 페이지로 이동
+                this.$router.push(`/employee/dining/detail/${id}`);
+            } catch (e) {
+                console.log("Error:", e.response ? e.response.data : e.message);
             }
-
         }
     }
 };
 </script>
+
 <style scoped>
 .content-container {
     background-color: white;
@@ -185,8 +192,6 @@ export default {
     flex-direction: column;
     padding-left: 40px;
     padding-right: 40px;
-   
-  
     overflow: scroll;
 }
 

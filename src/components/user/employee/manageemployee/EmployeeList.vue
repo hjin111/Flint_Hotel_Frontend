@@ -118,6 +118,9 @@ export default {
         },
     },
     async created() {
+        const response = await axios.get(`${process.env.VUE_APP_API_BASE_URL}/employee/list`);
+        this.employeeList = response.data.result
+        console.log(this.employeeList)
         this.fetchEmployees()
     },
     methods: {

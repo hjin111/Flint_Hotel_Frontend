@@ -1,6 +1,6 @@
 <template>
   <v-col cols="3" align-self="center">
-    <v-row class="sidebar" style="padding-top: 220px;">
+    <v-row class="sidebar" style="padding-top: 250px;">
         <ul>
           <li style="padding-bottom: 10px;padding-top: 10px;">
             <v-btn class="custom-size" :to="{ path: '/mypage/dining' }"
@@ -80,7 +80,7 @@ body,
 }
 .custom-title h2,
 ul li {
-  font-family: "Playfair Display", serif;
+  font-family: "Noto Serif KR", serif;
   
 }
 
@@ -215,8 +215,7 @@ body {
 }
 .v-btn {
   margin: 0;
-  font-family: "Playfair Display", serif;
- 
+  font-family: "Noto Serif KR", serif;
   border: none !important;
   box-shadow: none !important;
   
