@@ -38,7 +38,8 @@
                             }}
                           </td>
                           <td style="text-align: center; ">
-                            <v-btn style="color:#69586F; border: 0.5px solid #69586F;">Detail</v-btn>
+                            <v-btn style="color:#69586F; border: 0.5px solid #69586F;"
+                                @click="$router.push(`/mypage/room/detail/${room.id}`)">Detail</v-btn>
                           </td>
                         </tr>
                       </tbody>
@@ -77,6 +78,7 @@ export default {
         { headers }
       );
       this.roomList = response.data.content;
+      console.log(this.roomList)
     } catch (e) {
       console.log(e);
     }

@@ -4,6 +4,8 @@ import MypageRoom from "@/views/mypages/MypageRoom.vue";
 import MypageUpdatePassword from "@/views/mypages/MypageUpdatePassword.vue";
 import MypageDelMember from "@/views/mypages/MypageDelMember.vue";
 import MypageMain from "@/views/mypages/MypageMain.vue";
+import MypageRoomDetail from "@/views/mypages/MypageRoomDetail.vue";
+import MypageDiningDetail from "@/views/mypages/MypageDiningDetail.vue";
 
 export const mypageRouter = [
     // {
@@ -42,4 +44,16 @@ export const mypageRouter = [
         component: MypageMain,
         meta : {header: 'HeaderComponent'}
     },  
+    {
+        path: '/mypage/room/detail/:id',
+        name: 'MypageRoomDetail',
+        component: MypageRoomDetail,
+        meta : {header: 'HeaderComponent'}
+    }, 
+    {
+        path: '/mypage/dining/detail/:id',
+        name: 'MypageDiningDetail',
+        component: MypageDiningDetail,
+        meta : {header: 'HeaderComponent'}
+    },
 ]

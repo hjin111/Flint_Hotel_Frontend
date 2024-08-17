@@ -76,6 +76,7 @@ export default {
           email: email.value,
           password: password.value,
         })
+        localStorage.clear();
         const token = response.data.result[props.tokenName]
         localStorage.setItem(props.tokenName, token)
         alert(response.data.status_message)

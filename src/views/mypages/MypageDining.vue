@@ -38,7 +38,8 @@
                             {{ reserveState(dining.reservationDateTime) }}
                           </td>
                           <td style="text-align: center; ">
-                            <v-btn style="color:#69586F; border: 0.5px solid #69586F;">Detail</v-btn>
+                            <v-btn style="color:#69586F; border: 0.5px solid #69586F;"
+                              @click="$router.push(`/mypage/dining/detail/${dining.id}`)">Detail</v-btn>
                           </td>
                         </tr>
                       </tbody>

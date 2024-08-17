@@ -216,7 +216,6 @@ body {
 .v-btn {
   margin: 0;
   font-family: "Noto Serif KR", serif;
- 
   border: none !important;
   box-shadow: none !important;
   

@@ -6,27 +6,24 @@
                 <v-col cols="12" class="d-flex justify-center">
                     <v-card class="confirmation-card" style="width:1100px">
                         <v-card-title class="confirmation-title"> Employee List </v-card-title>
+                        <br>
                         <v-card-text>
-                            <v-row>
-                                <!-- <v-col cols="12" md="7">
-                                    <v-row>
-                                        <v-col cols="12" md="3">
-                                            <div class="data-label">검색(부서)</div>
-                                        </v-col>
-                                        <v-col cols="12" md="6">
-                                            <v-text-field v-model="email" style="padding-top: 20px;"></v-text-field>
-                                        </v-col>
-                                        <v-col cols="12" md="2" class="search">
-                                            <v-btn @click="searchMember()">검색</v-btn>
-                                        </v-col>
-                                    </v-row>
-                                </v-col> -->
-                                <v-col cols="12" class="justify-end">
-                                    <v-row style="padding-top: 30px;">
-                                        <v-col>
-                                            <v-btn>직원 등록</v-btn>
-                                        </v-col>
-                                    </v-row>
+                            <!-- 검색 바 추가 -->
+                            <v-row class="d-flex justify-content-between align-items-center search-bar">
+                                <v-col cols="2">
+                                    <v-select v-model="searchType" :items="searchOptions" item-title="text"
+                                        item-value="value" dense hide-details class="search-type">
+                                    </v-select>
+                                </v-col>
+                                <v-col cols="6">
+                                    <v-text-field v-model="searchValue" label="검색어 입력" dense hide-details>
+                                    </v-text-field>
+                                </v-col>
+                                <v-col cols="auto">
+                                    <v-btn @click="searchEmployees" color="grey" elevation="0" outlined>검색</v-btn>
+                                </v-col>
+                                <v-col cols="auto">
+                                    <v-btn @click="createEmployee" color="grey" elevation="0" outlined>직원 추가</v-btn>
                                 </v-col>
                             </v-row>
                             <br>
@@ -35,8 +32,9 @@
                                     <v-data-table class="elevation-1">
                                         <thead>
                                             <tr>
-                                                <th style="text-align: center;">Id</th>
+                                                <!-- <th style="text-align: center;">Id</th> -->
                                                 <th style="text-align: center;">Employee Number</th>
+                                                <th style="text-align: center;">Email</th>
                                                 <th style="text-align: center;">Name</th>
                                                 <th style="text-align: center;">
                                                     <select id="departmentSelect" @change="onDepartmentChange"
@@ -54,14 +52,14 @@
                                         <tbody>
                                             <tr class="text-center" v-for="employee in filteredDepartment"
                                                 :key="employee.id">
-                                                <td>{{ employee.id }}</td>
-                                                <td>{{ employee.empNo }}</td>
-                                                <td>{{ employee.name }}</td>
+                                                <!-- <td>{{ employee.id }}</td> -->
+                                                <td>{{ employee.employeeNumber }}</td>
+                                                <td>{{ employee.email }}</td>
+                                                <td>{{ employee.firstName + " " + employee.lastName }}</td>
                                                 <td>{{ employee.department }}</td>
-                                                <td>
-                                                    <v-btn
-                                                        :to="{ path: './office/manage', query: { id: employee.id } }">Detail</v-btn>
-                                                </td>
+                                                <v-btn
+                                                    :to="{ path: './office/manage', query: { id: employee.id } }">Detail
+                                                </v-btn>
                                             </tr>
                                         </tbody>
                                     </v-data-table>
@@ -76,8 +74,9 @@
 </template>
 
 <script>
-import EmployeeView from '@/views/EmployeeView.vue';
-import axios from '@/axios';
+import EmployeeView from '@/views/EmployeeView.vue'
+import axios from '@/axios'
+import { useRouter } from 'vue-router'
 
 export default {
     components: {
@@ -85,8 +84,19 @@ export default {
     },
     data() {
         return {
-            employeeList: [],
-            selectedDepartment: "",
+            employee: [],
+            filteredEmployees: [],  // 필터링된 결과를 저장
+            searchType: '',
+            searchValue: '',
+            searchOptions: [
+                { text: '선택', value: '' },
+                { text: '직원 번호', value: 'employeeNumber' },
+                { text: '부서', value: 'department' },
+                { text: '이메일', value: 'email' },
+            ],
+            selectedEmployee: null,
+            modalMessage: '',
+            router: useRouter(),
             departments: [
                 { id: 1, name: 'Office' },
                 { id: 2, name: 'KorDining' },
@@ -94,24 +104,42 @@ export default {
                 { id: 4, name: 'JapDining' },
                 { id: 5, name: 'Lounge' },
                 { id: 6, name: 'Room' },
-            ]
-        };
+            ],
+            selectedDepartment: "",
+        }
+    },
+    computed:{
+        filteredDepartment() {
+            console.log(this.selectedDepartment)
+            if (!this.selectedDepartment) {
+                return this.filteredEmployees
+            }
+            return this.filteredEmployees.filter(employee => employee.department === this.selectedDepartment);
+        },
     },
     async created() {
         const response = await axios.get(`${process.env.VUE_APP_API_BASE_URL}/employee/list`);
         this.employeeList = response.data.result
         console.log(this.employeeList)
-    },
-    computed: {
-        filteredDepartment() {
-            console.log(this.selectedDepartment)
-            if (!this.selectedDepartment) {
-                return this.employeeList
-            }
-            return this.employeeList.filter(employee => employee.department === this.selectedDepartment);
-        },
+        this.fetchEmployees()
     },
     methods: {
+        async fetchEmployees() {
+            const response = await axios.get(`/employee/list`)
+            this.employee = response.data.result
+            this.filteredEmployees = this.employee.filter(emp => emp.delYN === 'N')
+        },
+        searchEmployees() {
+            if (!this.searchType || !this.searchValue) {
+                this.filteredEmployees = this.employee.filter(emp => emp.delYN === 'N')
+                return
+            }
+
+            this.filteredEmployees = this.employee.filter((emp) => {
+                const field = emp[this.searchType] ? emp[this.searchType].toString().toLowerCase() : ''
+                return emp.delYN === 'N' && field.includes(this.searchValue.toLowerCase())
+            });
+        },
         onDepartmentChange(event) {
             this.selectedDepartment = event.target.value;
         },
@@ -119,9 +147,12 @@ export default {
             // $route.query를 통해 쿼리 파라미터에 접근
             console.log(this.$router.query.id);
             return this.$route.query.id;
+        },
+        createEmployee(){
+            this.router.push('/employee/create')
         }
     }
-};
+}
 </script>
 
 <style scoped>
