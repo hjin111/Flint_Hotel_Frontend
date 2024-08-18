@@ -19,7 +19,7 @@
             </v-col>
             <v-col class="d-flex justify-end">
               <v-btn :to="{path:'/employee/dining'}">Dining</v-btn>
-              <v-btn :to="{path:'/employee/room'}">Room</v-btn>
+              <v-btn :to="{path:'/employee/room'}">Room({{ newReservationCount }})</v-btn>
             </v-col>
         </v-row>
 
@@ -69,6 +69,8 @@
   <script>
 import { jwtDecode } from 'jwt-decode';
 import { useRouter } from 'vue-router';
+// sse
+import { EventSourcePolyfill } from 'event-source-polyfill';
 
   export default {
     data(){
@@ -79,6 +81,31 @@ import { useRouter } from 'vue-router';
         dialogManage: false,
         isLogin : false,
         router: useRouter(),
+        employeeDepartment: null,
+        newReservationCount: 0
+      }
+    },
+    created() {
+      const token = localStorage.getItem("employeetoken");
+      if (token) {
+        // 토큰이 있으면 정상 
+        this.isLogin = true
+        const decodedToken = jwtDecode(token)
+
+        this.employeeDepartment = decodedToken.department // department 꺼내담기 
+        console.log("부서 : ", this.employeeDepartment);
+      }
+      if (this.employeeDepartment === 'Room') {
+        let sse = new EventSourcePolyfill(`${process.env.VUE_APP_API_BASE_URL}/subscribe`,  {headers: {Authorization: `Bearer ${token}`}});
+        sse.addEventListener('connect', (event) => {
+          console.log(event);
+        })
+
+        // 객실 예약이 들어오는 것 listen 
+        sse.addEventListener('booked', (event) => {
+          console.log('새로운 객실 예약이 들어왔습니다. :', event.data);
+          this.newReservationCount += 1; 
+        });
       }
     },
     mounted() {
