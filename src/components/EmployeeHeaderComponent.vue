@@ -19,7 +19,7 @@
             </v-col>
             <v-col class="d-flex justify-end">
               <v-btn :to="{path:'/employee/dining'}">Dining</v-btn>
-              <v-btn :to="{path:'/employee/room'}">Room({{ newReservationCount }})</v-btn>
+              <v-btn @click="openReservationModal">Room({{ newReservationCount }})</v-btn>
             </v-col>
         </v-row>
 
@@ -62,6 +62,31 @@
             </v-card-text>
           </v-card>
          </v-dialog>
+
+         <!-- 객실 예약 알림 모달창 -->
+         <v-dialog v-model="dialogSSE" max-width="600px">
+            <v-card style="font-family: Playfair Display, serif; padding-left:15px;
+            padding-top:15px;">
+              <v-card-title class="headline">New Reservations</v-card-title>
+              <v-card-text>
+                <div v-if="newReservationCount === 0" style="font-family: Noto Serif KR, serif;">
+                  새로운 예약이 없습니다.
+                </div>
+                <div v-else>
+                  <ul>
+                    <li v-for="reservation in recentReservations" :key="reservation.id" style="font-family: Noto Serif KR, serif;"
+                    @click="goToReservationDetail(reservation.id)">
+                      [{{ reservation.roomType }}] : Check-in {{ reservation.checkInDate }} ~ Check-out {{ reservation.checkOutDate }}
+                    </li>
+                  </ul>
+                </div>
+              </v-card-text>
+              <v-card-actions>
+                <!-- <v-btn @click="goToRoomReservationDetails">Details</v-btn> -->
+                <v-btn @click="closeReservationModal">Close</v-btn>
+              </v-card-actions>
+            </v-card>
+          </v-dialog>
       </v-container>
     </v-app-bar>    
   </template>
@@ -79,10 +104,12 @@ import { EventSourcePolyfill } from 'event-source-polyfill';
         manage: "",
         dialogMember: false,
         dialogManage: false,
+        dialogSSE: false,
         isLogin : false,
         router: useRouter(),
         employeeDepartment: null,
-        newReservationCount: 0
+        newReservationCount: 0,
+        recentReservations: []
       }
     },
     created() {
@@ -105,6 +132,7 @@ import { EventSourcePolyfill } from 'event-source-polyfill';
         sse.addEventListener('booked', (event) => {
           console.log('새로운 객실 예약이 들어왔습니다. :', event.data);
           this.newReservationCount += 1; 
+          this.recentReservations.push(JSON.parse(event.data));
         });
       }
     },
@@ -144,6 +172,22 @@ import { EventSourcePolyfill } from 'event-source-polyfill';
             console.log("hihi");
             this.dialogManage = false;
       },
+      openReservationModal() {
+        this.dialogSSE = true;
+      },
+      closeReservationModal() {
+        this.dialogSSE = false;
+        this.$router.push(`/employee/room`);
+      },
+      goToReservationDetail(reservationId) {
+        // detail 조회를 위해 선택한 예약만 제거 (조회한 예약id와 같지 "않은" 것만 남겨두기)
+        this.recentReservations = this.recentReservations.filter(reservation => reservation.id !== reservationId);
+        // 남은 개수 갱신
+        this.newReservationCount = this.recentReservations.length;
+
+        this.dialogSSE = false;
+        this.$router.push(`/employee/room/${reservationId}`);
+      }
     }
   };
   </script>
