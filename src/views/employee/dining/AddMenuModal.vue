@@ -1,15 +1,15 @@
 <template>
     <v-dialog v-model="dialog" max-width="400px">
-        <v-card>
-            <v-card-title>메뉴 추가</v-card-title>
+        <v-card class="mainCustom">
+            <v-card-title style="text-align:center">Add Menu</v-card-title>
             <v-card-text>
                 <v-form @submit.prevent="confirmCreateMenu">
                     <v-text-field v-model="localMenuData.menuName" label="메뉴명" class="menuName" required></v-text-field>
                     <v-text-field v-model="localMenuData.cost" label="가격" class="menuPrice" :min="0" type="number" required></v-text-field>
                     <v-card-actions>
-                        <v-row style="display: flex; justify-content: center;">
-                            <v-btn class="submitButton" type="submit" style="width:80px">저장</v-btn>
-                            <v-btn class="cancelButton" @click="closeDialog" style="width:80px">취소</v-btn>
+                        <v-row style="margin-left:30px;">
+                            <v-btn class="submitButton" type="submit" style="width:90px">Submit</v-btn>
+                            <v-btn class="cancelButton" @click="closeDialog" style="width:90px">Cancel</v-btn>
                         </v-row>
                     </v-card-actions>
                 </v-form>
@@ -59,6 +59,10 @@ export default {
 </script>
 
 <style scoped>
+.mainCustom {
+    font-family: "Noto Serif KR", serif;
+    border-radius: 10px;
+}
 .menuName{
     font-size: 14px;
 }

@@ -4,7 +4,7 @@
       <v-container class="dining-contianer">
         <v-row justify="center">
           <v-col>
-            <v-card>
+            <v-card style="padding-bottom: 20px; margin-top: 20px ; height : 600px">
               <v-card-title class="text-center text-h5" style=" font-family: Noto Serif KR, serif; font-weight: 600; ">
                 DINING RESERVATION
               </v-card-title>
@@ -39,12 +39,12 @@
                     </tbody>
                   </v-table>
   
-                  <v-card class="weatherview" style="margin-top: 10px; display: none; padding-bottom: 20px;">
+                  <v-card class="weatherview" style="margin-top: 30px; display: none; padding-bottom: 20px;">
                     <v-card-text>
                       <v-row>
                         <v-col cols="5" style="padding-left: 50px">
                           <v-calendar
-                            v-model:date="selectedDate"
+                            v-model="selectedDate"
                             :attributes="calendarAttributes"
                             is-range
                             is-month-picker
@@ -56,6 +56,7 @@
                         <v-col cols="6" class="d-flex flex-column">
                           <v-text-field
                             label="시간입력"
+                            placeholder="입력 예시) 07:00 ( 시:분 입력해주세요 )"
                             type="text"
                             required
                             dense
@@ -100,8 +101,8 @@
         selectedDate: null,
         timeInput: '',
         calendarAttributes: [], 
-        adult: null,
-        child: null,
+        adult: 0,
+        child: 0,
         diningId: null,
         comment: '',
         memberId: null, // memberId 저장을 위한 변수 추가
@@ -118,54 +119,90 @@
         elements[0].style.display = 'block';
       },
       handleDateChange(date) {
-        console.log("Date received:", date);
-        this.selectedDate = date;
-        console.log("Selected Date:", this.selectedDate);
-      },
-      
-    
-      async diningReservation() {
+      const today = new Date();
+      this.selectedDate = date;
+      console.log("Selected Date:", this.selectedDate);
 
+      if (this.selectedDate < today) {
+        alert("예약할 수 없는 날짜입니다.");
+        this.selectedDate = null; // 날짜를 선택하지 않은 상태로 되돌립니다.
+        return;
+      }
+    },
+      async diningReservation() {
         const token = localStorage.getItem('membertoken');
         console.log(token);
-            if (token) {
 
-            const decodedToken = jwtDecode(token);
-            this.memberId = decodedToken.id;
-            console.log('Fetched Member ID:', this.memberId );
-            const reservationDateTime = `${this.selectedDate.id}`+"T"+`${this.timeInput}:00 `;
-
-            const reservationData = {
-            adult: this.adult,
-            child: this.child,
-            diningId: this.diningId,
-            reservationDateTime: reservationDateTime,
-            comment: this.comment,
-            memberId: this.memberId, // memberId 추가
-            };
-
-            console.log(localStorage.getItem('membertoken'));
-            console.log(reservationData);
-
-            try{
-                await axios.post(`/reserve/dining/create`, reservationData);
-                alert('예약이 완료되었습니다.');
-                this.$router.push({
-                        path: '/reserve/dining/success',
-                        query: {
-                            diningId: this.diningId,
-                            adult: this.adult,
-                            child: this.child,
-                            reservationDateTime: reservationDateTime
-                        }
-                    });
-            
-            }catch(e){
-                console.log(e);
-            }
-           
+        if (!token) {
+          alert("로그인이 필요합니다. 로그인 후 다시 시도해주세요.");
+          return;
         }
-      },
+
+        const decodedToken = jwtDecode(token);
+        this.memberId = decodedToken.id;
+        console.log('Fetched Member ID:', this.memberId);
+
+        if (!this.memberId) {
+          alert("회원 정보를 불러오지 못했습니다. 다시 로그인해주세요.");
+          return;
+        }
+
+        if (!this.diningId) {
+          alert("다이닝 종류를 선택해주세요.");
+          return;
+        }
+
+        if (!this.adult && !this.child) {
+          alert("성인 또는 아동 인원을 입력해주세요.");
+          return;
+        }
+
+        if (!this.selectedDate) {
+          alert("날짜를 선택해주세요.");
+          return;
+        }
+
+        if (!this.timeInput) {
+          alert("예약 시간을 입력해주세요.");
+          return;
+        }
+
+        const reservationDateTime = `${this.selectedDate.id}T${this.timeInput}:00`;
+
+        const reservationData = {
+          adult: this.adult,
+          child: this.child,
+          diningId: this.diningId,
+          reservationDateTime: reservationDateTime,
+          comment: this.comment,
+          memberId: this.memberId,
+        };
+
+        console.log(localStorage.getItem('membertoken'));
+        console.log(reservationData);
+
+        try {
+          // eslint-disable-next-line no-unused-vars
+          const response = await axios.post(`/reserve/dining/create`, reservationData);
+          alert('예약이 완료되었습니다.');
+          this.$router.push({
+            path: '/reserve/dining/success',
+            query: {
+              diningId: this.diningId,
+              adult: this.adult,
+              child: this.child,
+              reservationDateTime: reservationDateTime
+            }
+          });
+        } catch (e) {
+          if (e.response && e.response.data && e.response.data.error_message) {
+            alert(`에러 발생: ${e.response.data.error_message}`);
+          } else {
+            alert("알 수 없는 에러가 발생했습니다. 다시 시도해주세요.");
+          }
+          console.log(e);
+        }
+      }
     },
   };
 </script>

@@ -69,7 +69,7 @@ export default {
             diningReservations: [],
             diningDate: "",
             diningTime: "",
-           
+            diningReserve:[],
         };
     },
     methods: {

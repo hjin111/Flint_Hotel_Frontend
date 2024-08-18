@@ -11,9 +11,9 @@
     <v-container>
       <v-row>
         <v-btn text style="font-size: 13px; color:#FFFFFF; margin-left:auto; margin-right:-20px;" v-if="!isLogin" @click="login()">LOGIN</v-btn>
-        <v-btn text style="font-size: 13px; color:#FFFFFF; margin-right:-20px;" v-if="!isLogin">JOIN</v-btn>
+        <v-btn text style="font-size: 13px; color:#FFFFFF; margin-right:-20px;" v-if="!isLogin" @click="$router.push('/member/signup')">JOIN</v-btn>
         <v-btn text style="font-size: 13px; color:#FFFFFF; margin-left:auto; margin-right:-20px;" v-if="isLogin"
-          :to="{path:`./mypage`}">MYPAGE</v-btn>
+          :to="{path:`/mypage`}">MYPAGE</v-btn>
         <!-- 바로 위, 아래 수정 -->
         <v-btn text style="font-size: 13px; color:#FFFFFF; margin-right:-20px;" v-if="isLogin" @click="logout()">LOGOUT</v-btn>
         <v-btn text style="font-size: 13px; color:#FFFFFF; margin-right:-20px;" @click="$router.push('/mypage/qna/list')">INQUIRY</v-btn>
@@ -32,22 +32,63 @@
     <v-container>
       <v-row justify="center" style="padding-right: 30px;">
         <v-btn text style="color:#FFFFFF">INTRODUCE</v-btn>
-        <v-btn text style="color:#FFFFFF">RESERVATION</v-btn>
+        <v-btn text style="color:#FFFFFF" @click="openReservationDialog">RESERVATION</v-btn>
         <v-btn text style="font-size: 40px; color:#FFFFFF" @click="$router.push('/')">FLINT HOTEL</v-btn>
-        <v-btn text style="color:#FFFFFF" :to="{path:'/reserve/dining/create'}">DINING</v-btn>
+        <v-btn text style="color:#FFFFFF">DINING</v-btn>
         <v-btn text style="color:#FFFFFF">ROOM</v-btn>
       </v-row>
+
+      <!-- reservation 클릭 후 > 모달창 -->
+      <v-dialog v-model="dialogReservation" max-width="400px">
+          <v-card style="border: none;">
+            <div style="background-color: #D5DCEA; height: 50px; border-radius: 4px 4px 0 0;"></div>
+            <v-card-text class="cardText" style="padding: 24px;">
+              <v-row class="button-row" justify="center">
+                <v-col cols="6" md="6" class="d-flex justify-center">
+                  <v-btn class="custom-btn" size="large" style="color: black; background-color: white; border-color: #D5DCEA; border-width: 3px;
+                  padding-top:10px; padding-bottom:30px; width: 100%; max-width: 160px; box-shadow: none;" @click="RoomReservationBtn">Room</v-btn>
+                </v-col>
+                <v-col cols="6" md="6" class="d-flex justify-center">
+                  <v-btn class="custom-btn" size="large" style="color: black; background-color: white; border-color: #D5DCEA; border-width: 3px;
+                  padding-top:10px; padding-bottom:30px; width: 100%; max-width: 160px; box-shadow: none;" @click="DiningReservationBtn">Dining</v-btn>
+                </v-col>
+              </v-row>
+            </v-card-text>
+          </v-card>
+         </v-dialog>
+
+        <!-- 대기열 위치를 보여주는 다이얼로그 -->
+        <v-dialog v-model="showQueuePositionDialog" max-width="400px">
+          <v-card>
+            <v-card-title>대기열 상태</v-card-title>
+            <v-card-text>
+              <p>현재 대기 순서: {{ currentPosition }}번째 입니다.</p>
+            </v-card-text>
+            <v-card-actions>
+              <v-btn @click="handleDialogClose">닫기</v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
+
     </v-container>
   </v-app-bar>
 </div>
 </template>
 
 <script>
+import axios from '@/axios'
+import { jwtDecode } from 'jwt-decode'
+
 export default {
     data(){
         return{
             isLogin : false,
             isScrolled: false, 
+            dialogReservation: false,
+            showQueuePositionDialog: false, // 대기열 모달을 위한 변수
+            currentPosition: null, // 현재 대기열 위치를 저장하는 변수
+            requestId: null,
+            eventSource: null, // SSE 연결을 관리하는 변수
         }
     },
     mounted() {
@@ -56,26 +97,150 @@ export default {
     },
     beforeUnmount() {
         window.removeEventListener("scroll", this.handleScroll);
+        this.closeSSEConnection() // 컴포넌트가 파괴될 때 SSE 연결 종료
     },
     methods: {
-    handleScroll() {
-      this.isScrolled = window.scrollY > 50;
-    },
-    checkLoginStatus() {
-      const token = localStorage.getItem('membertoken');
+      handleScroll() {
+        this.isScrolled = window.scrollY > 50;
+      },
+      checkLoginStatus() {
+        const token = localStorage.getItem('membertoken');
+        if(token){
+            this.isLogin = true // 토큰이 존재하면 로그인 상태로 설정
+        }
+      },
+      logout() {
+        localStorage.removeItem('membertoken') // 토큰 제거
+        this.isLogin = false // 로그아웃 상태로 설정
+        this.$router.push("/")
+      },
+      login() {
+        this.$router.push("/member/login")
+      },
+      openReservationDialog() {
+        this.dialogReservation = true;
+      },
+      async RoomReservationBtn() {
+      const token = localStorage.getItem('membertoken')
+
       if(token){
-          this.isLogin = true // 토큰이 존재하면 로그인 상태로 설정
+        try {
+          const decodedToken = jwtDecode(token)
+          const email = decodedToken.sub
+          const response = await axios.post('/submit', null, { params: { email: email } })
+
+          if (response.data && response.data.status_code === 200) {
+            const { requestId, position } = response.data.result
+
+            this.requestId = requestId
+            this.currentPosition = position
+
+            // 대기열 위치가 50 미만일 경우 예약 페이지로 이동
+            if (this.currentPosition < 50) {
+              this.dialogReservation = false  // 예약 모달을 닫고
+              this.showQueuePositionDialog = false // 대기열 모달 닫기
+              this.closeSSEConnection() // SSE 연결 종료
+              this.$router.push(`/reserve/room`)
+            } else {
+              // 대기열 위치가 50 이상일 경우 대기열 모달을 열고 SSE 연결 시작
+              this.dialogReservation = false  // 예약 모달을 닫고
+              this.showQueuePositionDialog = true  // 대기열 모달 열기
+              this.startQueueCheck()  // 대기열 위치 체크 시작
+            }
+          } else {
+            alert(`요청 처리에 실패했습니다. 메시지: ${response.data.status_message}`)
+          }
+        } catch (error) {
+          console.error('Error while submitting request:', error)
+          alert('요청 처리 중 오류가 발생했습니다.')
+        }
+      } else{
+          this.$router.push(`/member/login`)
       }
     },
-    logout() {
-      localStorage.removeItem('membertoken') // 토큰 제거
-      this.isLogin = false // 로그아웃 상태로 설정
-      this.$router.push("/")
+    startQueueCheck() {
+        const token = localStorage.getItem('membertoken')
+
+        if (token) {
+            const decodedToken = jwtDecode(token)
+            const email = decodedToken.sub
+
+            // SSE 연결을 초기화하고 이메일을 쿼리 파라미터로 전달
+            this.eventSource = new EventSource(`http://localhost:8080/subscribe?email=${encodeURIComponent(email)}`)
+
+            this.eventSource.onopen = () => {
+                // console.log("SSE 연결이 성공적으로 열렸습니다:", this.eventSource.url)
+            }
+
+            // console.log("SSE EventSource 객체:", this.eventSource)
+
+            // "현재 위치" 이벤트 리스너 등록
+            this.eventSource.addEventListener('현재 위치', (event) => {
+                // console.log("SSE 메시지 수신 (현재 위치 이벤트):", event)
+                const data = event.data
+
+                // 데이터에서 대기 순서를 추출하는 로직
+                const positionMatch = data.match(/(\d+)/) // "나의 대기 순서: xxx번째"에서 숫자만 추출
+
+                if (positionMatch) {
+                    this.currentPosition = parseInt(positionMatch[0])
+                    // console.log("현재 위치 업데이트:", this.currentPosition)
+
+                    // 대기열 위치가 50 미만일 경우 예약 페이지로 이동
+                    if (this.currentPosition < 50) {
+                        this.handleDialogClose()  
+                        this.closeSSEConnection()
+                        this.$router.push(`/reserve/room`)
+                    }
+                } else {
+                    // console.warn("메시지에서 대기 순서를 추출하지 못했습니다:", data)
+                }
+            })
+
+            this.eventSource.onerror = (error) => {
+                console.error('SSE 연결 오류 발생:', error);
+                if (this.eventSource.readyState === EventSource.CLOSED) {
+                    // console.log('SSE 연결이 종료되었습니다.')
+                }
+                this.closeSSEConnection()
+            }
+
+            // 추가 확인용 로그
+            // console.log("SSE 핸들러가 등록되었습니다.")
+        } else {
+            this.$router.push(`member/login`)
+            // console.error('토큰이 없습니다. SSE 연결을 초기화할 수 없습니다.')
+        }
     },
-    login() {
-      this.$router.push("/member/login")
+    closeSSEConnection() {
+        if (this.eventSource) {
+            this.eventSource.close()
+            // console.log('SSE 연결이 종료되었습니다.')
+            this.eventSource = null // 연결 종료 후 변수 초기화
+        }
+    },
+    handleDialogClose() {
+        this.closeSSEConnection() // SSE 연결 종료
+
+        if (this.requestId) {
+          axios.delete(`/leave/${this.requestId}`)
+          .then(response => {
+              if (response.status === 204) {
+                  this.requestId = ""
+                  console.log('Successfully left the queue.')
+                  this.showQueuePositionDialog = false
+              } else {
+                  console.error('Unexpected response status:', response.status)
+                  alert('대기열에서 나가는 중 오류가 발생했습니다.')
+              }
+          })
+          .catch(error => {
+              console.error('Error while leaving the queue:', error)
+              alert('대기열에서 나가는 중 오류가 발생했습니다.')
+          })
+        }
     }
-  }
+  },
 };
 </script>
 

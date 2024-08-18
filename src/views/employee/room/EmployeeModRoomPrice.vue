@@ -1,45 +1,46 @@
 <template>
-    <BackGround />
-    <v-container class="main-container">
-        <v-row justify="center" align="center" class="box-container">
-            <v-col cols="12" class="departmentHeader">
-                객실 가격 관리
-            </v-col>
-            <v-simple-table>
-                <tbody>
-                    <tr v-for="r in reversedRoomList" :key="r.id">
-                        <td class="name-column-value">{{ r.roomTypeName }}</td>
-                        <td class="price-column-value">
-                            <v-text-field
-                                v-model="r.roomTypePrice"
-                                solo
-                                dense
-                                hide-details
-                                type="number"
-                                :readonly="!editMode"
-                            />
-                        </td>
-                    </tr>
-                </tbody>
-            </v-simple-table>
-            <v-col cols="12" class="menuButton">
-                <v-btn color="primary" @click="toggleEditMode">
-                    {{ editMode ? '저장' : '수정' }}
-                </v-btn>
-            </v-col>
-        </v-row>
-    </v-container>
+    <div>
+        <EmployeeView />
+        <v-container class="content-container">
+            <v-card class="vCard">
+                <v-card-title class="vCardTitle">객실 가격 관리</v-card-title>
+                <v-card-text class="vCardText">
+                    <tbody>
+                        <tr v-for="r in reversedRoomList" :key="r.id">
+                            <td>{{ r.roomTypeName }}</td>
+                            <td style="padding-top:10px; padding-left:10px;">
+                                <v-text-field
+                                    v-model="r.roomTypePrice"
+                                    solo
+                                    dense
+                                    hide-details
+                                    type="number"
+                                    :readonly="!editMode"
+                                />
+                            </td>
+                        </tr>
+                    </tbody>
+                    <br>
+                    <v-btn class="vBtn" @click="toggleEditMode" 
+                    style="margin-left:-20px; color: white; background-color:#7A6C5B"
+                    block>
+                        {{ editMode ? 'Submit' : 'Modify' }}
+                    </v-btn>
+                </v-card-text>
+            </v-card>
+        </v-container>
+    </div>
 </template>
 
 <script>
+import EmployeeView from '@/views/EmployeeView.vue';
 import axios from '@/axios'
 import { jwtDecode } from 'jwt-decode'
 import { useRouter } from 'vue-router'
-import BackGround from '@/components/user/employee/EmployeeBasicComponent.vue'
 
 export default {
     components: {
-        BackGround
+        EmployeeView
     },
     data() {
         return {
@@ -47,7 +48,7 @@ export default {
             router: useRouter(),
             roomList: [],
             editMode: false,  // 수정 모드 상태 관리
-        }
+        };
     },
     computed: {
         reversedRoomList() {
@@ -59,12 +60,13 @@ export default {
     },
     methods: {
         async initialize() {
+            console.log("hihi");
             const token = localStorage.getItem('employeetoken')
             if (token) {
                 const decodedToken = jwtDecode(token)
                 this.department = decodedToken.department
 
-                if(this.department === 'Room'){
+                if (this.department === 'Room') {
                     const response = await axios.get(`/employee/room/roominfo`)
                     this.roomList = response.data.result
                 } else {
@@ -86,7 +88,7 @@ export default {
         },
         async savePrices() {
             try {
-                const requests = this.roomList.map(room => 
+                const requests = this.roomList.map(room =>
                     axios.patch(`/employee/room/modprice/${room.id}`, { newPrice: room.roomTypePrice })
                 );
                 await Promise.all(requests);
@@ -98,32 +100,38 @@ export default {
             }
         }
     }
-}
+};
 </script>
 
 <style scoped>
-.main-container {
-    max-width: 1200px;
-    padding-top: 360px; 
-    position: relative;
-}
-.box-container {
-    max-width: 600px;
-    border: 1px solid #ccc; 
-    margin-left: 300px;
-    margin-top: 50px;
-    padding: 20px;
+.content-container {
     background-color: white;
+    position: absolute;
+    width: 90%;
+    max-width: 1200px;
+    height: 80%;
+    top: 55%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 10px;
+    overflow-y: auto;
+    flex-direction: column;
+    padding-left: 40px;
+    padding-right: 40px;
+    padding-top: 3%;
 }
-.departmentHeader {
-    color: white;
-    background-color: gray;
-    font-size: 20px;
-    text-align: center;
-    padding: 10px 0;
+.vCard {
+    font-family: "Noto Serif KR", serif;
+    margin: 0 auto; /* Center horizontally */
+    align-items: center; 
+    width: 50%;
 }
-.menuButton {
+.vCardTitle {
     text-align: center;
-    margin-top: 20px;
+    background-color: #DCC8B0;
+}
+.vCardText {
+    text-align: center;
+    padding-left: 10%;
 }
 </style>

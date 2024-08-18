@@ -6,6 +6,7 @@ import EmployeeLogin from '@/views/employee/EmployeeLogin.vue'
 import EmployeeCreate from '@/views/employee/EmployeeCreate.vue'
 import DiningMenu from '@/views/employee/dining/ManageMenu.vue'
 import EmployeeDiningDetailComponent from "@/components/user/employee/EmployeeDiningDetailComponent.vue";
+import EmployeeDiningModifyComponent from "@/components/user/employee/EmployeeDiningModifyComponent.vue";
 import EmployeeList from "@/components/user/employee/manageemployee/EmployeeList.vue";
 import EmployeeManage from "@/components/user/employee/manageemployee/EmployeeManage.vue";
 import EmployeeToMemberRoom from "@/components/user/employee/managemember/EmployeeToMemberRoom.vue";
@@ -88,6 +89,12 @@ export const employeeRouter = [
         path: '/employee/dining/detail/:diningReservationId',
         name: 'EmployeeDiningDetailComponent',
         component: EmployeeDiningDetailComponent,
+        meta : {header: 'EmployeeHeaderComponent'}
+    },
+    {
+        path: '/employee/dining/update/:diningReservationId',
+        name: 'EmployeeDiningModifyComponent',
+        component: EmployeeDiningModifyComponent,
         meta : {header: 'EmployeeHeaderComponent'}
     },
     {
