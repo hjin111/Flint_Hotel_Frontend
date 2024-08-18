@@ -26,27 +26,22 @@
                             <br>
                             <v-row class="justify-center">
                                 <v-col cols="12">
-                                    <v-data-table
-                                        class="elevation-1"
-                                        :header="headers"
-                                        :items="qnaList"
-                                        item-key="id"
-                                    >
-                                    
-                                    <template v-slot:header>
-                                    </template>
+                                    <v-data-table class="elevation-1" :header="headers" :items="qnaList" item-key="id">
+
+                                        <template v-slot:header>
+                                        </template>
                                         <template v-slot:body="{ items }">
-                                         
-                                                <tr v-for="q in items" :key="q.id" >
-                                                    <td>{{ q.id }}</td>
-                                                    <td>{{ q.title }}</td>
-                                                    <td>{{ q.memberEmail }}</td>
-                                                    <td>{{ q.writeTime }}</td>
-                                                    <td>
-                                                        <v-btn @click="diningDetail(q.id)"
+
+                                            <tr v-for="q in items" :key="q.id">
+                                                <td>{{ q.id }}</td>
+                                                <td>{{ q.title }}</td>
+                                                <td>{{ q.memberEmail }}</td>
+                                                <td>{{ q.writeTime }}</td>
+                                                <td>
+                                                    <v-btn @click="diningDetail(q.id)"
                                                         style="background-color: #DCC8B0; color:white;">Detail</v-btn>
-                                                    </td>
-                                                </tr>
+                                                </td>
+                                            </tr>
                                         </template>
                                     </v-data-table>
                                 </v-col>
@@ -86,33 +81,33 @@ export default {
     },
     methods: {
         async searchMember() {
-        this.qnaList = []; 
-        this.currentPage = 0; 
-        this.isLastPage = false; 
+            this.qnaList = [];
+            this.currentPage = 0;
+            this.isLastPage = false;
 
-        try {
-            const params = {
-                size: this.pageSize,
-                page: this.currentPage
-            };
+            try {
+                const params = {
+                    size: this.pageSize,
+                    page: this.currentPage
+                };
 
-            const response = await axios.get(`${process.env.VUE_APP_API_BASE_URL}/employee/qna/list`, { params });
-            this.qnaList = response.data.result.content.filter(qna => qna.memberEmail === this.email);
+                const response = await axios.get(`${process.env.VUE_APP_API_BASE_URL}/employee/qna/list`, { params });
+                this.qnaList = response.data.result.content.filter(qna => qna.memberEmail === this.email);
 
-            this.currentPage++;
+                this.currentPage++;
 
-            if (this.qnaList.length === 0) {
-                this.isLastPage = true;
+                if (this.qnaList.length === 0) {
+                    this.isLastPage = true;
+                }
+            } catch (e) {
+                console.error(e.message);
             }
-        } catch (e) {
-            console.error(e.message);
-        }
-    },
-    async diningDetail(id) {
+        },
+        async diningDetail(id) {
             this.$router.push({
                 path: `/employee/qna/detail/${id}`
             });
-    },
+        },
         async loadQnA() {
             try {
                 if (this.isLoading || this.isLastPage) return;
@@ -201,13 +196,16 @@ export default {
     padding-bottom: 20px;
     font-family: "Noto Serif KR", serif;
 }
+
 .tf {
     margin-right: -20px;
     padding-top: 20px;
 }
+
 .search {
     padding-top: 40px;
 }
+
 .searchrow {
     margin-right: -20px;
     margin-bottom: -40px;
@@ -238,6 +236,7 @@ export default {
     padding-top: 40px;
     padding-left: 20px;
 }
+
 .emailcol {
     margin-right: -20px;
 }
