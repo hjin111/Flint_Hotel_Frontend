@@ -96,6 +96,7 @@ import { jwtDecode } from 'jwt-decode';
 import { useRouter } from 'vue-router';
 // sse
 import { EventSourcePolyfill } from 'event-source-polyfill';
+import { mapState, mapActions } from 'vuex';
 
   export default {
     data(){
@@ -108,7 +109,7 @@ import { EventSourcePolyfill } from 'event-source-polyfill';
         isLogin : false,
         router: useRouter(),
         employeeDepartment: null,
-        newReservationCount: 0,
+        // newReservationCount: 0,
         recentReservations: []
       }
     },
@@ -123,7 +124,7 @@ import { EventSourcePolyfill } from 'event-source-polyfill';
         console.log("부서 : ", this.employeeDepartment);
       }
       if (this.employeeDepartment === 'Room') {
-        let sse = new EventSourcePolyfill(`${process.env.VUE_APP_API_BASE_URL}/subscribe`,  {headers: {Authorization: `Bearer ${token}`}});
+        let sse = new EventSourcePolyfill(`${process.env.VUE_APP_API_BASE_URL}/room/subscribe`,  {headers: {Authorization: `Bearer ${token}`}});
         sse.addEventListener('connect', (event) => {
           console.log(event);
         })
@@ -131,8 +132,11 @@ import { EventSourcePolyfill } from 'event-source-polyfill';
         // 객실 예약이 들어오는 것 listen 
         sse.addEventListener('booked', (event) => {
           console.log('새로운 객실 예약이 들어왔습니다. :', event.data);
-          this.newReservationCount += 1; 
+          // this.newReservationCount += 1; 
+          this.incrementReservationCount();
           this.recentReservations.push(JSON.parse(event.data));
+          // 데이터가 들어오는 순간 localStorage 에 저장.
+          localStorage.setItem('recentReservations', JSON.stringify(this.recentReservations))
         });
       }
     },
@@ -140,9 +144,14 @@ import { EventSourcePolyfill } from 'event-source-polyfill';
       const payload = jwtDecode(localStorage.getItem('employeetoken'));
       this.department = payload.department;
       this.manage = payload.department + " " + "Manage";
-      console.log(this.department)
+
+      const storedReservations = JSON.parse(localStorage.getItem('recentReservations'));
+      if (storedReservations) {
+          this.recentReservations = storedReservations;
+      }
     },
     computed: {
+        ...mapState('reservation', ['newReservationCount']),
         isDining() {
             return ['KorDining', 'JapDining', 'ChiDining', 'Lounge'].includes(this.department);
         },
@@ -151,6 +160,7 @@ import { EventSourcePolyfill } from 'event-source-polyfill';
         }
     },
     methods: {
+      ...mapActions('reservation', ['incrementReservationCount', 'decrementReservationCount']),
       openMemberDialog() {
         this.dialogMember = true;
       },
@@ -179,14 +189,23 @@ import { EventSourcePolyfill } from 'event-source-polyfill';
         this.dialogSSE = false;
         this.$router.push(`/employee/room`);
       },
-      goToReservationDetail(reservationId) {
+      async goToReservationDetail(reservationId) {
         // detail 조회를 위해 선택한 예약만 제거 (조회한 예약id와 같지 "않은" 것만 남겨두기)
         this.recentReservations = this.recentReservations.filter(reservation => reservation.id !== reservationId);
-        // 남은 개수 갱신
-        this.newReservationCount = this.recentReservations.length;
+        
+        this.decrementReservationCount();
 
+        if (this.recentReservations.length === 0) {
+          localStorage.removeItem('recentReservations');
+        } else{
+          localStorage.removeItem('recentReservations')
+          localStorage.setItem('recentReservations', JSON.stringify(this.recentReservations));
+        }
+        setTimeout(() => this.goToDetail(reservationId),300);
         this.dialogSSE = false;
-        this.$router.push(`/employee/room/${reservationId}`);
+      },
+      goToDetail(reservationId){
+        window.location.href = `/employee/room/${reservationId}`;
       }
     }
   };
