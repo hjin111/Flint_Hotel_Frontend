@@ -5,11 +5,11 @@
             <v-row>
                 <v-col cols="12" class="d-flex justify-center">
                     <v-card class="confirmation-card" style="width:1100px">
-                        <v-card-title class="confirmation-title">직원 정보</v-card-title>
-                        <v-card-text>
+                        <v-card-title class="confirmation-title">Employee Info</v-card-title>
+                        <br>
+                        <v-card-text style="margin-top:-15px;">
                             <v-row>
                                 <v-col cols="12" md="6">
-                                    <br>
                                     <v-row>
                                         <v-col cols="12" md="3">
                                             <div class="data-label">Emp No</div>
@@ -19,7 +19,7 @@
                                                 readonly></v-text-field>
                                         </v-col>
                                     </v-row>
-                                    <v-row>
+                                    <v-row style="margin-top:-10px;">
                                         <v-col cols="12" md="3">
                                             <div class="data-label">Name</div>
                                         </v-col>
@@ -28,7 +28,7 @@
                                                 readonly></v-text-field>
                                         </v-col>
                                     </v-row>
-                                    <v-row>
+                                    <v-row style="margin-top:-10px;">
                                         <v-col cols="12" md="3">
                                             <div class="data-label">Email</div>
                                         </v-col>
@@ -37,7 +37,7 @@
                                                 readonly></v-text-field>
                                         </v-col>
                                     </v-row>
-                                    <v-row>
+                                    <v-row style="margin-top:-10px;">
                                         <v-col cols="12" md="3">
                                             <div class="data-label">Phone num</div>
                                         </v-col>
@@ -47,20 +47,20 @@
                                         </v-col>
                                     </v-row>
                                 </v-col>
-                                <v-col cols="12" md="6">
-                                    <br>
-                                    <v-row>
+                                <v-col cols="12" md="6" style="margin-top:8px;">
+                                    <v-row style="margin-top:-10px;">
                                         <v-col cols="12" md="3">
                                             <div class="data-label"> Rank </div>
                                         </v-col>
                                         <v-select
                                         v-model="rank"
                                         :items="ranks"
+                                        style="padding-right:11px; padding-left:10px;"
                                         >
                                         </v-select>
                                         
                                     </v-row>
-                                    <v-row>
+                                    <v-row style="margin-top:10px;">
                                         <v-col cols="12" md="3">
                                             <div class="data-label"> Department </div>
                                         </v-col>
@@ -69,7 +69,7 @@
                                                 readonly></v-text-field>
                                         </v-col>
                                     </v-row>
-                                    <v-row>
+                                    <v-row style="margin-top:5px;">
                                         <v-col cols="12" md="4">
                                             <div class="data-label">Date of Employee</div>
                                         </v-col>
@@ -78,7 +78,7 @@
                                                 readonly></v-text-field>
                                         </v-col>
                                     </v-row>
-                                    <v-row>
+                                    <v-row style="margin-top:1px;">
                                         <v-col cols="12" md="3">
                                             <div class="data-label">Gender</div>
                                         </v-col>
@@ -86,9 +86,9 @@
                                             <v-text-field v-model="gender"
                                                 readonly></v-text-field>
                                         </v-col>
-                                        <v-row>
-                                            <v-btn @click="modifyRank()"> 직급 변경</v-btn>
-                                            <v-btn @click="confirmDelEmployee()">퇴사 처리</v-btn>
+                                        <v-row class="justify-end">
+                                            <v-btn class="leftbtn" style="color: white; background-color: #7A6C5B; margin-top: 20px;" @click="modifyRank()">Change Rank</v-btn>
+                                            <v-btn style="color: white; background-color: #CFB18E; margin-top:20px;" @click="confirmDelEmployee()">Delete Employee</v-btn>
                                         </v-row>
                                     </v-row>
                                 </v-col>
@@ -97,18 +97,20 @@
                     </v-card>
                 </v-col>
             </v-row>
+
+            <!-- 모달 -->
+            <v-dialog v-model="showConfirmDialog" max-width="400px" class="modal">
+                <v-card class="modal">
+                    <v-card-title>정말 삭제하시겠습니까?</v-card-title>
+                    <v-card-text>{{ modalMessage }}</v-card-text>
+                    <v-card-actions>
+                        <v-spacer></v-spacer>
+                        <v-btn class="leftbtn" color="black" @click="handleConfirm">Yes</v-btn>
+                        <v-btn color="black" @click="closeDialog">No</v-btn>
+                    </v-card-actions>
+                </v-card>
+            </v-dialog>
         </v-container>
-        <v-dialog v-model="showConfirmDialog" max-width="400px">
-            <v-card>
-                <v-card-title class="headline">퇴사 처리 확인</v-card-title>
-                <v-card-text>{{ modalMessage }}</v-card-text>
-                <v-card-actions>
-                    <v-spacer></v-spacer>
-                    <v-btn color="green darken-1" text @click="handleConfirm">Yes</v-btn>
-                    <v-btn color="red darken-1" text @click="closeDialog">No</v-btn>
-                </v-card-actions>
-            </v-card>
-        </v-dialog>
     </div>
 </template>
 
@@ -208,30 +210,22 @@ export default {
     left: 50%;
     transform: translate(-50%, -50%);
     border-radius: 10px;
+    overflow-y: auto;
     flex-direction: column;
     padding-left: 40px;
     padding-right: 40px;
-    overflow-y: hidden;
-}
-
-.custom-title {
-    padding-left: 9%;
-    font-family: "playfire Display", serif;
-    color: #787878;
-    text-align: left;
-    border-bottom: 3px solid;
 }
 
 .confirmation-card {
-    margin-top: 15px;
     padding: 20px;
     border-radius: 8px;
     border: none;
     width: 100%;
     box-sizing: border-box;
-    font-family: "Playfair Display", serif;
-    height: 90%;
-    overflow-y: auto;
+    font-family: "Noto Serif KR", serif;
+    height: auto;
+    border: none;
+    box-shadow: none;
 }
 
 .confirmation-title {
@@ -252,13 +246,6 @@ export default {
     font-family: "Noto Serif KR", serif;
 }
 
-.v-radio-group {
-    display: flex;
-    align-items: center;
-    margin-bottom: 10px;
-    flex-direction: row;
-}
-
 .v-radio {
     margin-right: 10px;
 }
@@ -276,5 +263,12 @@ export default {
     height: 100%;
     padding-top: 20px;
     padding-left: 20px;
+}
+.leftbtn {
+    margin-right: 2px;
+}
+.modal {
+    padding: 20px;
+    font-family: "Noto Serif KR", serif;
 }
 </style>

@@ -2,7 +2,7 @@
     <div>
         <EmployeeView />
         <v-container class="content-container">
-            <v-card class="vCard">
+            <v-card class="vCard" style="margin-top:20px;">
                 <v-card-title class="vCardTitle">객실 가격 관리</v-card-title>
                 <v-card-text class="vCardText">
                     <tbody>
