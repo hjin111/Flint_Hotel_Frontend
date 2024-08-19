@@ -9,7 +9,8 @@
             <v-row>
             <v-col>
                 <v-container style="text-align:center; margin-left: 30px;">
-                    🛏️🛏️🛏️<br>여기는<br>이미지<br>자리임<br>🛏️🛏️🛏️ 
+                    <v-img :src="imagePath" style="height:200px; width:auto;"></v-img>
+                    <!-- 🛏️🛏️🛏️<br>여기는<br>이미지<br>자리임<br>🛏️🛏️🛏️  -->
                 </v-container>
                 <v-card  class="descriptionCard" style="margin-left: 30px;">
                         <v-row>
@@ -148,6 +149,7 @@
         if (room) {
             const parseRoom = JSON.parse(room);
             this.roomType = parseRoom.roomTypeName;
+            this.imagePath = parseRoom.imagePath;
         }
       },
       mounted() {
@@ -343,7 +345,7 @@
         transition: background-color 0.3s ease; 
     }
     .optionsCard {
-        width: 100%; 
+        width: 110%; 
         margin-left: -30px; 
         margin-top: 20px;
         padding-left: 10px; 
