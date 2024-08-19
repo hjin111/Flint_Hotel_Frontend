@@ -7,7 +7,7 @@
                     <MypageComponent />
                     <v-col cols="9" justify="center">
                         <v-card-title class="custom-title">
-                            <h1>상세 보기</h1>
+                            <v-text style="font-size : 45px; color:  #69586F">Detail</v-text>
                             <v-col>
                                 <v-card-text>
                                     <v-row>
@@ -15,7 +15,7 @@
                                             <!-- 왼쪽 열 -->
                                             <v-row>
                                                 <v-col cols="12" md="3">
-                                                    <div class="data-label">Dining Name</div>
+                                                    <div class="data-label">Dining</div>
                                                 </v-col>
                                                 <v-col cols="12" md="9">
                                                     <v-text-field v-model="diningName" readonly></v-text-field>
@@ -62,9 +62,9 @@
                                     </v-row>
                                     <v-row>
                                         <v-col>
-                                            <v-row class="justify-end text-align: right">
-                                                <v-btn @click="deleteReserve">
-                                                    예약취소
+                                            <v-row class="justify-end text-align: right" style="padding-right: 20px;">
+                                                <v-btn @click="deleteReserve" style="color:#69586F; border: 0.5px solid #69586F;">
+                                                    DELETE
                                                 </v-btn>
                                             </v-row>
                                         </v-col>
@@ -168,14 +168,14 @@ body,
 }
 
 .custom-title {
-    font-family: "Playfair Display", serif;
+    font-family: "Noto Serif KR", serif;
     color: #787878;
     font-size: 20px;
 }
 
 .custom-title h1,
 ul li {
-    font-family: "Playfair Display", serif;
+    font-family: "Noto Serif KR", serif;
     border-bottom: 4px solid;
     color: black;
 }
@@ -262,7 +262,7 @@ ul li {
 }
 
 body {
-    font-family: Arial, sans-serif;
+    font-family: "Noto Serif KR", serif;
     margin: 0;
     padding: 0;
     background-color: #f8f8f8;
@@ -318,19 +318,19 @@ body {
 .v-btn {
     margin: 0;
     font-family: "Playfair Display", serif;
-    background-color: #ded6f4;
-    border: none !important;
+    background-color: #FFFFFF;
+    
     box-shadow: none !important;
-}
-
-.v-btn:hover,
-.v-btn:active {
-    background: #ded6f4;
-}
-
-.v-btn:visited {
-    background: #ded6f4;
-}
+  }
+  
+  .v-btn:hover,
+  .v-btn:active {
+    background: #FFFFFF;
+  }
+  
+  .v-btn:visited {
+    background: #FFFFFF;
+  }
 
 .custom-size {
     width: 200px;

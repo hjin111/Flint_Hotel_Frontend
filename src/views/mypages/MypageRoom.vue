@@ -7,7 +7,7 @@
           <MypageComponent />
           <v-col cols="9" justify="center">
             <v-card-title class="custom-title">
-              <v-text style="font-size : 50px;">Room Reservation</v-text>
+              <v-text style="font-size : 45px;">Room Reservation</v-text>
               <p>온라인 예약에 한해 조회 가능합니다.</p>
               <v-col>
                 <v-card>
