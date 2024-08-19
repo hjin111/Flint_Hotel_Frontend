@@ -172,30 +172,48 @@ export default {
                 // console.log("SSE 연결이 성공적으로 열렸습니다:", this.eventSource.url)
             }
 
+            this.eventSource.addEventListener('갱신 완료', () => {
+              this.currentPosition -= 1
+              if (this.currentPosition < 50) {
+                  this.handleDialogClose()  
+                  this.closeSSEConnection()
+                  this.$router.push(`/reserve/room`)
+              }
+            })
             // console.log("SSE EventSource 객체:", this.eventSource)
 
-            // "현재 위치" 이벤트 리스너 등록
-            this.eventSource.addEventListener('현재 위치', (event) => {
-                // console.log("SSE 메시지 수신 (현재 위치 이벤트):", event)
-                const data = event.data
+            //// "현재 위치" 이벤트 리스너 등록
+            // this.eventSource.addEventListener('현재 위치', (event) => {
+            //     // console.log("SSE 메시지 수신 (현재 위치 이벤트):", event)
+            //     const data = event.data
 
-                // 데이터에서 대기 순서를 추출하는 로직
-                const positionMatch = data.match(/(\d+)/) // "나의 대기 순서: xxx번째"에서 숫자만 추출
+            //     if(this.currentPosition < 50){
+            //       this.$router.push(`/reserve/room`)
+            //     } 
+            //     // 데이터에서 대기 순서를 추출하는 로직
+            //     const positionMatch = data.match(/(\d+)/) // "나의 대기 순서: xxx번째"에서 숫자만 추출
 
-                if (positionMatch) {
-                    this.currentPosition = parseInt(positionMatch[0])
-                    // console.log("현재 위치 업데이트:", this.currentPosition)
+            //     if (positionMatch) {
+            //         this.currentPosition = parseInt(positionMatch[0])
+            //         // console.log("현재 위치 업데이트:", this.currentPosition)
 
-                    // 대기열 위치가 50 미만일 경우 예약 페이지로 이동
-                    if (this.currentPosition < 50) {
-                        this.handleDialogClose()  
-                        this.closeSSEConnection()
-                        this.$router.push(`/reserve/room`)
-                    }
-                } else {
-                    // console.warn("메시지에서 대기 순서를 추출하지 못했습니다:", data)
-                }
-            })
+            //         // 대기열 위치가 50 미만일 경우 예약 페이지로 이동
+            //         if (this.currentPosition < 50) {
+            //             this.handleDialogClose()  
+            //             this.closeSSEConnection()
+            //             this.$router.push(`/reserve/room`)
+            //         } else if(this.currentPosition < 500){
+            //             this.eventSource.addEventListener('갱신완료', () =>{
+            //                 this.currentPosition -= 1
+            //                 if(this.currentPosition < 50){
+            //                     this.$router.push(`/reserve/room`)
+            //                 }
+            //             })
+            //         }  
+            //     } else {
+            //         // console.warn("메시지에서 대기 순서를 추출하지 못했습니다:", data)
+            //     }
+            // })
 
             this.eventSource.onerror = (error) => {
                 console.error('SSE 연결 오류 발생:', error);
