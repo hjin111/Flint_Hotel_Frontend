@@ -14,8 +14,10 @@
           <v-btn class="flint-hotel-title" :to="{ path: '/employee' }">FLINT HOTEL</v-btn>
         </v-col>
         <v-col class="d-flex justify-end">
-          <v-btn :to="{ path: '/employee/dining' }">Dining</v-btn>
+          <v-btn @click="openReservationModal()">Dining({{ newDiningReservationCount }})</v-btn>
           <v-btn :to="{ path: '/employee/room' }">Room</v-btn>
+          <v-btn v-if="!isLogin" :to="{ path: '/employee/login' }"> Login </v-btn>
+          <v-btn v-else-if="isLogin" @click="Logout()"> Logout </v-btn>
         </v-col>
       </v-row>
 
@@ -39,7 +41,7 @@
           </v-card-text>
         </v-card>
       </v-dialog>
-                                                        
+
       <!-- Room Manage 클릭 > 모달창 -->
       <v-dialog v-model="dialogManage" max-width="400px">
         <v-card style="border: none;">
@@ -56,6 +58,30 @@
               </v-col>
             </v-row>
           </v-card-text>
+        </v-card>
+      </v-dialog>
+
+      <!-- 다이닝 예약 알림 모달창 -->
+      <v-dialog v-model="diningDialogSSE" max-width="600px">
+        <v-card style="font-family: Playfair Display, serif; padding-left:15px;
+        padding-top:15px;">
+          <v-card-title class="headline">New Reservations</v-card-title>
+          <v-card-text>
+            <div v-if="newDiningReservationCount === 0" style="font-family: Noto Serif KR, serif;">
+              새로운 예약이 없습니다.
+            </div>
+            <div v-else>
+              <ul>
+                <li v-for="reservation in diningRecentReservations" :key="reservation.id"
+                  style="font-family: Noto Serif KR, serif;" @click="goToDiningReservationDetail(reservation.id)">
+                  [{{ reservation.id }}] : Reserve-Date {{ reservation.reserveDate }}&nbsp;{{ reservation.reserveTime }}
+                </li>
+              </ul>
+            </div>
+          </v-card-text>
+          <v-card-actions>
+            <v-btn @click="closeReservationModal">Close</v-btn>
+          </v-card-actions>
         </v-card>
       </v-dialog>
     </v-container>
@@ -77,65 +103,69 @@ export default {
       isLogin: false,
       router: useRouter(),
       dept: "",
+      diningDialogSSE: false,
+      newDiningReservationCount: 0,
+      diningRecentReservations: []
     }
   },
   mounted() {
-    const payload = jwtDecode(localStorage.getItem('employeetoken'));
-    this.department = payload.department;
-    this.dept = this.department.toLowerCase();
-    if (this.dept.includes("dining") || this.dept.includes("lounge")) {
-      this.dept = "dining/menu"
-    }
+    if (localStorage.getItem("employeetoken")) {
+      const payload = jwtDecode(localStorage.getItem('employeetoken'));
+      this.department = payload.department;
+      this.dept = this.department.toLowerCase();
+      if (this.dept.includes("dining") || this.dept.includes("lounge")) {
+        this.dept = "dining/menu"
+      }
 
-    this.manage = payload.department + " " + "Manage";
-    console.log(this.department)
+      this.manage = payload.department + " " + "Manage";
+      console.log(this.department)
+    }
   },
   created() {
-    const token = localStorage.getItem("employeetoken");
-    const payload = jwtDecode(localStorage.getItem('employeetoken'));
-    this.department = payload.department;
+    if (localStorage.getItem('employeetoken')) {
+      const token = localStorage.getItem("employeetoken");
+      const payload = jwtDecode(localStorage.getItem('employeetoken'));
+      this.department = payload.department;
 
-    if (token) {
-      let email = '';
-      switch (this.department) {
-        case 'KorDining':
-          email = 'flint_Kor@gmail.com';
-          break;
-        case 'ChiDining':
-          email = 'flint_Chi@gmail.com';
-          break;
-        case 'JpaDining':
-          email = 'flint_Jpa@gmail.com';
-          break;
-        case 'Lounge':
-          email = 'flint_Lou@gmail.com';
-          break;
-        default:
-          console.warn('No mathed department')
-          return;
-      }
-      try {
-        let sse = new EventSourcePolyfill(
-          `${process.env.VUE_APP_API_BASE_URL}/dining/subscribe`, // 정확한 URL
-          { headers: { Authorization: `Bearer ${token}`, 'X-User-Email': email } } // 이메일을 헤더에 추가
-        );
-
-        sse.addEventListener('connect', (event) => {
-          console.log("Connected:", event);
-        });
-
-        sse.addEventListener('reserved', (event) => {
-          console.log("Reservation received:", event.data);
-        });
-        sse.onerror = (error) => {
-          if (error.error.message.includes('No activity within')) {
-            // 이 오류 메시지를 무시하고, 다른 오류만 로그에 출력
+      if (token) {
+        this.isLogin = true;
+        let email = '';
+        switch (this.department) {
+          case 'KorDining':
+            email = 'flint_kor@gmail.com';
+            break;
+          case 'ChiDining':
+            email = 'flint_chi@gmail.com';
+            break;
+          case 'JpaDining':
+            email = 'flint_jpa@gmail.com';
+            break;
+          case 'Lounge':
+            email = 'flint_lou@gmail.com';
+            break;
+          default:
+            console.warn('No mathed department')
             return;
-          }
-          console.error(error);
-        };
-      }catch(error){
-        console.log(error)
+        }
+        try {
+          let sse = new EventSourcePolyfill(
+            `${process.env.VUE_APP_API_BASE_URL}/dining/subscribe`,
+            { headers: { Authorization: `Bearer ${token}`, 'X-User-Email': email } }
+          );
+
+          sse.addEventListener('connect', (event) => {
+            console.log("Connected:", event);
+          });
+
+          sse.addEventListener('reserved', (event) => {
+            console.log("Reservation received:", event.data);
+          });
+          sse.onerror = (error) => {
+            console.error(error);
+          };
+        } catch (error) {
+          console.log(error)
+        }
       }
     }
   },
@@ -169,6 +199,27 @@ export default {
       console.log("hihi");
       this.dialogManage = false;
     },
+    openReservationModal() {
+      this.diningDialogSSE = true;
+    },
+    closeReservationModal() {
+      this.diningDialogSSE = false;
+      this.$router.push(`/employee/dining`);
+    },
+    goToDiningReservationDetail(reservationId) {
+      // detail 조회를 위해 선택한 예약만 제거 (조회한 예약id와 같지 "않은" 것만 남겨두기)
+
+      this.diningRecentReservations = this.diningRecentReservations.filter(reservation => reservation.id !== reservationId);
+      // 남은 개수 갱신
+      this.newDiningReservationCount = this.diningRecentReservations.length;
+      this.diningDialogSSE = false;
+      this.$router.push(`/employee/dining/${reservationId}`);
+    },
+    Logout() {
+      this.isLogin = false;
+      localStorage.removeItem('employeetoken');
+      this.$router.push(`/admin`);
+    }
   }
 };
 </script>
@@ -183,6 +234,4 @@ export default {
   margin: 0 30px;
   font-family: "Noto Serif KR", serif;
 }
-
-
 </style>
