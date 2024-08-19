@@ -43,7 +43,7 @@
                                                 <td>
                                                     <v-btn
                                                         style="background-color:white; color:#7A6C5B; border: 1px solid #7A6C5B;"
-                                                        @click="$router.push(`/employee/room/${room.roomReservationId}`)">Detail</v-btn>
+                                                        @click="$router.push(`/employee/room/${room.id}`)">Detail</v-btn>
                                                 </td>
                                             </tr>
                                         </tbody>

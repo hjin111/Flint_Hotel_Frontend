@@ -16,7 +16,8 @@
           :to="{path:`/mypage`}">MYPAGE</v-btn>
         <!-- 바로 위, 아래 수정 -->
         <v-btn text style="font-size: 13px; color:#FFFFFF; margin-right:-20px;" v-if="isLogin" @click="logout()">LOGOUT</v-btn>
-        <v-btn text style="font-size: 13px; color:#FFFFFF; margin-right:-20px;" >INQUIRY {{count}}</v-btn>
+        <v-btn text style="font-size: 13px; color:#FFFFFF; margin-right:-20px;" 
+              @click="$router.push('/mypage/qna/list')">INQUIRY {{ count }}</v-btn>
       </v-row>
     </v-container>
   </v-app-bar>
