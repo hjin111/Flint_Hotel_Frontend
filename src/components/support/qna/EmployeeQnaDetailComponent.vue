@@ -23,7 +23,6 @@
                       ></v-text-field>
                     </v-col>
                   </v-row>
-                  <v-row>
                   <!-- title -->
                   <v-row style="margin-top: -20px;">
                     <v-col cols="12" md="2" class="custom-col-title">
@@ -39,7 +38,6 @@
                       ></v-text-field>
                     </v-col>
                   </v-row>
-                  <v-row>
                   <!-- content -->
                   <v-row style="margin-top: -20px;">
                     <v-col cols="12" md="2" class="custom-col-content">

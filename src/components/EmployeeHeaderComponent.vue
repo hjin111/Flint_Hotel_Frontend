@@ -181,6 +181,7 @@ import { mapState, mapActions } from 'vuex';
           localStorage.setItem('recentReservations', JSON.stringify(this.recentReservations))
         });
       }
+    }
   },
   computed: {
     ...mapState('reservation', ['newReservationCount']),
@@ -192,6 +193,7 @@ import { mapState, mapActions } from 'vuex';
     }
   },
   methods: {
+    ...mapActions('reservation', ['incrementReservationCount', 'decrementReservationCount']),
     openMemberDialog() {
       this.dialogMember = true;
     },
