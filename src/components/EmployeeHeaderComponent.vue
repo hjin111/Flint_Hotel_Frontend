@@ -86,78 +86,79 @@
         </v-card>
       </v-dialog>
       <!-- 객실 예약 알림 모달창 -->
-         <v-dialog v-model="dialogSSE" max-width="600px">
-            <v-card style="font-family: Playfair Display, serif; padding-left:15px;
+      <v-dialog v-model="dialogSSE" max-width="600px">
+        <v-card style="font-family: Playfair Display, serif; padding-left:15px;
             padding-top:15px;">
-              <v-card-title class="headline">New Reservations</v-card-title>
-              <v-card-text>
-                <div v-if="newReservationCount === 0" style="font-family: Noto Serif KR, serif;">
-                  새로운 예약이 없습니다.
-                </div>
-                <div v-else>
-                  <ul>
-                    <li v-for="reservation in recentReservations" :key="reservation.id" style="font-family: Noto Serif KR, serif;"
-                    @click="goToReservationDetail(reservation.id)">
-                      [{{ reservation.roomType }}] : Check-in {{ reservation.checkInDate }} ~ Check-out {{ reservation.checkOutDate }}
-                    </li>
-                  </ul>
-                </div>
-              </v-card-text>
-              <v-card-actions>
-                <!-- <v-btn @click="goToRoomReservationDetails">Details</v-btn> -->
-                <v-btn @click="closeReservationModal">Close</v-btn>
-              </v-card-actions>
-            </v-card>
-          </v-dialog>
+          <v-card-title class="headline">New Reservations</v-card-title>
+          <v-card-text>
+            <div v-if="newReservationCount === 0" style="font-family: Noto Serif KR, serif;">
+              새로운 예약이 없습니다.
+            </div>
+            <div v-else>
+              <ul>
+                <li v-for="reservation in recentReservations" :key="reservation.id"
+                  style="font-family: Noto Serif KR, serif;" @click="goToReservationDetail(reservation.id)">
+                  [{{ reservation.roomType }}] : Check-in {{ reservation.checkInDate }} ~ Check-out {{
+                    reservation.checkOutDate }}
+                </li>
+              </ul>
+            </div>
+          </v-card-text>
+          <v-card-actions>
+            <!-- <v-btn @click="goToRoomReservationDetails">Details</v-btn> -->
+            <v-btn @click="closeReservationModal">Close</v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
     </v-container>
   </v-app-bar>
 </template>
-  <script>
+<script>
 import { jwtDecode } from 'jwt-decode';
 import { useRouter } from 'vue-router';
 import { EventSourcePolyfill } from 'event-source-polyfill';
 import { mapState, mapActions } from 'vuex';
 
-  export default {
-    data(){
-      return{
-        department:"",
-        manage: "",
-        dialogMember: false,
-        dialogManage: false,
-        dialogSSE: false,
-        isLogin : false,
-        router: useRouter(),
-        employeeDepartment: null,
-        // newReservationCount: 0,
-        recentReservations: [],
-        dept: "",
-        diningDialogSSE: false,
-        newDiningReservationCount: 0,
-        diningRecentReservations: []
-      }
-    },
+export default {
+  data() {
+    return {
+      department: "",
+      manage: "",
+      dialogMember: false,
+      dialogManage: false,
+      dialogSSE: false,
+      isLogin: false,
+      router: useRouter(),
+      employeeDepartment: null,
+      // newReservationCount: 0,
+      recentReservations: [],
+      dept: "",
+      diningDialogSSE: false,
+      newDiningReservationCount: 0,
+      diningRecentReservations: []
+    }
+  },
   mounted() {
-      if (localStorage.getItem("employeetoken")) {
-        const payload = jwtDecode(localStorage.getItem('employeetoken'));
-        this.department = payload.department;
-        this.dept = this.department.toLowerCase();
-        this.manage = payload.department + " " + "Manage";
-        
-        if (this.dept.includes("dining") || this.dept.includes("lounge")) {
-          this.dept = "dining/menu"
-        }
-        
-        const storedReservations = JSON.parse(localStorage.getItem('recentReservations'));
-        if (storedReservations) {
-          this.recentReservations = storedReservations;
-        }
-        console.log(this.department)
+    if (localStorage.getItem("employeetoken")) {
+      const payload = jwtDecode(localStorage.getItem('employeetoken'));
+      this.department = payload.department;
+      this.dept = this.department.toLowerCase();
+      this.manage = payload.department + " " + "Manage";
+
+      if (this.dept.includes("dining") || this.dept.includes("lounge")) {
+        this.dept = "dining/menu"
       }
+
+      const storedReservations = JSON.parse(localStorage.getItem('recentReservations'));
+      if (storedReservations) {
+        this.recentReservations = storedReservations;
+      }
+      console.log(this.department)
+    }
   },
   created() {
     if (localStorage.getItem('employeetoken')) {
-    const token = localStorage.getItem("employeetoken");
+      const token = localStorage.getItem("employeetoken");
       if (token) {
         // 토큰이 있으면 정상 
         this.isLogin = true
@@ -166,8 +167,49 @@ import { mapState, mapActions } from 'vuex';
         this.employeeDepartment = decodedToken.department // department 꺼내담기 
         console.log("부서 : ", this.employeeDepartment);
       }
+
+      let email = '';
+      switch (this.department){
+        case 'KorDining':
+          email = "flint_kor@gmail.com"
+          break;
+        case 'ChiDining':
+          email = "flint_chi@gmail.com"
+          break;
+        case 'JpaDining':
+          email = "flint_jap@gmail.com"
+          break;
+        case 'Lounge':
+          email = 'flint_lou@gmail.com'
+          break;
+        default:
+          console.log("No matched department")
+          break;
+      }
+      if(email){
+        try{
+          let sse = new EventSourcePolyfill(
+            `${process.env.VUE_APP_API_BASE_URL}/dining/subscribe`,
+            {headers : { Authorization: `Bearer ${token}`, 'X-User-Email': email } }
+          );
+          sse.addEventListener('connect', (event) => {
+            console.log("Connected: ", event);
+          });
+          sse.addEventListener('reserved', (event) => {
+            console.log("Reservation received:", event.data);
+          });
+          sse.onerror = (error) => {
+            if(error.error.message.includes('No activity within')){
+              return;
+            }
+            console.error(error);
+          };
+        }catch(error){
+          console.log(error)
+        }
+      }
       if (this.employeeDepartment === 'Room') {
-        let sse = new EventSourcePolyfill(`${process.env.VUE_APP_API_BASE_URL}/room/subscribe`,  {headers: {Authorization: `Bearer ${token}`}});
+        let sse = new EventSourcePolyfill(`${process.env.VUE_APP_API_BASE_URL}/room/subscribe`, { headers: { Authorization: `Bearer ${token}` } });
         sse.addEventListener('connect', (event) => {
           console.log(event);
         })
@@ -223,22 +265,22 @@ import { mapState, mapActions } from 'vuex';
       this.$router.push(`/employee/dining`);
     },
     async goToReservationDetail(reservationId) {
-        // detail 조회를 위해 선택한 예약만 제거 (조회한 예약id와 같지 "않은" 것만 남겨두기)
-        this.recentReservations = this.recentReservations.filter(reservation => reservation.id !== reservationId);
-        
-        this.decrementReservationCount();
+      // detail 조회를 위해 선택한 예약만 제거 (조회한 예약id와 같지 "않은" 것만 남겨두기)
+      this.recentReservations = this.recentReservations.filter(reservation => reservation.id !== reservationId);
 
-        if (this.recentReservations.length === 0) {
-          localStorage.removeItem('recentReservations');
-        } else{
-          localStorage.removeItem('recentReservations')
-          localStorage.setItem('recentReservations', JSON.stringify(this.recentReservations));
-        }
-        setTimeout(() => this.goToDetail(reservationId),300);
-        this.dialogSSE = false;
+      this.decrementReservationCount();
+
+      if (this.recentReservations.length === 0) {
+        localStorage.removeItem('recentReservations');
+      } else {
+        localStorage.removeItem('recentReservations')
+        localStorage.setItem('recentReservations', JSON.stringify(this.recentReservations));
+      }
+      setTimeout(() => this.goToDetail(reservationId), 300);
+      this.dialogSSE = false;
     },
-    goToDetail(reservationId){
-        window.location.href = `/employee/room/${reservationId}`;
+    goToDetail(reservationId) {
+      window.location.href = `/employee/room/${reservationId}`;
     },
     goToDiningReservationDetail(reservationId) {
       // detail 조회를 위해 선택한 예약만 제거 (조회한 예약id와 같지 "않은" 것만 남겨두기)
