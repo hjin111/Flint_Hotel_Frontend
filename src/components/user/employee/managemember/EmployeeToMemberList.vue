@@ -26,7 +26,7 @@
                                                 <td>{{ m.name }}</td>
                                                 <td>{{ m.email }}</td>
                                                 <td>
-                                                    <v-btn style="background-color:#DCC8B0; color:white;">Detail</v-btn>
+                                                    <v-btn style="background-color:white; color:#7A6C5B; border: 1px solid #7A6C5B;">Detail</v-btn>
                                                 </td>
                                             </tr>
                                         </tbody>

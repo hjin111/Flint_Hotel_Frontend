@@ -44,7 +44,7 @@
                                                     <td>{{ q.writeTime }}</td>
                                                     <td>
                                                         <v-btn @click="diningDetail(q.id)"
-                                                        style="background-color: #DCC8B0; color:white;">Detail</v-btn>
+                                                        style="background-color:white; color:#7A6C5B; border: 1px solid #7A6C5B;">Detail</v-btn>
                                                     </td>
                                                 </tr>
                                         </template>
