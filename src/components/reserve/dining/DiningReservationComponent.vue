@@ -4,8 +4,8 @@
       <v-container class="dining-contianer">
         <v-row justify="center">
           <v-col>
-            <v-card style="padding-bottom: 20px; margin-top: 20px ; height : 600px">
-              <v-card-title class="text-center text-h5" style=" font-family: Noto Serif KR, serif; font-weight: 600; ">
+            <v-card style="padding-bottom: 20px;height : 600px">
+              <v-card-title class="text-center" style=" font-family: Noto Serif KR, serif; font-size:18px; color: #787878;">
                 DINING RESERVATION
               </v-card-title>
               <v-card-text >
@@ -247,7 +247,6 @@
     border-radius: 10px;
     overflow-y: auto;
   }
-
-
+  
   </style>
   

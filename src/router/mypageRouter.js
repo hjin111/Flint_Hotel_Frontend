@@ -8,12 +8,14 @@ import MypageRoomDetail from "@/views/mypages/MypageRoomDetail.vue";
 import MypageDiningDetail from "@/views/mypages/MypageDiningDetail.vue";
 
 export const mypageRouter = [
+
     // {
     //     path: '/mypage', 
     //     name: 'MypageComponent',
     //     component: MypageComponent,
     //     meta : {header: 'HeaderComponent'}
     // },
+    
     {
         path: '/mypage/dining',
         name: 'MypageDining',

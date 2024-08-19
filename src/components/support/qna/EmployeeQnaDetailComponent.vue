@@ -9,7 +9,6 @@
               <br>
               <v-card-text>
                 <v-form>
-                  <!-- 서비스 선택 -->
                   <v-row>
                     <v-col cols="12" md="2" class="custom-col-service">
                       <v-input>
@@ -24,6 +23,7 @@
                       ></v-text-field>
                     </v-col>
                   </v-row>
+                  <v-row>
                   <!-- title -->
                   <v-row style="margin-top: -20px;">
                     <v-col cols="12" md="2" class="custom-col-title">
@@ -39,6 +39,7 @@
                       ></v-text-field>
                     </v-col>
                   </v-row>
+                  <v-row>
                   <!-- content -->
                   <v-row style="margin-top: -20px;">
                     <v-col cols="12" md="2" class="custom-col-content">

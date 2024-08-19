@@ -16,7 +16,7 @@
           :to="{path:`/mypage`}">MYPAGE</v-btn>
         <!-- 바로 위, 아래 수정 -->
         <v-btn text style="font-size: 13px; color:#FFFFFF; margin-right:-20px;" v-if="isLogin" @click="logout()">LOGOUT</v-btn>
-        <v-btn text style="font-size: 13px; color:#FFFFFF; margin-right:-20px;" @click="$router.push('/mypage/qna/list')">INQUIRY</v-btn>
+        <v-btn text style="font-size: 13px; color:#FFFFFF; margin-right:-20px;" >INQUIRY {{count}}</v-btn>
       </v-row>
     </v-container>
   </v-app-bar>
@@ -76,6 +76,7 @@
 </template>
 
 <script>
+ import {EventSourcePolyfill} from 'event-source-polyfill';
 import axios from '@/axios'
 import { jwtDecode } from 'jwt-decode'
 
@@ -85,11 +86,26 @@ export default {
             isLogin : false,
             isScrolled: false, 
             dialogReservation: false,
+            count : 0,
             showQueuePositionDialog: false, // 대기열 모달을 위한 변수
             currentPosition: null, // 현재 대기열 위치를 저장하는 변수
             requestId: null,
             eventSource: null, // SSE 연결을 관리하는 변수
         }
+    },
+    created(){
+      
+            const token = localStorage.getItem('membertoken');
+            // view 에서 sse 관련한 실시간 연결 통신을 지원하는 객체가 EventSourcePolyfill
+            let sse = new EventSourcePolyfill(`${process.env.VUE_APP_API_BASE_URL}/inquiry/subscribe`, { headers: {Authorization : `Bearer ${token}`}} );
+            sse.addEventListener('connect', (event) => {  // connect 라는 event 가 들어오면
+                console.log(event);
+            });
+            sse.addEventListener('answer', (event) => {
+              console.log(event);
+              this.count += 1;
+            });
+           
     },
     mounted() {
         window.addEventListener("scroll", this.handleScroll);
