@@ -5,9 +5,9 @@
             <v-row>
                 <v-col cols="12" class="d-flex justify-center">
                     <v-card class="confirmation-card" style="width:1100px">
-                        <v-card-title class="confirmation-title">Dining</v-card-title>
+                        <v-card-title class="confirmation-title">Modify Dining</v-card-title>
                         <br>
-                        <v-card-text>
+                        <v-card-text style="margin-top:-15px;">
                             <v-row>
                                 <v-col cols="12" md="6">
                                     <h3 class="section-title">○ 고객 정보</h3>
@@ -20,7 +20,7 @@
                                             <v-text-field v-model="firstName" readonly></v-text-field>
                                         </v-col>
                                     </v-row>
-                                    <v-row>
+                                    <v-row style="margin-top:-10px;">
                                         <v-col cols="12" md="3">
                                             <div class="data-label">Last name</div>
                                         </v-col>
@@ -28,7 +28,7 @@
                                             <v-text-field v-model="lastName" readonly></v-text-field>
                                         </v-col>
                                     </v-row>
-                                    <v-row>
+                                    <v-row style="margin-top:-10px;">
                                         <v-col cols="12" md="3">
                                             <div class="data-label">Email</div>
                                         </v-col>
@@ -36,7 +36,7 @@
                                             <v-text-field v-model="email" readonly></v-text-field>
                                         </v-col>
                                     </v-row>
-                                    <v-row>
+                                    <v-row style="margin-top:-10px;">
                                         <v-col cols="12" md="3">
                                             <div class="data-label">Phone num</div>
                                         </v-col>
@@ -56,7 +56,7 @@
                                             <v-text-field v-model="adult"></v-text-field>
                                         </v-col>
                                     </v-row>
-                                    <v-row>
+                                    <v-row style="margin-top:-10px;">
                                         <v-col cols="12" md="5">
                                             <div class="data-label">Child</div>
                                         </v-col>
@@ -64,7 +64,7 @@
                                             <v-text-field v-model="child"></v-text-field>
                                         </v-col>
                                     </v-row>
-                                    <v-row>
+                                    <v-row style="margin-top:-10px;">
                                         <v-col cols="12" md="5">
                                             <div class="data-label">Date Time</div>
                                         </v-col>
@@ -72,7 +72,7 @@
                                             <v-text-field v-model="reservationDateTime"></v-text-field>
                                         </v-col>
                                     </v-row>
-                                    <v-row>
+                                    <v-row style="margin-top:-10px;">
                                         <v-col cols="12" md="4">
                                             <div class="data-label">Comment</div>
                                         </v-col>
@@ -84,8 +84,8 @@
                             </v-row>
                         </v-card-text>
                         <!-- 버튼 추가 -->
-                        <v-card-actions class="d-flex justify-end">
-                            <v-btn style="background-color: #787878; color:#FFFFFF; width: 200px" @click="modify">Modify Completed</v-btn>
+                        <v-card-actions class="justify-end">
+                            <v-btn style="color: white; background-color: #7A6C5B; margin-top: 20px; margin-right: 10px;" @click="modify">Modify Completed</v-btn>
                         </v-card-actions>
                     </v-card>
                 </v-col>
@@ -192,27 +192,18 @@ export default {
     flex-direction: column;
     padding-left: 40px;
     padding-right: 40px;
-    overflow: scroll;
-}
-
-.custom-title {
-    padding-left: 9%;
-    font-family: "Noto Serif KR", serif;
-    color: #787878;
-    text-align: left;
-    border-bottom: 3px solid;
 }
 
 .confirmation-card {
-    margin-top: 15px;
     padding: 20px;
     border-radius: 8px;
     border: none;
     width: 100%;
     box-sizing: border-box;
     font-family: "Noto Serif KR", serif;
-    padding-bottom: 10px;
-    height: 100%;
+    height: auto;
+    border: none;
+    box-shadow: none;
 }
 
 .confirmation-title {
@@ -233,17 +224,6 @@ export default {
     font-family: "Noto Serif KR", serif;
 }
 
-.input-field {
-    margin-bottom: 10px;
-}
-
-.v-radio-group {
-    display: flex;
-    align-items: center;
-    margin-bottom: 10px;
-    flex-direction: row;
-}
-
 .v-radio {
     margin-right: 10px;
 }
@@ -262,4 +242,5 @@ export default {
     padding-top: 20px;
     padding-left: 20px;
 }
+
 </style>

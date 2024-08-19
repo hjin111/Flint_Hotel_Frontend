@@ -127,10 +127,10 @@ export default {
     left: 50%;
     transform: translate(-50%, -50%);
     border-radius: 10px;
-    overflow-y: auto;
     flex-direction: column;
     padding-left: 40px;
     padding-right: 40px;
+    overflow-y: auto;
 }
 
 .custom-title {

@@ -32,7 +32,7 @@
         <v-row justify="center" style="padding-right: 30px;">
           <v-btn text style="color:#FFFFFF;">INTRODUCE</v-btn>
           <v-btn text style="color:#4F4337;" @click="openReservationDialog">RESERVATION</v-btn>
-          <v-btn text style="font-size: 40px; color:#4F4337;">FLINT HOTEL</v-btn>
+          <v-btn text style="font-size: 40px; color:#4F4337;" @click="$router.push('/')">FLINT HOTEL</v-btn>
           <v-btn text style="color:#4F4337" :to="{path:'/reserve/dining/create'}">DINING</v-btn>
           <v-btn text style="color:#FFFFFF;">ROOM</v-btn>
         </v-row>
@@ -120,7 +120,7 @@
     margin-top:-10px;
     }
     .v-btn {
-      font-family: 'Playfair Display', serif;
+      font-family: 'Playfair Display', Serif;
       font-style: normal;
       font-weight: 500;
       font-size: 20px;

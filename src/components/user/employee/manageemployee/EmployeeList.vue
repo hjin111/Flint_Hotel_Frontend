@@ -6,24 +6,25 @@
                 <v-col cols="12" class="d-flex justify-center">
                     <v-card class="confirmation-card" style="width:1100px">
                         <v-card-title class="confirmation-title"> Employee List </v-card-title>
-                        <br>
-                        <v-card-text>
+                        
+                        <v-card-text class="cardText">
                             <!-- 검색 바 추가 -->
-                            <v-row class="d-flex justify-content-between align-items-center search-bar">
-                                <v-col cols="2">
+                            <v-row class="searchrow d-flex justify-space-between">
+                                <v-col cols="12" md="4" class="d-flex justify-start" style="margin-left:-30px;">
+                                    <v-btn @click="createEmployee" color="#7A6C5B" elevation="0" outlined>Add Employee</v-btn>
+                                </v-col>
+
+                                <v-col  cols="12" md="2" class="emailcol" style="margin-top:-7px;">
                                     <v-select v-model="searchType" :items="searchOptions" item-title="text"
-                                        item-value="value" dense hide-details class="search-type">
+                                        item-value="value" dense hide-details class="d-flex justfiy-end formCustom">
                                     </v-select>
                                 </v-col>
-                                <v-col cols="6">
-                                    <v-text-field v-model="searchValue" label="검색어 입력" dense hide-details>
+                                <v-col cols="12" md="4" class="emailcol">
+                                    <v-text-field v-model="searchValue" class="modSearch" label="검색어 입력" dense hide-details>
                                     </v-text-field>
                                 </v-col>
-                                <v-col cols="auto">
-                                    <v-btn @click="searchEmployees" color="grey" elevation="0" outlined>검색</v-btn>
-                                </v-col>
-                                <v-col cols="auto">
-                                    <v-btn @click="createEmployee" color="grey" elevation="0" outlined>직원 추가</v-btn>
+                                <v-col cols="12" md="2">
+                                    <v-btn @click="searchEmployees" style="background-color:#DCC8B0; color:white;" elevation="0" outlined>Search</v-btn>
                                 </v-col>
                             </v-row>
                             <br>
@@ -57,7 +58,7 @@
                                                 <td>{{ employee.email }}</td>
                                                 <td>{{ employee.firstName + " " + employee.lastName }}</td>
                                                 <td>{{ employee.department }}</td>
-                                                <v-btn
+                                                <v-btn style="background-color:white; color:#7A6C5B; border: 1px solid #7A6C5B; margin-top:4px;"
                                                     :to="{ path: './office/manage', query: { id: employee.id } }">Detail
                                                 </v-btn>
                                             </tr>
@@ -170,29 +171,24 @@ export default {
     flex-direction: column;
     padding-left: 40px;
     padding-right: 40px;
-    overflow: hidden;
-}
-
-.custom-title {
-    padding-left: 9%;
-    font-family: "playfire Display", serif;
-    color: #787878;
-    text-align: left;
-    border-bottom: 3px solid;
 }
 
 .confirmation-card {
-    margin-top: 15px;
     padding: 20px;
     border-radius: 8px;
     border: none;
     width: 100%;
     box-sizing: border-box;
-    font-family: "Playfair Display", serif;
-    height: 90%;
+    font-family: "Noto Serif KR", serif;
+    height: auto;
     box-shadow: none;
 }
 
+.search-type {
+    max-width: 133px;
+    font-size: 0.5rem;
+    line-height: 1.25rem;
+}
 .confirmation-title {
     font-size: 20px;
     font-weight: bold;
@@ -201,7 +197,19 @@ export default {
     border-bottom: 3px solid #787878;
     font-family: "Noto Serif KR", serif;
 }
-
+.cardText {
+    margin-top:20px;
+}
+.formCustom {
+    margin-left: 20%;
+    margin-bottom: 8px;
+}
+.modSearch {
+    margin-top: -10px;
+}
+.tableCustom {
+    padding-left: 2%;
+}
 .section-title {
     font-size: 17px;
     font-weight: bold;
@@ -211,8 +219,18 @@ export default {
     font-family: "Noto Serif KR", serif;
 }
 
+.tf {
+    margin-right: -20px;
+    padding-top: 20px;
+}
+
 .search {
     padding-top: 40px;
+}
+
+.searchrow {
+    margin-right: -20px;
+    margin-bottom: -40px;
 }
 
 .v-radio-group {
@@ -236,17 +254,15 @@ export default {
     font-weight: bold;
     color: #787878;
     display: flex;
+    justify-content: space-between;
+    gap: -10px;
+    /* 버튼 사이의 간격 */
+    border-bottom: 1px solid #e0e0e0;
     height: 100%;
     padding-top: 40px;
-    padding-left: 20px;
 }
 
-.elevation-1td {
-    min-width: 150px;
-    /* 각 테이블 셀의 최소 너비 */
-    min-height: 50px;
-    /* 각 테이블 셀의 최소 높이 */
-    text-align: center;
-    /* 텍스트 가운데 정렬 */
+.emailcol {
+    margin-right: -20px;
 }
 </style>

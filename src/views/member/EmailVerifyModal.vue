@@ -1,7 +1,7 @@
 <template>
     <v-dialog v-model="dialog" max-width="500px">
-        <v-card>
-            <v-card-title class="text-h5 text-center">
+        <v-card class="emailVerify">
+            <v-card-title class="text-center">
                 이메일 인증 하기
             </v-card-title>
             <v-card-text>
@@ -23,9 +23,9 @@
                     required
                     >
                     </v-text-field>
-                    <v-row style="display: flex; justify-content: center;">
-                        <v-btn type="submit">인증 완료</v-btn>
-                        <v-btn @click="closeModal">닫기</v-btn>
+                    <v-row style="justify-content: center;" class="btn">
+                        <v-btn type="submit" style="color:white; background-color: #7A6C5B;">Success</v-btn>
+                        <v-btn @click="closeModal" style="color:white; background-color: #CFB18E;">Closed</v-btn>
                     </v-row>
                 </v-form>
             </v-card-text>
@@ -80,3 +80,15 @@ export default {
     }
 }
 </script>
+
+<style scoped>
+.emailVerify {
+    font-family: "Noto Serif KR", serif;
+    padding-right:20px;
+}
+.btn {
+    margin-top: 7px;
+    margin-bottom: 7px;
+    margin-left: 25px;
+}
+</style>

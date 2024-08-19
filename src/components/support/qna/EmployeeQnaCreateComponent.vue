@@ -115,6 +115,12 @@ export default {
       }
     },
     async submit() {
+
+    if (!this.date || !this.time) {
+      alert('날짜와 시간을 입력해주세요.');
+      return;
+    }
+
       const id = this.$route.params.id;
       try {
         // 날짜와 시간 합치기

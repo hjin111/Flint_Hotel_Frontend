@@ -42,8 +42,8 @@
                                                 <td>{{ room.checkOutDate }}</td>
                                                 <td>
                                                     <v-btn
-                                                        style="background-color: #DCC8B0; color:white;"
-                                                        @click="$router.push(`/employee/room/${room.id}`)">Detail</v-btn>
+                                                        style="background-color:white; color:#7A6C5B; border: 1px solid #7A6C5B;"
+                                                        @click="$router.push(`/employee/room/${room.roomReservationId}`)">Detail</v-btn>
                                                 </td>
                                             </tr>
                                         </tbody>

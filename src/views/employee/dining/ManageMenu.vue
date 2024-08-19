@@ -9,7 +9,7 @@
                         <v-card-text class="cardText">
                             <v-row class="searchrow d-flex justify-space-between">
                                 <!-- 메뉴 추가 버튼: 왼쪽 정렬 -->
-                                <v-col cols="12" md="3" v-if="canAccess" class="d-flex justify-start" style="margin-top:10px; margin-left:-30px;">
+                                <v-col cols="12" md="3" v-if="canAccess" class="d-flex justify-start" style="margin-top:7px; margin-left:-30px;">
                                     <v-btn @click="openCreateMenuDialog()" color="#7A6C5B" elevation="0" outlined>Add Menu</v-btn>
                                 </v-col>
                                 <!-- 검색 관련 요소: 오른쪽 정렬 -->
@@ -62,8 +62,10 @@
                                                 <td class="price-column-value" style="padding-left:50px;">{{ p.cost }}원</td>
 
                                                 <td class="col-action">
-                                                    <v-btn color="grey" @click="openEditMenuDialog(p)" elevation="0" outlined small>Modify</v-btn>
-                                                    <v-btn color="grey" @click="openDeleteMenuDialog(p.menuId)" elevation="0" outlined small>Delete</v-btn>
+                                                    <v-btn style="background-color:white; color:#7A6C5B; border: 1px solid #7A6C5B;" 
+                                                    @click="openEditMenuDialog(p)" elevation="0" outlined small>Modify</v-btn>
+                                                    <v-btn style="background-color:white; color:#7A6C5B; border: 1px solid #7A6C5B;" 
+                                                    @click="openDeleteMenuDialog(p.menuId)" elevation="0" outlined small>Delete</v-btn>
                                                 </td>
                                             </tr>
                                         </tbody>

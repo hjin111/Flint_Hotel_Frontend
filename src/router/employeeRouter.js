@@ -29,7 +29,6 @@ export const employeeRouter = [
         path: '/employee/create',
         name: 'EmployeeCreate',
         component: EmployeeCreate,
-        meta : {header: 'EmployeeHeaderComponent'}
     },
     {
         path: '/employee/dining/menu',

@@ -9,7 +9,6 @@
               <br>
               <v-card-text>
                 <v-form>
-                  <!-- 서비스 선택 -->
                   <v-row>
                     <v-col cols="12" md="2" class="custom-col-service">
                       <v-input>
@@ -24,8 +23,9 @@
                       ></v-text-field>
                     </v-col>
                   </v-row>
-                  <!-- title -->
                   <v-row>
+                  <!-- title -->
+                  <v-row style="margin-top: -20px;">
                     <v-col cols="12" md="2" class="custom-col-title">
                       <v-input>
                         Title
@@ -39,8 +39,9 @@
                       ></v-text-field>
                     </v-col>
                   </v-row>
-                  <!-- content -->
                   <v-row>
+                  <!-- content -->
+                  <v-row style="margin-top: -20px;">
                     <v-col cols="12" md="2" class="custom-col-content">
                       <v-input>
                         Content
@@ -75,7 +76,7 @@
                           ></v-textarea>
                         </v-col>
                       </v-row>
-                      <v-row>
+                      <v-row style="margin-top: -20px;">
                         <v-col cols="12" md="2" class="custom-col-title">
                           <v-input>
                             Time
@@ -209,6 +210,7 @@
     text-align: center;
   }
   .qna-container {
+    font-family: "Noto Serif KR", serif;
     background-color: white;
     position: absolute;
     width: 90%;
@@ -223,6 +225,8 @@
     padding-top: 10px;
   }
   .qna-card {
+    border: none;
+    box-shadow: none;
     width: 80%;
     padding: 20px;
   }

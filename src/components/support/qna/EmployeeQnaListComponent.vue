@@ -31,17 +31,16 @@
                                         <template v-slot:header>
                                         </template>
                                         <template v-slot:body="{ items }">
-
-                                            <tr v-for="q in items" :key="q.id">
-                                                <td>{{ q.id }}</td>
-                                                <td>{{ q.title }}</td>
-                                                <td>{{ q.memberEmail }}</td>
-                                                <td>{{ q.writeTime }}</td>
-                                                <td>
-                                                    <v-btn @click="diningDetail(q.id)"
-                                                        style="background-color: #DCC8B0; color:white;">Detail</v-btn>
-                                                </td>
-                                            </tr>
+                                                <tr v-for="q in items" :key="q.id" >
+                                                    <td>{{ q.id }}</td>
+                                                    <td>{{ q.title }}</td>
+                                                    <td>{{ q.memberEmail }}</td>
+                                                    <td>{{ formatDate(q.writeTime) }}</td>
+                                                    <td>
+                                                        <v-btn @click="diningDetail(q.id)"
+                                                        style="background-color:white; color:#7A6C5B; border: 1px solid #7A6C5B;">Detail</v-btn>
+                                                    </td>
+                                                </tr>
                                         </template>
                                     </v-data-table>
                                 </v-col>
@@ -135,13 +134,17 @@ export default {
             }
         },
         formatDate(dateString) {
-            const dateOptions = {
-                year: "numeric",
-                month: "2-digit",
-                day: "2-digit",
-            };
-            return new Date(dateString).toLocaleDateString(undefined, dateOptions);
-        }
+            const date = new Date(dateString);
+        
+        // 날짜를 yyyy-mm-dd 형식으로 포맷팅
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, '0'); // 월은 0부터 시작하므로 +1
+        const day = String(date.getDate()).padStart(2, '0');
+        
+        return `${year}-${month}-${day}`;
+        
+      
+        },
     },
     created() {
         this.loadQnA(); // 컴포넌트 생성 시 초기 데이터 로딩
@@ -165,7 +168,6 @@ export default {
     flex-direction: column;
     padding-left: 40px;
     padding-right: 40px;
-    overflow: scroll;
 }
 
 .confirmation-card {
