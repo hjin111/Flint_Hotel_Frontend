@@ -57,18 +57,38 @@
           </v-card>
          </v-dialog>
 
+          <!-- 대기열 위치를 보여주는 다이얼로그 -->
+        <v-dialog v-model="showQueuePositionDialog" max-width="400px">
+          <v-card>
+            <v-card-title>대기열 상태</v-card-title>
+            <v-card-text>
+              <p>현재 대기 순서: {{ currentPosition }}번째 입니다.</p>
+            </v-card-text>
+            <v-card-actions>
+              <v-btn @click="handleDialogClose">닫기</v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
+
     </v-container>
   </v-app-bar>
 </div>
 </template>
 
 <script>
+import axios from '@/axios'
+import { jwtDecode } from 'jwt-decode'
+
 export default {
     data(){
         return{
             isLogin : false,
             isScrolled: false, 
             dialogReservation: false,
+            showQueuePositionDialog: false, // 대기열 모달을 위한 변수
+            currentPosition: null, // 현재 대기열 위치를 저장하는 변수
+            requestId: null,
+            eventSource: null, // SSE 연결을 관리하는 변수
         }
     },
     mounted() {
@@ -77,6 +97,7 @@ export default {
     },
     beforeUnmount() {
         window.removeEventListener("scroll", this.handleScroll);
+        this.closeSSEConnection() // 컴포넌트가 파괴될 때 SSE 연결 종료
     },
     methods: {
       handleScroll() {
@@ -99,13 +120,63 @@ export default {
       openReservationDialog() {
         this.dialogReservation = true;
       },
-      RoomReservationBtn() {
-        this.$router.push(`/reserve/room`);
-        this.dialogReservation = false;
+      async RoomReservationBtn() {
+        const token = localStorage.getItem('membertoken')
+          if(token){
+            try {
+              const decodedToken = jwtDecode(token)
+              const email = decodedToken.sub
+              const response = await axios.post('/submit', null, { params: { email: email } })
+              if (response.data && response.data.status_code === 200) {
+                const { requestId, position } = response.data.result
+                this.requestId = requestId
+                this.currentPosition = position
+                // 대기열 위치가 50 미만일 경우 예약 페이지로 이동
+                if (this.currentPosition < 50) {
+                  this.dialogReservation = false  // 예약 모달을 닫고
+                  this.showQueuePositionDialog = false // 대기열 모달 닫기
+                  this.closeSSEConnection() // SSE 연결 종료
+                  this.$router.push(`/reserve/room`)
+                } else {
+                  // 대기열 위치가 50 이상일 경우 대기열 모달을 열고 SSE 연결 시작
+                  this.dialogReservation = false  // 예약 모달을 닫고
+                  this.showQueuePositionDialog = true  // 대기열 모달 열기
+                  this.startQueueCheck()  // 대기열 위치 체크 시작
+                }
+              } else {
+                alert(`요청 처리에 실패했습니다. 메시지: ${response.data.status_message}`)
+              }
+            } catch (error) {
+              console.error('Error while submitting request:', error)
+              alert('요청 처리 중 오류가 발생했습니다.')
+            }
+          } else{
+              this.$router.push(`/member/login`)
+          }
       },
       DiningReservationBtn() {
         this.$router.push(`/reserve/dining/create`);
         this.dialogReservation = false;
+      },
+      handleDialogClose() {
+        this.closeSSEConnection() // SSE 연결 종료
+        if (this.requestId) {
+          axios.delete(`/leave/${this.requestId}`)
+          .then(response => {
+              if (response.status === 204) {
+                  this.requestId = ""
+                  console.log('Successfully left the queue.')
+                  this.showQueuePositionDialog = false
+              } else {
+                  console.error('Unexpected response status:', response.status)
+                  alert('대기열에서 나가는 중 오류가 발생했습니다.')
+              }
+          })
+          .catch(error => {
+              console.error('Error while leaving the queue:', error)
+              alert('대기열에서 나가는 중 오류가 발생했습니다.')
+          })
+        }
       }
   }
 };
