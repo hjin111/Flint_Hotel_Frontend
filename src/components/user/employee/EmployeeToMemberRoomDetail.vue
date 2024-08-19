@@ -155,10 +155,9 @@ export default {
     },
     methods: {
         async fetchRoomReserveId(reserveId) {
-
             try {
                 const response = await axios.get(`/employee/room/reserve/${reserveId}`);
-                const reservationDetail = response.data.infoRoomDetResDto;
+                const reservationDetail = response.data;
 
                 this.roomType = reservationDetail.roomType
                 this.checkin = reservationDetail.checkin

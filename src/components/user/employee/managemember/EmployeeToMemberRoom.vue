@@ -37,9 +37,9 @@
                                         </thead>
                                         <tbody>
                                             <tr class="text-center" v-for="room in roomReservations" :key="room.id">
-                                                <td>{{ room.roomReservationId }}</td>
-                                                <td>{{ room.reservationCheckin }}</td>
-                                                <td>{{ room.reservationCheckout }}</td>
+                                                <td>{{ room.id }}</td>
+                                                <td>{{ room.checkInDate }}</td>
+                                                <td>{{ room.checkOutDate }}</td>
                                                 <td>
                                                     <v-btn
                                                         style="background-color:white; color:#7A6C5B; border: 1px solid #7A6C5B;"
@@ -75,15 +75,12 @@ export default {
     methods: {
         async searchMember() {
             try {
-                const response = await axios.get(`${process.env.VUE_APP_API_BASE_URL}/employee/list_reserve`, {
+                const response = await axios.get(`${process.env.VUE_APP_API_BASE_URL}/employee/room/reserve`, {
                     params: {
                         email: this.email
-                    },
-                    headers: {
-                        'Content-Type': 'text/plain' // 사실 GET 요청에서는 Content-Type을 설정할 필요가 없습니다.
                     }
                 });
-                this.roomReservations = response.data.result.roomReservations;
+                this.roomReservations = response.data.result;
                 console.log(this.roomReservations)
             } catch (e) {
                 alert(e.response.data.error_message);

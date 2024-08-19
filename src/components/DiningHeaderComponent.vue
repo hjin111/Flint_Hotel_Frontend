@@ -39,22 +39,22 @@
 
         <!-- reservation 클릭 후 > 모달창 -->
       <v-dialog v-model="dialogReservation" max-width="400px">
-          <v-card style="border: none;">
-            <div style="background-color: #D5DCEA; height: 50px; border-radius: 4px 4px 0 0;"></div>
-            <v-card-text class="cardText" style="padding: 24px;">
-              <v-row class="button-row" justify="center">
-                <v-col cols="6" md="6" class="d-flex justify-center">
-                  <v-btn class="custom-btn" size="large" style="color: black; background-color: #E5E5E5; 
-                  padding-top:10px; padding-bottom:30px; width: 100%; max-width: 160px; border: none;" @click="RoomReservationBtn">Room</v-btn>
-                </v-col>
-                <v-col cols="6" md="6" class="d-flex justify-center">
-                  <v-btn class="custom-btn" size="large" style="color: black; background-color: #E5E5E5;
-                  padding-top:10px; padding-bottom:30px; width: 100%; max-width: 160px; border: none;" @click="DiningReservationBtn">Dining</v-btn>
-                </v-col>
-              </v-row>
-            </v-card-text>
-          </v-card>
-         </v-dialog>
+        <v-card style="border: none;">
+          <div style="background-color: #D5DCEA; height: 50px; border-radius: 4px 4px 0 0;"></div>
+          <v-card-text class="cardText" style="padding: 24px;">
+            <v-row class="button-row" justify="center">
+              <v-col cols="6" md="6" class="d-flex justify-center">
+                <v-btn class="custom-btn" size="large" style="color: black; background-color: white; border-color: #D5DCEA; border-width: 3px;
+                padding-top:10px; padding-bottom:30px; width: 100%; max-width: 160px; box-shadow: none;" @click="RoomReservationBtn">Room</v-btn>
+              </v-col>
+              <v-col cols="6" md="6" class="d-flex justify-center">
+                <v-btn class="custom-btn" size="large" style="color: black; background-color: white; border-color: #D5DCEA; border-width: 3px;
+                padding-top:10px; padding-bottom:30px; width: 100%; max-width: 160px; box-shadow: none;" @click="DiningReservationBtn">Dining</v-btn>
+              </v-col>
+            </v-row>
+          </v-card-text>
+        </v-card>
+       </v-dialog>
       </v-container>
 
     </v-app-bar>

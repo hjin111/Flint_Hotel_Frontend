@@ -123,6 +123,7 @@
                       dateOfEmployment: dateOfEmployment.value,
                       gender: gender.value,
                       department: department.value,
+                      employeeRank : '사원'
                   }
                   const token = localStorage.getItem('employeetoken') 
                   const response = await axios.post('/employee/create', createData, {

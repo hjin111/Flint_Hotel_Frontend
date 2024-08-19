@@ -17,7 +17,7 @@
             >
           </li>
           <li style="padding-bottom: 10px;padding-top: 10px;">
-            <v-btn class="custom-size" @click="inquiryList"  style="color:#69586F; font-size: 18px;">Inquiry</v-btn>
+            <v-btn class="custom-size" @click="$router.push('/mypage/qna/list')" style="color:#69586F; font-size: 18px;">Inquiry</v-btn>
           </li>
           <li style="padding-bottom: 10px;padding-top: 10px;">
             <v-btn class="custom-size" 

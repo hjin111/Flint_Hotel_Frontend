@@ -142,7 +142,7 @@ export default {
             try {
                 const response = await axios.get(`/employee/room/reserve/${reserveId}`);
                 console.log("response: ", response.data);
-                const reservationDetail = response.data.infoRoomDetResDto;
+                const reservationDetail = response.data;
 
                 this.roomType = reservationDetail.roomType
                 this.checkin = reservationDetail.checkin

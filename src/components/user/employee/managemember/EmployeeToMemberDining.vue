@@ -17,34 +17,34 @@
                                             <v-text-field class="tf" v-model="email"></v-text-field>
                                         </v-col>
                                         <v-col cols="12" md="3" class="search">
-                                            <v-btn @click="searchMember()" style="color: white;" color="#7A6C5B">Search</v-btn>
+                                            <v-btn @click="searchMember()" style="color: white;"
+                                                color="#7A6C5B">Search</v-btn>
                                         </v-col>
                                     </v-row>
                                 </v-col>
                             </v-row>
                             <v-row class="justify-center">
                                 <v-col cols="12">
-                                    <v-data-table class="elevation-1">
-                                        <thead>
-                                            <tr>
-                                                <th style="text-align: center;">Id</th>
-                                                <th style="text-align: center;">Reserve Date</th>
-                                                <th style="text-align: center;">Reserve Time</th>
-                                                <th style="text-align: center;">Detail</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr class="text-center" v-for="dining in diningReservations"
-                                                :key="dining.id">
-                                                <td>{{ dining.diningReservationId }}</td>
-                                                <td>{{ formatDate(dining.reservationDateTime) }}</td>
-                                                <td>{{ formatTime(dining.reservationDateTime) }}</td>
-                                                <td>
-                                                    <v-btn style="background-color: #DCC8B0; color:white;" @click="diningDetail(dining.diningReservationId)">Detail</v-btn>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </v-data-table>
+                                    <div class="table-container">
+                                        <v-data-table :header="headers" :items="diningReservations" class="elevation-1"
+                                            item-key="id"
+                                            :style="{ maxHeight: '1000px', overflowY: 'auto' }">
+                                            <template v-slot:header>
+
+                                            </template>
+                                            <template v-slot:body="{ items }">
+                                                <tr v-for="dr in items" :key="dr.id">
+                                                    <td>{{ dr.diningReservationId }}</td>
+                                                    <td>{{ formatDate(dr.reservationDate) }}</td>
+                                                    <td>{{ formatTime(dr.reservationTime) }}</td>
+                                                    <td>
+                                                        <v-btn @click="diningDetail(dr.diningReservationId)"
+                                                            style="background-color: #DCC8B0; color:white;">Detail</v-btn>
+                                                    </td>
+                                                </tr>
+                                            </template>
+                                        </v-data-table>
+                                    </div>
                                 </v-col>
                             </v-row>
                         </v-card-text>
@@ -67,31 +67,32 @@ export default {
         return {
             email: "",
             diningReservations: [],
-            diningDate: "",
-            diningTime: "",
-            diningReserve:[],
+            headers: [
+                { text: 'Id', value: 'diningReservationId', align: 'center' },
+                { text: 'Reserve Date', value: 'reservationDate', align: 'center' },
+                { text: 'Reserve Time', value: 'reservationTime', align: 'center' },
+            ],
+            isLoading: false,
         };
     },
     methods: {
-        async diningDetail(diningReservationId){
-
+        async diningDetail(diningReservationId) {
             this.$router.push({
-                 path: `/employee/dining/detail/${diningReservationId}`
+                path: `/employee/dining/detail/${diningReservationId}`
             });
         },
         async searchMember() {
             try {
                 const response = await axios.get(`${process.env.VUE_APP_API_BASE_URL}/employee/dining/reserve`, {
                     params: {
-                        email: this.email
+                        email: this.email,
                     },
                     headers: {
-                        'Content-Type': 'text/plain' // 사실 GET 요청에서는 Content-Type을 설정할 필요가 없습니다.
+                        'Content-Type': 'text/plain'
                     }
                 });
-                console.log(response.data.result)
+
                 this.diningReservations = response.data.result;
-                console.log(this.diningReservations)
             } catch (e) {
                 alert("입력값이 없습니다")
             }
@@ -102,22 +103,14 @@ export default {
                 month: "2-digit",
                 day: "2-digit",
             };
-            const datePart = new Date(dateString).toLocaleDateString(
-                undefined,
-                dateOptions
-            );
-            return datePart;
+            return new Date(dateString).toLocaleDateString(undefined, dateOptions);
         },
         formatTime(dateString) {
             const timeOptions = {
                 hour: "2-digit",
                 minute: "2-digit",
             };
-            const timePart = new Date(dateString).toLocaleTimeString(
-                undefined,
-                timeOptions
-            );
-            return timePart;
+            return new Date(dateString).toLocaleTimeString(undefined, timeOptions);
         },
     }
 };
@@ -155,9 +148,12 @@ export default {
     width: 100%;
     box-sizing: border-box;
     font-family: "Noto Serif KR", serif;
-    height: 90%;
+    height: 100%;
     box-shadow: none;
+    display: flex;
+    flex-direction: column;
 }
+
 
 .confirmation-title {
     font-size: 20px;
@@ -176,13 +172,20 @@ export default {
     padding-bottom: 20px;
     font-family: "Noto Serif KR", serif;
 }
+
+.table-container {
+    max-height: 1000px;
+}
+
 .tf {
     margin-right: -20px;
-    padding-top:20px;
+    padding-top: 20px;
 }
+
 .search {
     padding-top: 40px;
 }
+
 .searchrow {
     margin-right: -20px;
     margin-bottom: -40px;
@@ -212,6 +215,7 @@ export default {
     height: 100%;
     padding-top: 40px;
 }
+
 .emailcol {
     margin-right: -20px;
 }
