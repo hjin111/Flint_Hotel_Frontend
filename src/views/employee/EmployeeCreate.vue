@@ -79,9 +79,12 @@
   <script>
   import axios from '@/axios'
   import { ref } from 'vue'
-  
+  import { useRouter } from 'vue-router'
+
   export default{
       setup(){
+          const router = useRouter()
+
           const email = ref('')
           const password = ref('')
           const firstName = ref('')
@@ -120,8 +123,9 @@
                         Authorization: `Bearer ${token}`
                     }
                 })
-                console.log(createData)
-                alert(response.data)
+                console.log(response.data)
+                alert(response.data.status_message)
+                router.push("/employee/office")
               } catch(e){
                     alert(e.error_message)
               }
@@ -138,7 +142,7 @@
               department,
               genders, 
               departments, 
-              employeeCreate
+              employeeCreate,
           }  
       },
   }
