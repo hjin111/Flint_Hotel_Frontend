@@ -1,0 +1,226 @@
+<template>
+    <!-- 네비게이션바 -->
+    <v-app-bar app dark>
+      <v-container>
+        <!-- 행의 자식 요소들을 모두 중앙정렬  -->
+        <v-row align="center">
+            <!-- 콜 전체를 왼쪽정 렬되게 해줌 -->
+            <v-col class="d-flex justify-start"> 
+                <v-btn @click="openMemberDialog">Member</v-btn>
+                <v-btn v-if="department === 'Office' " 
+                      :to="{path:'/employee/office'}"> {{ manage }}</v-btn>
+                <v-btn v-if="department === 'Room' " 
+                      @click="openManageDialog"> {{ manage }}</v-btn> 
+                <v-btn v-if="department === 'KorDining' || department === 'JapDining' || department === 'ChiDining' || department === 'Lounge' " 
+                      @click="openManageDialog"> {{ manage }}</v-btn> 
+            </v-col>
+            <v-col class="text-center">
+              <v-btn class="flint-hotel-title" :to="{path:'/employee'}">FLINT HOTEL</v-btn>
+            </v-col>
+            <v-col class="d-flex justify-end">
+              <v-btn :to="{path:'/employee/dining'}">Dining</v-btn>
+              <v-btn @click="openReservationModal">Room({{ newReservationCount }})</v-btn>
+            </v-col>
+        </v-row>
+
+        <!-- member 클릭 > 모달창 -->
+         <v-dialog v-model="dialogMember" max-width="400px">
+          <v-card style="border: none;">
+            <div style="background-color: #828282; height: 50px; border-radius: 4px 4px 0 0;"></div>
+            <v-card-text class="cardText" style="padding: 24px;">
+              <v-row class="button-row" justify="center">
+                <v-col cols="6" md="6" class="d-flex justify-center">
+                  <v-btn class="custom-btn" size="large" style="color: black; background-color: #E5E5E5; 
+                  padding-top:10px; padding-bottom:30px; width: 100%; max-width: 160px; border: none;" @click="memberListBtn">Member List</v-btn>
+                </v-col>
+                <v-col cols="6" md="6" class="d-flex justify-center">
+                  <v-btn class="custom-btn" size="large" style="color: black; background-color: #E5E5E5;
+                  padding-top:10px; padding-bottom:30px; width: 100%; max-width: 160px; border: none;" @click="qnaManageBtn">QnA Manage</v-btn>
+                </v-col>
+              </v-row>
+            </v-card-text>
+          </v-card>
+         </v-dialog>
+
+         <!-- Room Manage 클릭 > 모달창 -->
+         <v-dialog v-model="dialogManage" max-width="400px">
+          <v-card style="border: none;">
+            <div style="background-color: #828282; height: 50px; border-radius: 4px 4px 0 0;"></div>
+            <v-card-text class="cardText" style="padding: 24px;">
+              <v-row class="button-row" justify="center">
+                <v-col  cols="12" md="8" class="d-flex justify-center">
+                  <v-btn class="custom-btn" size="large" 
+                  v-if="isDining" @click="navigateToMenu"
+                  style="color: black; background-color: #E5E5E5; 
+                  padding-top:10px; padding-bottom:30px; width: 100%; max-width: 160px; border: none;">Menu Manage</v-btn>
+                  <v-btn class="custom-btn" size="large" 
+                  v-if="isRoom" @click="navigateToMenu"
+                  style="color: black; background-color: #E5E5E5; 
+                  padding-top:10px; padding-bottom:30px; width: 100%; max-width: 160px; border: none;">Room Price</v-btn>
+                </v-col>
+              </v-row>
+            </v-card-text>
+          </v-card>
+         </v-dialog>
+
+         <!-- 객실 예약 알림 모달창 -->
+         <v-dialog v-model="dialogSSE" max-width="600px">
+            <v-card style="font-family: Playfair Display, serif; padding-left:15px;
+            padding-top:15px;">
+              <v-card-title class="headline">New Reservations</v-card-title>
+              <v-card-text>
+                <div v-if="newReservationCount === 0" style="font-family: Noto Serif KR, serif;">
+                  새로운 예약이 없습니다.
+                </div>
+                <div v-else>
+                  <ul>
+                    <li v-for="reservation in recentReservations" :key="reservation.id" style="font-family: Noto Serif KR, serif;"
+                    @click="goToReservationDetail(reservation.id)">
+                      [{{ reservation.roomType }}] : Check-in {{ reservation.checkInDate }} ~ Check-out {{ reservation.checkOutDate }}
+                    </li>
+                  </ul>
+                </div>
+              </v-card-text>
+              <v-card-actions>
+                <!-- <v-btn @click="goToRoomReservationDetails">Details</v-btn> -->
+                <v-btn @click="closeReservationModal">Close</v-btn>
+              </v-card-actions>
+            </v-card>
+          </v-dialog>
+      </v-container>
+    </v-app-bar>    
+  </template>
+    
+  <script>
+import { jwtDecode } from 'jwt-decode';
+import { useRouter } from 'vue-router';
+// sse
+import { EventSourcePolyfill } from 'event-source-polyfill';
+import { mapState, mapActions } from 'vuex';
+
+  export default {
+    data(){
+      return{
+        department:"",
+        manage: "",
+        dialogMember: false,
+        dialogManage: false,
+        dialogSSE: false,
+        isLogin : false,
+        router: useRouter(),
+        employeeDepartment: null,
+        // newReservationCount: 0,
+        recentReservations: []
+      }
+    },
+    created() {
+      const token = localStorage.getItem("employeetoken");
+      if (token) {
+        // 토큰이 있으면 정상 
+        this.isLogin = true
+        const decodedToken = jwtDecode(token)
+
+        this.employeeDepartment = decodedToken.department // department 꺼내담기 
+        console.log("부서 : ", this.employeeDepartment);
+      }
+      if (this.employeeDepartment === 'Room') {
+        let sse = new EventSourcePolyfill(`${process.env.VUE_APP_API_BASE_URL}/room/subscribe`,  {headers: {Authorization: `Bearer ${token}`}});
+        sse.addEventListener('connect', (event) => {
+          console.log(event);
+        })
+
+        // 객실 예약이 들어오는 것 listen 
+        sse.addEventListener('booked', (event) => {
+          console.log('새로운 객실 예약이 들어왔습니다. :', event.data);
+          // this.newReservationCount += 1; 
+          this.incrementReservationCount();
+          this.recentReservations.push(JSON.parse(event.data));
+          // 데이터가 들어오는 순간 localStorage 에 저장.
+          localStorage.setItem('recentReservations', JSON.stringify(this.recentReservations))
+        });
+      }
+    },
+    mounted() {
+      const payload = jwtDecode(localStorage.getItem('employeetoken'));
+      this.department = payload.department;
+      this.manage = payload.department + " " + "Manage";
+
+      const storedReservations = JSON.parse(localStorage.getItem('recentReservations'));
+      if (storedReservations) {
+          this.recentReservations = storedReservations;
+      }
+    },
+    computed: {
+        ...mapState('reservation', ['newReservationCount']),
+        isDining() {
+            return ['KorDining', 'JapDining', 'ChiDining', 'Lounge'].includes(this.department);
+        },
+        isRoom() {
+            return this.department === 'Room';
+        }
+    },
+    methods: {
+      ...mapActions('reservation', ['incrementReservationCount', 'decrementReservationCount']),
+      openMemberDialog() {
+        this.dialogMember = true;
+      },
+      memberListBtn() {
+        this.$router.push(`/employee/member/list`);
+        this.dialogMember = false;
+      },
+      qnaManageBtn() {
+        this.$router.push(`/employee/qna/list`);
+        this.dialogMember = false;
+      },
+      openManageDialog() {
+        console.log("hi");
+        this.dialogManage = true;
+      },
+      navigateToMenu() {
+            const path = this.isDining ? '/employee/dining/menu' : '/employee/room/modprice';
+            this.$router.push(path);
+            console.log("hihi");
+            this.dialogManage = false;
+      },
+      openReservationModal() {
+        this.dialogSSE = true;
+      },
+      closeReservationModal() {
+        this.dialogSSE = false;
+        this.$router.push(`/employee/room`);
+      },
+      async goToReservationDetail(reservationId) {
+        // detail 조회를 위해 선택한 예약만 제거 (조회한 예약id와 같지 "않은" 것만 남겨두기)
+        this.recentReservations = this.recentReservations.filter(reservation => reservation.id !== reservationId);
+        
+        this.decrementReservationCount();
+
+        if (this.recentReservations.length === 0) {
+          localStorage.removeItem('recentReservations');
+        } else{
+          localStorage.removeItem('recentReservations')
+          localStorage.setItem('recentReservations', JSON.stringify(this.recentReservations));
+        }
+        setTimeout(() => this.goToDetail(reservationId),300);
+        this.dialogSSE = false;
+      },
+      goToDetail(reservationId){
+        window.location.href = `/employee/room/${reservationId}`;
+      }
+    }
+  };
+  </script>
+  
+  <style>
+.flint-hotel-title {
+  font-size: 24px;
+  font-family: "Playfair Display", serif;
+}
+
+.v-btn {
+  margin: 0 30px;
+  font-family: "Noto Serif KR", serif;
+}
+
+
+</style>
