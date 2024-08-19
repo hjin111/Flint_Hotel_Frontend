@@ -14,8 +14,8 @@
           <v-btn class="flint-hotel-title" :to="{ path: '/employee' }">FLINT HOTEL</v-btn>
         </v-col>
         <v-col class="d-flex justify-end">
-          <v-btn @click="openReservationModal()">Dining({{ newDiningReservationCount }})</v-btn>
-          <v-btn :to="{ path: '/employee/room' }">Room</v-btn>
+          <v-btn @click="openDiningReservationModal()">Dining({{ newDiningReservationCount }})</v-btn>
+          <v-btn @click="openRoomReservationModal()">Room({{ newReservationCount }})</v-btn>
           <v-btn v-if="!isLogin" :to="{ path: '/employee/login' }"> Login </v-btn>
           <v-btn v-else-if="isLogin" @click="Logout()"> Logout </v-btn>
         </v-col>
@@ -81,12 +81,12 @@
             </div>
           </v-card-text>
           <v-card-actions>
-            <v-btn @click="closeReservationModal">Close</v-btn>
+            <v-btn @click="closeDiningReservationModal">Close</v-btn>
           </v-card-actions>
         </v-card>
       </v-dialog>
       <!-- 객실 예약 알림 모달창 -->
-      <v-dialog v-model="dialogSSE" max-width="600px">
+      <v-dialog v-model="roomDialogSSE" max-width="600px">
         <v-card style="font-family: Playfair Display, serif; padding-left:15px;
             padding-top:15px;">
           <v-card-title class="headline">New Reservations</v-card-title>
@@ -106,7 +106,7 @@
           </v-card-text>
           <v-card-actions>
             <!-- <v-btn @click="goToRoomReservationDetails">Details</v-btn> -->
-            <v-btn @click="closeReservationModal">Close</v-btn>
+            <v-btn @click="closeRoomReservationModal">Close</v-btn>
           </v-card-actions>
         </v-card>
       </v-dialog>
@@ -126,11 +126,10 @@ export default {
       manage: "",
       dialogMember: false,
       dialogManage: false,
-      dialogSSE: false,
+      roomDialogSSE: false,
       isLogin: false,
       router: useRouter(),
       employeeDepartment: null,
-      // newReservationCount: 0,
       recentReservations: [],
       dept: "",
       diningDialogSSE: false,
@@ -169,7 +168,7 @@ export default {
       }
 
       let email = '';
-      switch (this.department){
+      switch (this.employeeDepartment) {
         case 'KorDining':
           email = "flint_kor@gmail.com"
           break;
@@ -186,11 +185,11 @@ export default {
           console.log("No matched department")
           break;
       }
-      if(email){
-        try{
+      if (email) {
+        try {
           let sse = new EventSourcePolyfill(
             `${process.env.VUE_APP_API_BASE_URL}/dining/subscribe`,
-            {headers : { Authorization: `Bearer ${token}`, 'X-User-Email': email } }
+            { headers: { Authorization: `Bearer ${token}`, 'X-User-Email': email } }
           );
           sse.addEventListener('connect', (event) => {
             console.log("Connected: ", event);
@@ -199,12 +198,12 @@ export default {
             console.log("Reservation received:", event.data);
           });
           sse.onerror = (error) => {
-            if(error.error.message.includes('No activity within')){
+            if (error.error.message.includes('No activity within')) {
               return;
             }
             console.error(error);
           };
-        }catch(error){
+        } catch (error) {
           console.log(error)
         }
       }
@@ -257,10 +256,17 @@ export default {
       console.log("hihi");
       this.dialogManage = false;
     },
-    openReservationModal() {
+    openRoomReservationModal(){
+      this.roomDialogSSE = true;
+    },
+    openDiningReservationModal() {
       this.diningDialogSSE = true;
     },
-    closeReservationModal() {
+    closeRoomReservationModal(){
+      this.roomDialogSSE = false
+      this.$router.push(`/employee/room`);
+    },
+    closeDiningReservationModal() {
       this.diningDialogSSE = false;
       this.$router.push(`/employee/dining`);
     },
