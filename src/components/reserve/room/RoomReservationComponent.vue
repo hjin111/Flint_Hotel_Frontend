@@ -83,7 +83,9 @@
                   </thead>
                   <tbody>
                     <tr v-for="(room, index) in roomList" :key="index">
-                      <td style="padding-left: 50px;">이미지</td>
+                      <td style="padding-left: 50px;">
+                          <v-img :src="room.imagePath" style="height:100px; width:auto;"></v-img>
+                      </td>
                       <td style="padding-left: 50px;">{{ room.roomTypeName }}</td>
                       <td style="padding-left: 50px;">{{ room.roomPrice.toLocaleString() }}원 ~</td>
                       <td style="padding-left: 50px;">
@@ -180,7 +182,8 @@
         localStorage.setItem('selectedRoom', JSON.stringify({
           roomId: selectedRoom.roomId,
           roomTypeName: selectedRoom.roomTypeName,
-          roomPrice: selectedRoom.roomPrice
+          roomPrice: selectedRoom.roomPrice,
+          imagePath: selectedRoom.imagePath
         }));
 
         this.$router.push('/reserve/room/description');
