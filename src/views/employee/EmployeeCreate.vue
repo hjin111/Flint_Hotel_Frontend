@@ -1,12 +1,14 @@
 <template>
-    <v-app>
+  <div>
+    <EmployeeView />
+    <v-container class="content-container">
       <!-- 회원가입 폼 -->
       <v-main class="main-background">
         <v-container class="join-now-container">
           <v-row>
             <v-col cols="12">
-              <h1 class="join-now-title">Employee Create</h1>
-              <p class="welcome-text">직원 생성 페이지입니다.</p>
+              <h1 class="join-now-title" style="font-family: 'Playfair Display', serif; color:#787878;">Employee Create</h1>
+              <p class="welcome-text" style="color:#787878;">직원 생성 페이지입니다.</p>
             </v-col>
           </v-row>
           <v-row>
@@ -68,19 +70,24 @@
           </v-row>
           <v-row>
             <v-col cols="12">
-              <v-btn @click="employeeCreate" class="create-btn" color="primary">직원 추가</v-btn>
+              <v-btn @click="employeeCreate" class="createBtn" style="background-color: #7A6C5B; color:white;">Add Employee</v-btn>
             </v-col>
           </v-row>
         </v-container>
       </v-main>
-    </v-app>
+    </v-container>
+    </div>
   </template>
   
   <script>
+  import EmployeeView from '@/views/EmployeeView.vue'
   import axios from '@/axios'
   import { ref } from 'vue'
   
   export default{
+    components: {
+        EmployeeView
+    },
       setup(){
           const email = ref('')
           const password = ref('')
@@ -143,4 +150,28 @@
       },
   }
   </script>
+
+  <style>
+.content-container {
+    background-color: white;
+    position: absolute;
+    width: 90%;
+    max-width: 1200px;
+    height: 80%;
+    top: 55%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 10px;
+    overflow-y: auto;
+    flex-direction: column;
+    padding-left: 40px;
+    padding-right: 40px;
+    font-family: "Noto Serif KR", serif;
+}
+.createBtn {
+  font-family: "Noto Serif KR", serif;
+  color: white;
+  margin-left: 85%;
+}
+</style>
   

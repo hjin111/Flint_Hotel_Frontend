@@ -120,7 +120,7 @@
     margin-top:-10px;
     }
     .v-btn {
-      font-family: 'Playfair Display', serif;
+      font-family: 'Playfair Display', Serif;
       font-style: normal;
       font-weight: 500;
       font-size: 20px;
