@@ -14,18 +14,18 @@
                                         <v-col cols="12" md="6">
                                             <!-- 왼쪽 열 -->
                                             <v-row>
-                                                <v-col cols="12" md="3">
+                                                <v-col cols="12" md="5">
                                                     <div class="data-label">Dining</div>
                                                 </v-col>
-                                                <v-col cols="12" md="9">
+                                                <v-col cols="12" md="7">
                                                     <v-text-field v-model="diningName" readonly></v-text-field>
                                                 </v-col>
                                             </v-row>
                                             <v-row>
-                                                <v-col cols="12" md="3">
+                                                <v-col cols="12" md="5">
                                                     <div class="data-label">People</div>
                                                 </v-col>
-                                                <v-col cols="12" md="9">
+                                                <v-col cols="12" md="7">
                                                     <v-text-field v-model="people" readonly></v-text-field>
                                                 </v-col>
                                             </v-row>
@@ -33,18 +33,18 @@
                                         <!-- 오른쪽 열 -->
                                         <v-col cols="12" md="6">
                                             <v-row>
-                                                <v-col cols="12" md="6">
+                                                <v-col cols="12" md="5">
                                                     <div class="data-label">Reserve Date</div>
                                                 </v-col>
-                                                <v-col cols="12" md="6">
+                                                <v-col cols="12" md="7">
                                                     <v-text-field v-model="date" readonly></v-text-field>
                                                 </v-col>
                                             </v-row>
                                             <v-row>
-                                                <v-col cols="12" md="6">
+                                                <v-col cols="12" md="5">
                                                     <div class="data-label">Reserve Time</div>
                                                 </v-col>
-                                                <v-col cols="12" md="6">
+                                                <v-col cols="12" md="7">
                                                     <v-text-field v-model="time" readonly></v-text-field>
                                                 </v-col>
                                             </v-row>
@@ -56,7 +56,7 @@
                                         </v-col>
                                     </v-row>
                                     <v-row>
-                                        <v-col>
+                                        <v-col style="padding-left : 30px">
                                             <v-text-field v-model="comment" readonly></v-text-field>
                                         </v-col>
                                     </v-row>
