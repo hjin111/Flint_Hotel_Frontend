@@ -16,7 +16,7 @@
                                                 <th style="text-align: center;">Id</th>
                                                 <th style="text-align: center;">Name</th>
                                                 <th style="text-align: center;">Email</th>
-                                                <th style="text-align: center;">Detail</th>
+                                                <th style="text-align: center;">Phone Number</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -24,10 +24,12 @@
                                                 :key="m.id">
                                                 <td>{{ m.id }}</td>
                                                 <td>{{ m.name }}</td>
-                                                <td>{{ m.email }}</td>
                                                 <td>
-                                                    <v-btn style="background-color:white; color:#7A6C5B; border: 1px solid #7A6C5B;">Detail</v-btn>
+                                                    <router-link :to="{ name: 'EmployeeToMemberDetail', params: {id: m.id}}">
+                                                        {{ m.email }}
+                                                    </router-link>
                                                 </td>
+                                                <td>{{ m.phoneNumber }}</td>
                                             </tr>
                                         </tbody>
                                     </v-data-table>
