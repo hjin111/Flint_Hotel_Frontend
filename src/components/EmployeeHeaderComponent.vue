@@ -131,7 +131,6 @@ export default {
       recentReservations: [],
       dept: "",
       diningDialogSSE: false,
-      newDiningReservationCount: 0,
       diningRecentReservations: []
     }
   },
@@ -149,6 +148,11 @@ export default {
       const storedReservations = JSON.parse(localStorage.getItem('recentReservations'));
       if (storedReservations) {
         this.recentReservations = storedReservations;
+      }
+
+      const storedDiningReservations = JSON.parse(localStorage.getItem('diningRecentReservations'));
+      if (storedDiningReservations) {
+        this.diningRecentReservations = storedDiningReservations;
       }
       console.log(this.department)
     }
@@ -194,6 +198,11 @@ export default {
           });
           sse.addEventListener('reserved', (event) => {
             console.log("Reservation received:", event.data);
+
+            this.incrementDiningReservationCount();
+            this.diningRecentReservations.push(JSON.parse(event.data));
+            // 데이터가 들어오는 순간 localStorage 에 저장.
+            localStorage.setItem('diningRecentReservations', JSON.stringify(this.diningRecentReservations))
           });
           sse.onerror = (error) => {
             if (error.error.message.includes('No activity within')) {
@@ -224,6 +233,7 @@ export default {
   },
   computed: {
     ...mapState('reservation', ['newReservationCount']),
+    ...mapState('diningReservation', ['newDiningReservationCount']),
     isDining() {
       return ['KorDining', 'JapDining', 'ChiDining', 'Lounge'].includes(this.department);
     },
@@ -233,6 +243,7 @@ export default {
   },
   methods: {
     ...mapActions('reservation', ['incrementReservationCount', 'decrementReservationCount']),
+    ...mapActions('diningReservation', ['incrementDiningReservationCount', 'decrementDiningReservationCount']),
     openMemberDialog() {
       this.dialogMember = true;
     },
@@ -288,12 +299,21 @@ export default {
     },
     goToDiningReservationDetail(reservationId) {
       // detail 조회를 위해 선택한 예약만 제거 (조회한 예약id와 같지 "않은" 것만 남겨두기)
-
       this.diningRecentReservations = this.diningRecentReservations.filter(reservation => reservation.id !== reservationId);
-      // 남은 개수 갱신
-      this.newDiningReservationCount = this.diningRecentReservations.length;
+      // 조회하고 남은 수 계산 
+      this.decrementDiningReservationCount();
+
+      if (this.diningRecentReservations.length === 0) {
+        localStorage.removeItem('diningRecentReservations');
+      } else {
+        localStorage.removeItem('diningRecentReservations')
+        localStorage.setItem('diningRecentReservations', JSON.stringify(this.diningRecentReservations));
+      }
+      setTimeout(() => this.goToDiningDetail(reservationId), 300);
       this.diningDialogSSE = false;
-      this.$router.push(`/employee/dining/${reservationId}`);
+    },
+    goToDiningDetail(reservationId) {
+      window.location.href = `/employee/dining/detail/${reservationId}`;
     },
     Logout() {
       this.isLogin = false;
