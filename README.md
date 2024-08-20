@@ -76,6 +76,7 @@
     <img src="https://github.com/user-attachments/assets/731144a2-68cc-40fb-89da-97a3f85bdb51" width=700><br>
     <img src="https://github.com/user-attachments/assets/6b0a5ecc-dba2-4421-b738-fd6bc329676d" width=700>
     <br><br>
+    
   * 로그인 및 메인 페이지 조회
     <br><br>
 </details>
@@ -86,6 +87,7 @@
   * 아이디 찾기<br>
     <img src="https://github.com/user-attachments/assets/11ff4999-a218-4a74-8487-f0816c13b6b9" width=700>
     <br><br>
+    
   * 비밀번호 찾기<br>
     <img src="https://github.com/user-attachments/assets/0abe1a7f-6481-4126-be3e-746c76499666" width=700>
     <br><br>
@@ -96,6 +98,7 @@
   
   * QnA 작성 및 조회 
     <br><br>
+    
   * QnA 수정 및 삭제
     <br><br>
 </details>
@@ -105,10 +108,14 @@
   <summary>(1) Room(객실) 예약 </summary>
   <br>
   
-  * 홈페이지를 통해 고객이 객실 예약을 진행  
+  * 홈페이지를 통해 고객이 객실 예약을 진행<br>
+  <img src="https://github.com/user-attachments/assets/3a0fb8df-b320-4041-a5a4-2d111779f733" width=700>
     <br><br>
-  * 관리자 페이지에서 객실 예약이 들어오면 실시간 알림(SSE) 조회
+    
+  * 관리자 페이지에서 객실 예약이 들어오면 실시간 알림(SSE) 조회<br>
+  <img src="https://github.com/user-attachments/assets/55afa04a-21e9-43a1-95d3-277fe8555eb7" width=700>
     <br><br>
+    
   * ➕ 여러 개의 객실 예약이 들어온 경우 실시간 알림(SSE) 조회
     <br><br>
 </details>
@@ -118,8 +125,10 @@
   
   * 홈페이지를 통해 고객이 다이닝 예약을 진행  
     <br><br>
+    
   * 관리자 페이지에서 다이닝 예약이 들어오면 실시간 알림(SSE) 조회
     <br><br>
+    
   * ➕ 여러 개의 객실 예약이 들어온 경우 실시간 알림(SSE) 조회
   <br><br>
 </details>
@@ -129,6 +138,7 @@
   
   * 관리자 페이지를 통해 들어온 QnA에 답변 달기 
     <br><br>
+    
   * 답변이 달리면 해당 고객의 페이지에 실시간 알림 숫자 업데이트
     <br><br>
 </details>
@@ -145,8 +155,10 @@
     <br><br>
   * 비밀번호 변경 
     <br><br>
+    
   * 고객의 목록 및 상세 내역 조회 
     <br><br>
+    
   * QnA가 등록되면 답변 달기 
     <br><br>
 </details>
@@ -156,10 +168,14 @@
   
   * 모든 직원들의 목록 조회 (검색 기능)
     <br><br>
+    
   * 직원의 상세 내역 조회 및 직급 변경 / 퇴사처리 
     <br><br>
+    
   * 새로 입사한 직원을 등록
     <br><br>
+
+    
   * ➕ Room/Dining 예약 내역 조회 불가 (권한 없음)
     <br><br>
 </details>
@@ -169,8 +185,10 @@
   
   * 조회하고자 하는 고객의 이메일을 검색하여 객실 예약 내역 조회 
     <br><br>
+    
   * 객실 예약 상세 내역 조회 / 수정 / 삭제
     <br><br>
+    
   * 객실의 base price 변경 
     <br><br>
 </details>
@@ -180,8 +198,10 @@
   
   * 조회하고자 하는 고객의 이메일을 검색하여 다이닝 예약 내역 조회 
     <br><br>
+    
   * 다이닝 예약 상세 내역 조회 / 수정 / 삭제
     <br><br>
+    
   * 각 다이닝별 메뉴 추가 / 가격 수정 / 삭제
     <br><br>
 </details>
