@@ -10,26 +10,21 @@
                         <v-card-text>
                             <v-row class="justify-center">
                                 <v-col cols="12">
-                                    <v-data-table class="elevation-1">
-                                        <thead>
-                                            <tr>
-                                                <th style="text-align: center;">Id</th>
-                                                <th style="text-align: center;">Name</th>
-                                                <th style="text-align: center;">Email</th>
-                                                <th style="text-align: center;">Detail</th>
+                                    <v-data-table :header="headers" :items="member" class="elevation-1"
+                                        item-key="id" :style="{ maxHeight: '1000px', overflowY: 'auto' }">
+                                        <template v-slot:body="{ items }">
+                                            <tr v-for="mem in items" :key="mem.id">
+                                                <td>{{ mem.id }}</td>
+                                                <td>{{ mem.name }}</td>
+                                                <td>{{ mem.email }}</td>
+                                                <td>{{ mem.phoneNumber }}</td>
+                                                <!-- <td>
+                                                    <v-btn
+                                                        style="background-color:white; color:#7A6C5B; border: 1px solid #7A6C5B;"
+                                                        >Detail</v-btn>
+                                                </td> -->
                                             </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr class="text-center" v-for="m in member"
-                                                :key="m.id">
-                                                <td>{{ m.id }}</td>
-                                                <td>{{ m.name }}</td>
-                                                <td>{{ m.email }}</td>
-                                                <td>
-                                                    <v-btn style="background-color:white; color:#7A6C5B; border: 1px solid #7A6C5B;">Detail</v-btn>
-                                                </td>
-                                            </tr>
-                                        </tbody>
+                                        </template>
                                     </v-data-table>
                                 </v-col>
                             </v-row>
@@ -52,6 +47,12 @@ export default {
     data(){
         return{
             member:[],
+            headers: [
+                { text: 'Id', value: 'id', align: 'center' },
+                { text: 'Name', value: 'name', align: 'center' },
+                { text: 'Email', value: 'email', align: 'center' },
+                { text: 'Phone Number', value: 'phoneNumber', align: 'center'}
+            ],
         }
     },
     async created() {

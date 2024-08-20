@@ -6,16 +6,14 @@
       <v-row align="center">
         <!-- 콜 전체를 왼쪽정 렬되게 해줌 -->
         <v-col class="d-flex justify-start">
+          <v-btn @click="openDiningReservationModal()">Dining({{ newDiningReservationCount }})</v-btn>
+          <v-btn @click="openRoomReservationModal()">Room({{ newReservationCount }})</v-btn>
           <v-btn @click="openMemberDialog">Member</v-btn>
           <v-btn v-if="department === 'Office'" :to="{ path: `/employee/${dept}` }"> {{ manage }}</v-btn>
           <v-btn v-else @click="openManageDialog"> {{ manage }}</v-btn>
         </v-col>
-        <v-col class="text-center">
-          <v-btn class="flint-hotel-title" :to="{ path: '/employee' }">FLINT HOTEL</v-btn>
-        </v-col>
         <v-col class="d-flex justify-end">
-          <v-btn @click="openDiningReservationModal()">Dining({{ newDiningReservationCount }})</v-btn>
-          <v-btn @click="openRoomReservationModal()">Room({{ newReservationCount }})</v-btn>
+          <v-btn class="flint-hotel-title" :to="{ path: '/employee' }">HOME</v-btn>
           <v-btn v-if="!isLogin" :to="{ path: '/employee/login' }"> Login </v-btn>
           <v-btn v-else-if="isLogin" @click="Logout()"> Logout </v-btn>
         </v-col>
@@ -256,13 +254,13 @@ export default {
       console.log("hihi");
       this.dialogManage = false;
     },
-    openRoomReservationModal(){
+    openRoomReservationModal() {
       this.roomDialogSSE = true;
     },
     openDiningReservationModal() {
       this.diningDialogSSE = true;
     },
-    closeRoomReservationModal(){
+    closeRoomReservationModal() {
       this.roomDialogSSE = false
       this.$router.push(`/employee/room`);
     },
@@ -300,7 +298,7 @@ export default {
     Logout() {
       this.isLogin = false;
       localStorage.removeItem('employeetoken');
-      this.$router.push(`/admin`);
+      window.location.reload();
     }
   }
 };

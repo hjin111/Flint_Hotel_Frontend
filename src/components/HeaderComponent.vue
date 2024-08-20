@@ -17,7 +17,7 @@
         <!-- 바로 위, 아래 수정 -->
         <v-btn text style="font-size: 13px; color:#FFFFFF; margin-right:-20px;" v-if="isLogin" @click="logout()">LOGOUT</v-btn>
         <v-btn text style="font-size: 13px; color:#FFFFFF; margin-right:-20px;" 
-              @click="$router.push('/mypage/qna/list')">INQUIRY {{ count }}</v-btn>
+              @click="goInquiry()">INQUIRY {{ count }}</v-btn>
       </v-row>
     </v-container>
   </v-app-bar>
@@ -278,6 +278,10 @@ export default {
               alert('대기열에서 나가는 중 오류가 발생했습니다.')
           })
         }
+    },
+    goInquiry(){
+      this.count=0;
+      this.$router.push('/mypage/qna/list')
     }
   },
 };
