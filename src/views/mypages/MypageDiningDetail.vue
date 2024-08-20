@@ -63,7 +63,7 @@
                                     <v-row>
                                         <v-col>
                                             <v-row class="justify-end text-align: right" style="padding-right: 20px;">
-                                                <v-btn @click="deleteReserve" style="color:#69586F; border: 0.5px solid #69586F;">
+                                                <v-btn @click="openDeleteDialog" style="color:#69586F; border: 0.5px solid #69586F;">
                                                     DELETE
                                                 </v-btn>
                                             </v-row>
@@ -74,6 +74,18 @@
                         </v-card-title>
                     </v-col>
                 </v-row>
+
+                <!-- 모달 -->
+                <v-dialog v-model="dialog" max-width="400px">
+                    <v-card class="modal">
+                        <v-card-title>정말 삭제하시겠습니까?</v-card-title>
+                        <v-card-actions>
+                            <v-spacer></v-spacer>
+                            <v-btn class="leftbtn" color="black" @click="deleteReservation">Yes</v-btn>
+                            <v-btn color="black" @click="cancelDelete">No</v-btn>
+                        </v-card-actions>
+                    </v-card>
+                </v-dialog>
             </v-container>
         </v-main>
     </v-app>
@@ -103,7 +115,7 @@ export default {
             time: "",
             people: "",
             comment:"",
-
+            dialog:false
         }
     },
     methods: {
@@ -128,17 +140,35 @@ export default {
                 }
             }
         },
-        async deleteReserve() {
-            console.log(this.reserveId)
+        openDeleteDialog() {
+            this.dialog = true;
+        },
+        async deleteReservation() {
             try {
-                const response = await axios.get(`/reserve/dining/delete/${this.reserveId}`)
-                console.log(response)
-                alert("삭제 완료 되었습니다.")
-                this.$router.push({ name: "MypageDining" });
-            } catch (e) {
-                alert(e)
+                const response = await axios.get(`/reserve/dining/delete/${this.reserveId}`);
+                console.log(response.data);
+                
+                this.$router.push(`/mypage/dining`);
+            } catch(e) {
+                console.log(e);
+            } finally {
+                this.dialog = false; // 모달 닫기 
             }
+        },
+        cancelDelete() {
+            this.dialog = false;
         }
+        // async deleteReserve() {
+        //     console.log(this.reserveId)
+        //     try {
+        //         const response = await axios.get(`/reserve/dining/delete/${this.reserveId}`)
+        //         console.log(response)
+        //         alert("삭제 완료 되었습니다.")
+        //         this.$router.push({ name: "MypageDining" });
+        //     } catch (e) {
+        //         alert(e)
+        //     }
+        // }
     }
 }
 </script>
@@ -353,5 +383,9 @@ body {
 
 .user-profile h1 {
     border-bottom: 4px solid black;
+}
+.modal {
+    padding: 20px;
+    font-family: "Noto Serif KR", serif;
 }
 </style>

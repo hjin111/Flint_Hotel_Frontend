@@ -16,13 +16,12 @@
                                             <tr v-for="mem in items" :key="mem.id">
                                                 <td>{{ mem.id }}</td>
                                                 <td>{{ mem.name }}</td>
-                                                <td>{{ mem.email }}</td>
+                                                <td>
+                                                <router-link :to="{ name: 'EmployeeToMemberDetail', params: {id: m.id}}">
+                                                        {{ m.email }}
+                                                    </router-link>
+                                                    </td>
                                                 <td>{{ mem.phoneNumber }}</td>
-                                                <!-- <td>
-                                                    <v-btn
-                                                        style="background-color:white; color:#7A6C5B; border: 1px solid #7A6C5B;"
-                                                        >Detail</v-btn>
-                                                </td> -->
                                             </tr>
                                         </template>
                                     </v-data-table>

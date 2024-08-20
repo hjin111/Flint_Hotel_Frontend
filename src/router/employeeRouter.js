@@ -11,6 +11,7 @@ import EmployeeList from "@/components/user/employee/manageemployee/EmployeeList
 import EmployeeManage from "@/components/user/employee/manageemployee/EmployeeManage.vue";
 import EmployeeToMemberRoom from "@/components/user/employee/managemember/EmployeeToMemberRoom.vue";
 import EmployeeToMemberList from "@/components/user/employee/managemember/EmployeeToMemberList.vue";
+import EmployeeToMemberDetail from "@/components/user/employee/managemember/EmployeeToMemberDetail.vue";
 import EmployeeRoomPriceModify from "@/views/employee/room/EmployeeModRoomPrice.vue"
 import EmployeeQnaListComponent from "@/components/support/qna/EmployeeQnaListComponent.vue";
 import EmployeeQnaDetailComponent from "@/components/support/qna/EmployeeQnaDetailComponent.vue";
@@ -82,6 +83,12 @@ export const employeeRouter = [
         path: '/employee/member/list',
         name: 'EmployeeToMemberList',
         component: EmployeeToMemberList,
+        meta : {header: 'EmployeeHeaderComponent'}
+    },
+    {
+        path: '/employee/member/detail/:id',
+        name: 'EmployeeToMemberDetail',
+        component: EmployeeToMemberDetail,
         meta : {header: 'EmployeeHeaderComponent'}
     },
     {
