@@ -5,7 +5,7 @@ import { memberRouter } from "./memberRouter";
 import {mypageRouter} from "./mypageRouter";
 import {diningRouter} from "./diningRouter";
 import { employeeRouter } from "./employeeRouter";
-import MainPage from '@/views/MainPage.vue';
+import  MainPage from '@/views/MainPage.vue';
 // import FlintView from '@/views/FlintView.vue';
 import EmployeeView from '@/views/EmployeeView.vue';
 

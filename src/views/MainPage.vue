@@ -1,41 +1,32 @@
 <template>
     <div class="container">
       <div class="image-gallery">
-        
         <!-- 첫 번째 이미지와 그 위에 텍스트 오버레이 -->
         <div class="image-item" style="position: relative;">
           <img src="@/assets/image.png" alt="image 1" class="first-image">
           <div style="display: flex; width: 100%; box-sizing: border-box;" class="overlay-container">
 
             <!-- 왼쪽 텍스트 박스 -->
-            <div class="text-overlay" style="flex: 1; text-align: left; padding-left: 20px; box-sizing: border-box; padding-bottom:650px;">
-              <p style="font-size: 70px; color:#787878; ">WHAT IS FLINT</p>
-              <p style="font-size: 20px;  color:#787878; font-family: 'Noto Serif KR', serif;">저희 플린트 호텔을 소개합니다</p>
+            <div class="text-overlay" style="flex: 1; text-align: left; padding-left: 20px; box-sizing: border-box; padding-bottom:38%;">
+              <p style="font-size: 60px; color:#787878; ">WHAT IS FLINT</p>
+              <p style="font-size: 1.1em; color:#787878; font-family: 'Noto Serif KR', serif;">저희 플린트 호텔을 소개합니다</p>
             </div>
-            
             <!-- 오른쪽 텍스트 박스 -->
-            <div class="text-overlay" style="flex: 1; text-align: right; padding-left: 20px; box-sizing: border-box; padding-bottom:320px;">
-              <p style="font-size: 20px; color:#787878;">Flint는 부싯돌을 의미하며, 예로부터 여행자들에게 따뜻한 불을 제공해온 도구입니다.</p>
-              <p style="font-size: 20px; color:#787878;  font-family: 'Noto Serif KR', serif;">이처럼 Flint 호텔은 여행자들에게 안락하고 따뜻한 공간을 제공하고자 합니다.</p>
-              <p style="font-size: 20px; color:#787878; font-family: 'Noto Serif KR', serif;">부싯돌이 단순한 도구를 넘어 따뜻함과 안락함을 상징하듯,</p>
-              <p style="font-size: 20px; color:#787878; font-family: 'Noto Serif KR', serif;">Flint 호텔은 세심한 서비스로 여행의 피로를 풀고 </p>
-              <p style="font-size: 20px; color:#787878; font-family: 'Noto Serif KR', serif;">몸과 마음을 치유할 수 있는 휴식처를 제공합니다. </p>
+            <div class="text-overlay" style="flex: 1; text-align: right; padding-left: 20px; box-sizing: border-box; padding-bottom:14%;">
+              <p style="font-size: 1.1em; color:#787878;">Flint는 부싯돌을 의미하며, 예로부터 여행자들에게 따뜻한 불을 제공해온 도구입니다.</p>
+              <p style="font-size: 1.1em; color:#787878;  font-family: 'Noto Serif KR', serif;">이처럼 Flint 호텔은 여행자들에게 안락하고 따뜻한 공간을 제공하고자 합니다.</p>
+              <p style="font-size: 1.1em; color:#787878; font-family: 'Noto Serif KR', serif;">부싯돌이 단순한 도구를 넘어 따뜻함과 안락함을 상징하듯,</p>
+              <p style="font-size: 1.1em; color:#787878; font-family: 'Noto Serif KR', serif;">Flint 호텔은 세심한 서비스로 여행의 피로를 풀고 </p>
+              <p style="font-size: 1.1em; color:#787878; font-family: 'Noto Serif KR', serif;">몸과 마음을 치유할 수 있는 휴식처를 제공합니다. </p>
             </div>
           </div>
         </div>
         <div class="image-item" style="position: relative;">
-          <div class="roomBox">
-            <!-- 네모 박스 -->
-            <p style="font-size: 30px;">LET'S&nbsp;</p><P style="font-size: 50px;">ROOM  SEARCH</P>
-          </div>
-          <img src="@/assets/flint_qna.png" alt="image 2">
+          <img src="@/assets/roomImage.png" alt="image 2">
         </div>
         <div class="image-item">
-          <div class="diningBox">
-            <!-- 네모 박스 -->
-            <p style="font-size: 30px;">LET'S&nbsp;</p><P style="font-size: 50px;">DINING  SEARCH</P>
-          </div>
-          <img src="@/assets/dining.png" alt="image 3">
+          
+          <img src="@/assets/diningImage.png" alt="image 3">
         </div>
       </div>
     </div>
@@ -52,6 +43,7 @@
     display: flex;
     flex-direction: column;
     height: 100vh;
+    overflow-x:hidden;
   }
   
   .first-image {
@@ -59,7 +51,7 @@
     height: auto;
     opacity: 0.5; 
     display: block;
-    animation: fadeInImage 8s forwards; /* 이미지 애니메이션  */
+    animation: fadeInImage 15s forwards; /* 이미지 애니메이션  */
   }
 
   .overlay-container {
@@ -87,7 +79,7 @@
     justify-content: center;
     color: white;
     font-family: "Noto Serif KR", serif;
-    animation: fadeOutText 8s forwards; /* 텍스트 사라지는 애니메이션  */
+    animation: fadeOutText 15s forwards; /* 텍스트 사라지는 애니메이션  */
     z-index: 1;
   }
   

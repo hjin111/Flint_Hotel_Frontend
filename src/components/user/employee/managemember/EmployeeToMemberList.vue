@@ -17,10 +17,10 @@
                                                 <td>{{ mem.id }}</td>
                                                 <td>{{ mem.name }}</td>
                                                 <td>
-                                                <router-link :to="{ name: 'EmployeeToMemberDetail', params: {id: m.id}}">
-                                                        {{ m.email }}
+                                                    <router-link :to="{ name: 'EmployeeToMemberDetail', params: {id: mem.id}}">
+                                                        {{ mem.email }}
                                                     </router-link>
-                                                    </td>
+                                                </td>
                                                 <td>{{ mem.phoneNumber }}</td>
                                             </tr>
                                         </template>
