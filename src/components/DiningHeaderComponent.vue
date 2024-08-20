@@ -30,11 +30,11 @@
       >
       <v-container>
         <v-row justify="center" style="padding-right: 30px;">
-          <v-btn text style="color:#FFFFFF;">INTRODUCE</v-btn>
+          <v-btn text style="color:#4F4337;">INTRODUCE</v-btn>
           <v-btn text style="color:#4F4337;" @click="openReservationDialog">RESERVATION</v-btn>
           <v-btn text style="font-size: 40px; color:#4F4337;" @click="$router.push('/')">FLINT HOTEL</v-btn>
           <v-btn text style="color:#4F4337" :to="{path:'/reserve/dining/create'}">DINING</v-btn>
-          <v-btn text style="color:#FFFFFF;">ROOM</v-btn>
+          <v-btn text style="color:#4F4337;">ROOM</v-btn>
         </v-row>
 
         <!-- reservation 클릭 후 > 모달창 -->

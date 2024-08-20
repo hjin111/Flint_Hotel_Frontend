@@ -7,32 +7,33 @@
           <MypageComponent />
           <v-col cols="9" justify="center">
             <v-card-title class="custom-title">
-              <h1>탈퇴 요청</h1>
-              <v-divider class="custom-divider"></v-divider>
-              <v-card-text class="pa-4">
-                <div>
-                  {{ memberName }}님의 정보를 안전하게 보호하기 위해 비밀번호를 다시
-                  한번 확인합니다.
-                </div>
-              </v-card-text>
-              <v-card-text>
-                <v-row>
-                  <v-col cols="2"> 플린트 아이디 </v-col>
-                  <v-col cols="10">
-                    {{ memberEmail }}
-                  </v-col>
-                </v-row>
-                <v-row>
-                  <v-col cols="2"> 비밀번호 </v-col>
-                  <v-col cols="10">
-                    <input v-model="password" type="password" />
-                  </v-col>
-                </v-row>
-                <v-row justify="center">
-                  <v-btn @click="memberDelete()">확인</v-btn>
-                </v-row>
-              </v-card-text>
+              <v-text style="font-size : 45px;">Account Deletion</v-text>
+              <p> {{ memberName }} 님의 정보를 안전하게 보호하기 위해 비밀번호를 다시
+                한번 확인합니다.</p>
+                <v-card style="width:90%;">
+                  <v-card-text style="padding-top : 50px">
+                    <v-row>
+                      <v-col cols="2" style="font-size: 18px;"> ID</v-col>
+                      <v-col cols="10" style="font-size: 18px;">
+                        {{ memberEmail }}
+                      </v-col>
+                    </v-row>
+                    <v-row>
+                      <v-col cols="2"  style="font-size: 18px;"> PassWord </v-col>
+                      <v-col cols="10">
+                        <input v-model="password" type="password" style="width: 30%; padding: 5px; border: 1px solid #69586F; border-radius: 5px;" />
+                      </v-col>
+                    </v-row>
+                    
+                  </v-card-text>
+                </v-card>
+                <v-row class="justify-end text-align: right" style="padding-right: 100px; padding-top: 25px; padding-bottom: 20px;">
+                  <v-btn @click="memberDelete()" style="color:#69586F; border: 0.5px solid #69586F;">
+                      CONFIRM
+                  </v-btn>
+              </v-row>
             </v-card-title>
+           
           </v-col>
         </v-row>
       </v-container>
@@ -104,8 +105,8 @@ export default {
 }
 
 .custom-title {
-  font-family: "Playfair Display", serif;
-  color: #787878;
+  font-family: "Noto Serif KR", serif;
+  color: #69586F;
   font-size: 20px;
 }
 
@@ -130,18 +131,18 @@ export default {
 .v-btn {
   margin: 0;
   font-family: "Playfair Display", serif;
-  background-color: #ded6f4;
-  border: none !important;
+  background-color: #FFFFFF;
+  
   box-shadow: none !important;
 }
 
 .v-btn:hover,
 .v-btn:active {
-  background: #ded6f4;
+  background: #FFFFFF;
 }
 
 .v-btn:visited {
-  background: #ded6f4;
+  background: #FFFFFF;
 }
 
 .mypage-container input {
@@ -159,3 +160,4 @@ export default {
   border-radius: 4px;
 }
 </style>
+

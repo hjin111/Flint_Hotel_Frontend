@@ -6,7 +6,7 @@
           <v-col>
             <v-card style="padding-bottom: 20px;height : 600px">
               <v-card-title class="text-center" style=" font-family: Noto Serif KR, serif; font-size:18px; color: #787878;">
-                DINING RESERVATION
+                Dining Reservation
               </v-card-title>
               <v-card-text >
                 <v-form @submit.prevent="diningReservation">
@@ -30,10 +30,10 @@
                           <v-btn class="custom-button" @click="selectDining(4)">Lounge</v-btn>
                         </td>
                         <td style="padding-left: 63px; padding-top: 10px;">
-                          <v-text-field type="number" v-model="adult" style="width: 70px;"></v-text-field>
+                          <v-text-field type="number" v-model="adult"   min="0" style="width: 70px;"></v-text-field>
                         </td>
                         <td style="padding-left: 55px; padding-top: 10px;">
-                          <v-text-field type="number" v-model="child" style="width: 70px;"></v-text-field>
+                          <v-text-field type="number" v-model="child"   min="0" style="width: 70px; "></v-text-field>
                         </td>
                       </tr>
                     </tbody>
@@ -247,6 +247,6 @@
     border-radius: 10px;
     overflow-y: auto;
   }
-  
+
   </style>
   

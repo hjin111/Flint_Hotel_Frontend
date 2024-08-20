@@ -7,52 +7,58 @@
           <MypageComponent />
           <v-col cols="9" justify="center">
             <v-card-title class="custom-title">
-              <h1>비밀번호 변경</h1>
-              <h5>고객님의 정보를 언제든지 확인, 변경하실 수 있습니다</h5>
+              <v-text style="font-size : 45px;">Password Change</v-text>
+              <p>고객님의 정보를 언제든지 변경할 수 있습니다.</p>
               <v-col>
                 <v-card>
                   <v-card-text>
                     <v-row>
-                      <!-- 색 뭘루 하지..? -->
-                      <v-col cols="2" style="background-color: white">
-                        현재 비밀번호
-                      </v-col>
-                      <!-- 안보여서 임시로 해둠 -->
+    
                       <v-col cols="10" style="background-color: white">
                         <input
                           type="password"
                           v-model="beforePassword"
                           id="beforeInput"
-                          placeholder="현재 비밀번호"
+                          placeholder="Current Password"
+                          style="width: 50%; padding: 10px; border: 1px solid #69586F; border-radius: 5px;"
+                          class="custom-input"
                         />
                       </v-col>
                     </v-row>
                     <v-row>
-                      <v-col cols="2"> 새 비밀번호 </v-col>
+                     
                       <v-col cols="10">
                         <input
                           v-model="afterPassword"
                           type="password"
-                          placeholder="새 비밀번호"
+                          placeholder="New Password"
+                          style="width: 50%; padding: 10px; border: 1px solid #69586F; border-radius: 5px;"
+                          class="custom-input"
                         />
                       </v-col>
                     </v-row>
                     <v-row>
-                      <v-col cols="2"> 새 비밀번호 확인 </v-col>
+                      
                       <v-col cols="10">
                         <input
                           v-model="passwordCheck"
                           type="password"
-                          placeholder="새 비밀번호 확인"
+                          placeholder="Confirm New Password"
                           @input="checkPassword"
+                          style="width: 50%; padding: 10px; border: 1px solid #69586F; border-radius: 5px;"
+                          class="custom-input"
                         />
-                        <p class="messageClass">{{ message }}</p>
+                        <p class="messageClass" style="padding-left: 5px;padding-top: 8px; color:#69586F;">{{ message }}</p>
                       </v-col>
                     </v-row>
                   </v-card-text>
                 </v-card>
                 <br />
-                <v-btn @click="passwordUpdate()">비번 변경</v-btn>
+                <v-row class="justify-end text-align: right" style="padding-right: 20px; ">
+                  <v-btn @click="passwordUpdate" style="color:#69586F; border: 0.5px solid #69586F;">
+                      CHANGE
+                  </v-btn>
+              </v-row>
               </v-col>
             </v-card-title>
           </v-col>
@@ -116,16 +122,22 @@ export default {
 </script>
 
 <style scoped>
+
+.custom-input:focus {
+  border-color: #69586F;/* 원하는 색상으로 변경 */
+  outline: none;
+
+}
+
 .custom-title {
-  font-family: "Playfair Display", serif;
-  color: #787878;
+  font-family: "Noto Serif KR", serif;
+  color: #69586F;
   font-size: 20px;
 }
 
 .custom-title h1{
-  font-family: "Playfair Display", serif;
-  border-bottom: 4px solid;
-  color: black;
+  font-family: "Noto Serif KR", serif;
+  color: #69586F;
 }
 
 .mypage-container {
@@ -152,20 +164,21 @@ export default {
 }
 .v-btn {
   margin: 0;
-  font-family: "Playfair Display", serif;
-  background-color: #ded6f4;
-  border: none !important;
+  font-family: "Noto Serif KR", serif;
+  background-color: #FFFFFF;
+  
   box-shadow: none !important;
 }
 
 .v-btn:hover,
 .v-btn:active {
-  background: #ded6f4;
+  background: #FFFFFF;
 }
 
 .v-btn:visited {
-  background: #ded6f4;
+  background: #FFFFFF;
 }
+
 
 .mypage-container input {
   border: 1px solid;

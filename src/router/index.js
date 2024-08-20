@@ -5,16 +5,23 @@ import { memberRouter } from "./memberRouter";
 import {mypageRouter} from "./mypageRouter";
 import {diningRouter} from "./diningRouter";
 import { employeeRouter } from "./employeeRouter";
-import FlintView from '@/views/FlintView.vue';
+import MainPage from '@/views/MainPage.vue';
+// import FlintView from '@/views/FlintView.vue';
 import EmployeeView from '@/views/EmployeeView.vue';
 
 const routes = [
     {
         path:'/',
-        name:'Flint',
-        component:FlintView,
+        name:'MainPage',
+        component:MainPage,
         meta: {header: 'HeaderComponent'}
     },
+    // {
+    //     path:'/',
+    //     name:'Flint',
+    //     component:FlintView,
+    //     meta: {header: 'HeaderComponent'}
+    // },
     {
         path:'/admin',
         name:'Employee',

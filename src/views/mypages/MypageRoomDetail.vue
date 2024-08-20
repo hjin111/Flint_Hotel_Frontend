@@ -14,42 +14,42 @@
                                         <v-col cols="12" md="6">
                                             <!-- 왼쪽 열 -->
                                             <v-row>
-                                                <v-col cols="12" md="3">
+                                                <v-col cols="12" md="4">
                                                     <div class="data-label">Room Type</div>
                                                 </v-col>
-                                                <v-col cols="12" md="9">
+                                                <v-col cols="12" md="8">
                                                     <v-text-field v-model="roomType" readonly></v-text-field>
                                                 </v-col>
                                             </v-row>
                                             <v-row>
-                                                <v-col cols="12" md="3">
+                                                <v-col cols="12" md="4">
                                                     <div class="data-label">Check In</div>
                                                 </v-col>
-                                                <v-col cols="12" md="9">
+                                                <v-col cols="12" md="8">
                                                     <v-text-field v-model="checkin" readonly></v-text-field>
                                                 </v-col>
                                             </v-row>
                                             <v-row>
-                                                <v-col cols="12" md="3">
+                                                <v-col cols="12" md="4">
                                                     <div class="data-label">Check out</div>
                                                 </v-col>
-                                                <v-col cols="12" md="9">
+                                                <v-col cols="12" md="8">
                                                     <v-text-field v-model="checkout" readonly></v-text-field>
                                                 </v-col>
                                             </v-row>
                                             <v-row>
-                                                <v-col cols="12" md="3">
+                                                <v-col cols="12" md="4">
                                                     <div class="data-label">People</div>
                                                 </v-col>
-                                                <v-col cols="12" md="9">
+                                                <v-col cols="12" md="8">
                                                     <v-text-field v-model="people" readonly></v-text-field>
                                                 </v-col>
                                             </v-row>
                                             <v-row>
-                                                <v-col cols="12" md="3">
-                                                    <div class="data-label">Parking Option</div>
+                                                <v-col cols="12" md="4">
+                                                    <div class="data-label">Parking</div>
                                                 </v-col>
-                                                <v-col cols="12" md="9">
+                                                <v-col cols="12" md="8">
                                                     <v-text-field v-model="parking" readonly></v-text-field>
                                                 </v-col>
                                             </v-row>
@@ -59,26 +59,27 @@
                                         <v-col cols="12" md="6">
 
                                             <v-row>
-                                                <v-col cols="12" md="6">
-                                                    <div class="data-label">Bf Yn</div>
+                                                <v-col cols="12" md="5">
+                                                    <div class="data-label">Breakfast Yn</div>
                                                 </v-col>
-                                                <v-col cols="12" md="6">
+                                                <v-col cols="12" md="7">
                                                     <v-text-field v-model="bf" readonly></v-text-field>
                                                 </v-col>
                                             </v-row>
                                             <v-row>
-                                                <v-col cols="12" md="6">
+                                                <v-col cols="12" md="5">
                                                     <div class="data-label">PayMent</div>
                                                 </v-col>
-                                                <v-col cols="12" md="6">
+                                                <v-col cols="12" md="7">
                                                     <v-text-field v-model="payment" readonly></v-text-field>
                                                 </v-col>
                                             </v-row>
                                             <v-row>
-                                                <v-col cols="12" md="2">
+                                                <v-col cols="12" md="3">
                                                     <div class="data-label">Request</div>
                                                 </v-col>
-                                                <v-col cols="12" md="10">
+                                                
+                                                <v-col cols="12" md="12" style="padding-left: 30px;">
                                                     <v-textarea v-model="requestMsg" readonly></v-textarea>
                                                 </v-col>
                                             </v-row>
@@ -356,7 +357,7 @@ body {
   .v-btn:visited {
     background: #FFFFFF;
   }
-  
+
 .custom-size {
     width: 200px;
     height: 60px;
