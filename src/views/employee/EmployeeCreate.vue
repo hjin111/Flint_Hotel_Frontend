@@ -23,6 +23,7 @@
                   label="PASSWORD *" 
                   v-model="password"
                   type="password"
+                  readonly
                   required
                 ></v-text-field>
                 <v-text-field 
@@ -93,7 +94,7 @@
           const router = useRouter()
 
           const email = ref('')
-          const password = ref('')
+          const password = ref('12341234')
           const firstName = ref('')
           const lastName = ref('')
           const birthday = ref('')

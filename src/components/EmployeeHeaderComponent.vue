@@ -191,7 +191,7 @@ export default {
         try {
           let sse = new EventSourcePolyfill(
             `${process.env.VUE_APP_API_BASE_URL}/dining/subscribe`,
-            { headers: { Authorization: `Bearer ${token}`, 'X-User-Email': email } }
+            { headers: { Authorization: `Bearer ${token}` }}
           );
           sse.addEventListener('connect', (event) => {
             console.log("Connected: ", event);
