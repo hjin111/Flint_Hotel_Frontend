@@ -37,8 +37,8 @@
   <summary>(1) 회원가입 및 로그인</summary>
   <br>
 
-  * 이메일 인증을 통해 회원가입
-    <img src="https://github.com/user-attachments/assets/35141769-6b23-42f3-a7c7-b106c373a1da" width="800">
+  * 이메일 인증을 통해 회원가입<br> 
+    <img src="https://github.com/user-attachments/assets/6b0a5ecc-dba2-4421-b738-fd6bc329676d" width=700>
     <br><br>
   * 로그인 및 메인 페이지 조회
     <br><br>
@@ -107,7 +107,7 @@
     <br><br>
   * 고객의 목록 및 상세 내역 조회 
     <br><br>
-  * QnA가 둥록되면 답변 달기 
+  * QnA가 등록되면 답변 달기 
     <br><br>
 </details>
 <details>
