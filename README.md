@@ -6,6 +6,13 @@
 
 <br><br>
 ## 👥 팀원 소개
+<div align=center>
+  
+  **🐷 황정하 [![Github](https://img.shields.io/badge/Github-Link-1f425f.svg)](https://github.com/NaturalHwang)**<br>
+  **🐯 홍예지 [![Github](https://img.shields.io/badge/Github-Link-1f425f.svg)](https://github.com/H-Yeji)**<br>
+  **🐯 최무리 [![Github](https://img.shields.io/badge/Github-Link-1f425f.svg)](https://github.com/Choi-Moori)**<br>
+  **🐉 이혜진 [![Github](https://img.shields.io/badge/Github-Link-1f425f.svg)](https://github.com/hjin111)**<br>
+</div>
 <br><br><br>
 
 ## 🏨 프로젝트 소개
@@ -39,6 +46,8 @@
 <img src="https://img.shields.io/badge/git-F05032?style=for-the-badge&logo=git&logoColor=white">
 <img src="https://img.shields.io/badge/github-181717?style=for-the-badge&logo=github&logoColor=white">
 <img src="https://img.shields.io/badge/Notion-black?style=for-the-badge&logo=Notion&logoColor=white"/>
+
+
 
 
 
