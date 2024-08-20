@@ -72,7 +72,8 @@
   <summary>(1) 회원가입 및 로그인</summary>
   <br>
 
-  * 이메일 인증을 통해 회원가입<br> 
+  * 이메일 인증을 통해 회원가입<br>
+    <img src="https://github.com/user-attachments/assets/731144a2-68cc-40fb-89da-97a3f85bdb51" width=700><br>
     <img src="https://github.com/user-attachments/assets/6b0a5ecc-dba2-4421-b738-fd6bc329676d" width=700>
     <br><br>
   * 로그인 및 메인 페이지 조회
@@ -82,9 +83,11 @@
   <summary>(2) 아이디 및 비밀번호 찾기</summary>
   <br>
   
-  * 아이디 찾기
+  * 아이디 찾기<br>
+    <img src="https://github.com/user-attachments/assets/11ff4999-a218-4a74-8487-f0816c13b6b9" width=700>
     <br><br>
-  * 비밀번호 찾기
+  * 비밀번호 찾기<br>
+    <img src="https://github.com/user-attachments/assets/0abe1a7f-6481-4126-be3e-746c76499666" width=700>
     <br><br>
 </details>
 <details>
@@ -136,7 +139,9 @@
   <summary>(0) 😊 모든 직원의 공통 작업 </summary>
   <br>
 
-  * 로그인 및 본인의 정보 확인 
+  * 로그인 및 본인의 정보 확인
+   <img src="https://github.com/user-attachments/assets/2e83f59f-dac5-4901-b15f-e8e0997c7844" width=700>
+
     <br><br>
   * 비밀번호 변경 
     <br><br>
