@@ -38,7 +38,6 @@
   <br>
 
   * 이메일 인증을 통해 회원가입
-    
     <img src="https://github.com/user-attachments/assets/35141769-6b23-42f3-a7c7-b106c373a1da" width="800">
     <br><br>
   * 로그인 및 메인 페이지 조회
@@ -98,7 +97,56 @@
 
 
 ### 3️⃣ 관리자 페이지 
+<details>
+  <summary>(0) 😊 모든 직원의 공통 작업 </summary>
+  <br>
 
+  * 로그인 및 본인의 정보 확인 
+    <br><br>
+  * 비밀번호 변경 
+    <br><br>
+  * 고객의 목록 및 상세 내역 조회 
+    <br><br>
+  * QnA가 둥록되면 답변 달기 
+    <br><br>
+</details>
+<details>
+  <summary>(1) OFFICE 부서 직원 [최상위 직원] </summary>
+  <br>
+  
+  * 모든 직원들의 목록 조회 (검색 기능)
+    <br><br>
+  * 직원의 상세 내역 조회 및 직급 변경 / 퇴사처리 
+    <br><br>
+  * 새로 입사한 직원을 등록
+    <br><br>
+  * ➕ Room/Dining 예약 내역 조회 불가 (권한 없음)
+    <br><br>
+</details>
+<details>
+  <summary>(2) Room(객실) 부서 직원 </summary>
+  <br>
+  
+  * 조회하고자 하는 고객의 이메일을 검색하여 객실 예약 내역 조회 
+    <br><br>
+  * 객실 예약 상세 내역 조회 / 수정 / 삭제
+    <br><br>
+  * 객실의 base price 변경 
+    <br><br>
+</details>
+<details>
+  <summary>(3) Dining 부서 직원 </summary>
+  <br>
+  
+  * 조회하고자 하는 고객의 이메일을 검색하여 다이닝 예약 내역 조회 
+    <br><br>
+  * 다이닝 예약 상세 내역 조회 / 수정 / 삭제
+    <br><br>
+  * 각 다이닝별 메뉴 추가 / 가격 수정 / 삭제
+    <br><br>
+</details>
+
+### 4️⃣ Rabbit mq를 활용한 대기열 구현 (객실 예약 접근 ) 
 
 
 
