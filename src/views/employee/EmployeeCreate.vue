@@ -7,7 +7,7 @@
         <v-container class="join-now-container">
           <v-row>
             <v-col cols="12">
-              <h1 class="join-now-title" style="font-family: 'Playfair Display', serif; color:#787878;">Employee Create</h1>
+              <h1 class="join-now-title" style="font-family: 'Playfair Display', serif; color:#787878;">Register Employee</h1>
               <p class="welcome-text" style="color:#787878;">직원 생성 페이지입니다.</p>
             </v-col>
           </v-row>
