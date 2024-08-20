@@ -32,6 +32,72 @@
 <br><br><br> 
 
 ## 🧪 테스트 결과 
+### 1️⃣ 고객 페이지
+<details>
+  <summary>(1) 회원가입 및 로그인</summary>
+  <br>
+
+  * 이메일 인증을 통해 회원가입
+    
+    <img src="https://github.com/user-attachments/assets/35141769-6b23-42f3-a7c7-b106c373a1da" width="800">
+    <br><br>
+  * 로그인 및 메인 페이지 조회
+    <br><br>
+</details>
+<details>
+  <summary>(2) 아이디 및 비밀번호 찾기</summary>
+  <br>
+  
+  * 아이디 찾기
+    <br><br>
+  * 비밀번호 찾기
+    <br><br>
+</details>
+<details>
+  <summary>(3) QnA CRUD</summary>
+  <br>
+  
+  * QnA 작성 및 조회 
+    <br><br>
+  * QnA 수정 및 삭제
+    <br><br>
+</details>
+
+### 2️⃣ 고객 페이지 + 관리자 페이지 
+<details>
+  <summary>(1) Room(객실) 예약 </summary>
+  <br>
+  
+  * 홈페이지를 통해 고객이 객실 예약을 진행  
+    <br><br>
+  * 관리자 페이지에서 객실 예약이 들어오면 실시간 알림(SSE) 조회
+    <br><br>
+  * ➕ 여러 개의 객실 예약이 들어온 경우 실시간 알림(SSE) 조회
+    <br><br>
+</details>
+<details>
+  <summary>(2) Dining 예약 </summary>
+  <br>
+  
+  * 홈페이지를 통해 고객이 다이닝 예약을 진행  
+    <br><br>
+  * 관리자 페이지에서 다이닝 예약이 들어오면 실시간 알림(SSE) 조회
+    <br><br>
+  * ➕ 여러 개의 객실 예약이 들어온 경우 실시간 알림(SSE) 조회
+  <br><br>
+</details>
+<details>
+  <summary>(3) QnA에 답변 달기 </summary>
+  <br>
+  
+  * 관리자 페이지를 통해 들어온 QnA에 답변 달기 
+    <br><br>
+  * 답변이 달리면 해당 고객의 페이지에 실시간 알림 숫자 업데이트
+    <br><br>
+</details>
+
+
+### 3️⃣ 관리자 페이지 
 
 
 
