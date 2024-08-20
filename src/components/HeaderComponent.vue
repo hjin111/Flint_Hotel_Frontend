@@ -52,14 +52,14 @@
         </v-dialog>
 
         <!-- 대기열 위치를 보여주는 다이얼로그 -->
-        <v-dialog v-model="showQueuePositionDialog" max-width="400px">
+        <v-dialog v-model="showQueuePositionDialog" max-width="400px" class="modal">
           <v-card>
-            <v-card-title>대기열 상태</v-card-title>
+            <v-card-title>서비스 접속 대기 중입니다.</v-card-title>
             <v-card-text>
               <p>현재 대기 순서: {{ currentPosition }}번째 입니다.</p>
             </v-card-text>
             <v-card-actions>
-              <v-btn @click="handleDialogClose">닫기</v-btn>
+              <v-btn @click="handleDialogClose" style="color:#787878; font-family: 'Noto Serif KR', serif;">닫기</v-btn>
             </v-card-actions>
           </v-card>
         </v-dialog>
@@ -96,9 +96,12 @@ export default {
       sse.addEventListener('connect', (event) => {  // connect 라는 event 가 들어오면
         console.log(event);
       });
+      // 메시지가 빈 값이 아닐 때만 수신함
       sse.addEventListener('answer', (event) => {
-        console.log(event);
-        this.count += 1;
+          if (event.data && event.data !== '""') {
+              console.log(event);
+              this.count += 1;
+          }
       });
     }
   },
@@ -299,5 +302,9 @@ export default {
   font-size: 20px;
   line-height: 1;
   color: #FFFFFF;
+}
+.modal {
+  padding: 20px;
+  font-family: "Noto Serif KR", serif;
 }
 </style>
