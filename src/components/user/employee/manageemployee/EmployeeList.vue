@@ -6,25 +6,28 @@
                 <v-col cols="12" class="d-flex justify-center">
                     <v-card class="confirmation-card" style="width:1100px">
                         <v-card-title class="confirmation-title"> Employee List </v-card-title>
-                        
+
                         <v-card-text class="cardText">
                             <!-- 검색 바 추가 -->
                             <v-row class="searchrow d-flex justify-space-between">
                                 <v-col cols="12" md="4" class="d-flex justify-start" style="margin-left:-30px;">
-                                    <v-btn @click="createEmployee" color="#7A6C5B" elevation="0" outlined>Add Employee</v-btn>
+                                    <v-btn @click="createEmployee" color="#7A6C5B" elevation="0" outlined>Add
+                                        Employee</v-btn>
                                 </v-col>
 
-                                <v-col  cols="12" md="2" class="emailcol" style="margin-top:-7px;">
+                                <v-col cols="12" md="2" class="emailcol" style="margin-top:-7px;">
                                     <v-select v-model="searchType" :items="searchOptions" item-title="text"
                                         item-value="value" dense hide-details class="d-flex justfiy-end formCustom">
                                     </v-select>
                                 </v-col>
                                 <v-col cols="12" md="4" class="emailcol">
-                                    <v-text-field v-model="searchValue" class="modSearch" label="검색어 입력" dense hide-details>
+                                    <v-text-field v-model="searchValue" class="modSearch" label="검색어 입력" dense
+                                        hide-details>
                                     </v-text-field>
                                 </v-col>
                                 <v-col cols="12" md="2">
-                                    <v-btn @click="searchEmployees" style="background-color:#DCC8B0; color:white;" elevation="0" outlined>Search</v-btn>
+                                    <v-btn @click="searchEmployees" style="background-color:#DCC8B0; color:white;"
+                                        elevation="0" outlined>Search</v-btn>
                                 </v-col>
                             </v-row>
                             <br>
@@ -58,9 +61,12 @@
                                                 <td>{{ employee.email }}</td>
                                                 <td>{{ employee.firstName + " " + employee.lastName }}</td>
                                                 <td>{{ employee.department }}</td>
-                                                <v-btn style="background-color:white; color:#7A6C5B; border: 1px solid #7A6C5B; margin-top:4px;"
-                                                    :to="{ path: './office/manage', query: { id: employee.id } }">Detail
-                                                </v-btn>
+                                                <td>
+                                                    <v-btn
+                                                        style="background-color:white; color:#7A6C5B; border: 1px solid #7A6C5B; margin-top:4px;"
+                                                        :to="{ path: './office/manage', query: { id: employee.id } }">Detail
+                                                    </v-btn>
+                                                </td>
                                             </tr>
                                         </tbody>
                                     </v-data-table>
@@ -109,7 +115,7 @@ export default {
             selectedDepartment: "",
         }
     },
-    computed:{
+    computed: {
         filteredDepartment() {
             console.log(this.selectedDepartment)
             if (!this.selectedDepartment) {
@@ -149,7 +155,7 @@ export default {
             console.log(this.$router.query.id);
             return this.$route.query.id;
         },
-        createEmployee(){
+        createEmployee() {
             this.router.push('/employee/create')
         }
     }
@@ -189,6 +195,7 @@ export default {
     font-size: 0.5rem;
     line-height: 1.25rem;
 }
+
 .confirmation-title {
     font-size: 20px;
     font-weight: bold;
@@ -197,19 +204,24 @@ export default {
     border-bottom: 3px solid #787878;
     font-family: "Noto Serif KR", serif;
 }
+
 .cardText {
-    margin-top:20px;
+    margin-top: 20px;
 }
+
 .formCustom {
     margin-left: 20%;
     margin-bottom: 8px;
 }
+
 .modSearch {
     margin-top: -10px;
 }
+
 .tableCustom {
     padding-left: 2%;
 }
+
 .section-title {
     font-size: 17px;
     font-weight: bold;

@@ -26,17 +26,13 @@
                             <br>
                             <v-row class="justify-center">
                                 <v-col cols="12">
-                                    <v-data-table class="elevation-1">
-                                        <thead>
-                                            <tr>
-                                                <th style="text-align: center;">Id</th>
-                                                <th style="text-align: center;">Check In Date</th>
-                                                <th style="text-align: center;">Check Out Time</th>
-                                                <th style="text-align: center;">Detail</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr class="text-center" v-for="room in roomReservations" :key="room.id">
+                                    <v-data-table :header="headers" :items="roomReservations" class="elevation-1"
+                                        item-key="id" :style="{ maxHeight: '1000px', overflowY: 'auto'}">
+                                        <template v-slot:header>
+
+                                        </template>
+                                        <template v-slot:body="{ items }">
+                                            <tr v-for="room in items" :key="room.id">
                                                 <td>{{ room.id }}</td>
                                                 <td>{{ room.checkInDate }}</td>
                                                 <td>{{ room.checkOutDate }}</td>
@@ -46,7 +42,7 @@
                                                         @click="$router.push(`/employee/room/${room.id}`)">Detail</v-btn>
                                                 </td>
                                             </tr>
-                                        </tbody>
+                                        </template>
                                     </v-data-table>
                                 </v-col>
                             </v-row>
@@ -70,6 +66,11 @@ export default {
         return {
             email: "",
             roomReservations: [],
+            headers: [
+                { title: 'Id', key: 'id', align: 'end' },
+                { title: 'CheckIn Date', key: 'checkInDate', align: 'end' },
+                { title: 'CheckOut Date', key: 'checkOutDate', align: 'end' },
+            ],
         };
     },
     methods: {
@@ -78,6 +79,9 @@ export default {
                 const response = await axios.get(`${process.env.VUE_APP_API_BASE_URL}/employee/room/reserve`, {
                     params: {
                         email: this.email
+                    },
+                    headers: {
+                        'Content-Type': 'text/plain'
                     }
                 });
                 this.roomReservations = response.data.result;
@@ -201,4 +205,8 @@ export default {
 .emailcol {
     margin-right: -20px;
 }
+
+.v-data-table tr, .v-data-table td {
+    text-align: center;
+  }
 </style>

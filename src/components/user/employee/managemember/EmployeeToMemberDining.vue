@@ -27,19 +27,15 @@
                                 <v-col cols="12">
                                     <div class="table-container">
                                         <v-data-table :header="headers" :items="diningReservations" class="elevation-1"
-                                            item-key="id"
-                                            :style="{ maxHeight: '1000px', overflowY: 'auto' }">
-                                            <template v-slot:header>
-
-                                            </template>
-                                            <template v-slot:body="{ items }">
+                                            item-key="id" :style="{ maxHeight: '1000px', overflowY: 'auto' }">
+                                            <template v-slot:body="{ items }">  
                                                 <tr v-for="dr in items" :key="dr.id">
                                                     <td>{{ dr.diningReservationId }}</td>
                                                     <td>{{ formatDate(dr.reservationDate) }}</td>
                                                     <td>{{ formatTime(dr.reservationTime) }}</td>
                                                     <td>
                                                         <v-btn @click="diningDetail(dr.diningReservationId)"
-                                                            style="background-color: #DCC8B0; color:white;">Detail</v-btn>
+                                                            style="background-color:white; color:#7A6C5B; border: 1px solid #7A6C5B;">Detail</v-btn>
                                                     </td>
                                                 </tr>
                                             </template>
@@ -94,7 +90,7 @@ export default {
 
                 this.diningReservations = response.data.result;
             } catch (e) {
-                alert("입력값이 없습니다")
+                alert(e.response.data.error_message)
             }
         },
         formatDate(dateString) {
