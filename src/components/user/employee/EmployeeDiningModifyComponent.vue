@@ -69,7 +69,7 @@
                                             <div class="data-label">Date Time</div>
                                         </v-col>
                                         <v-col cols="12" md="7">
-                                            <v-text-field v-model="reservationDateTime"></v-text-field>
+                                            <v-text-field v-model="reservationDateTime" readonly></v-text-field>
                                         </v-col>
                                     </v-row>
                                     <v-row style="margin-top:-10px;">
@@ -152,7 +152,7 @@ export default {
 
                 // 현재 reservationDateTime을 `YYYY-MM-DDTHH:MM:SS` 형식으로 변환
                 const [date, time] = this.reservationDateTime.split(' ');
-                const formattedDateTime = `${date}T${time}:00`;  // "00"은 초를 추가
+                const formattedDateTime = `${date}T${time}`;  // "00"은 초를 추가
 
                 const params = {
                     adult: this.adult,
