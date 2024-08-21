@@ -207,8 +207,8 @@
   <summary>(1) Room(객실) 예약 </summary>
   <br>
 
-  * 💡 설명 <br>
-  <img src="https://github.com/user-attachments/assets/47a475f2-339d-480c-a869-8d4d007dd240" width=700>
+  * 💡 로직 설명 <br>
+  <img src="https://github.com/user-attachments/assets/a29fff66-792b-4a58-89a8-7723560955b6" width=700>
   
   * 홈페이지를 통해 고객이 객실 예약을 진행<br>
   <img src="https://github.com/user-attachments/assets/9651c2f9-b69d-4fa3-b548-41541554972e" width=700>
@@ -217,6 +217,10 @@
   * 관리자 페이지에서 객실 예약이 들어오면 실시간 알림(SSE) 조회<br>
   <img src="https://github.com/user-attachments/assets/8ca28e96-601f-46f8-861d-92e5c5cdee57" width=700>
     <br><br>
+
+  * 💡 예약 완료 <br>
+  <img src="https://github.com/user-attachments/assets/47a475f2-339d-480c-a869-8d4d007dd240" width=700>
+  <br><br>
     
   * ➕ 여러 개의 객실 예약이 들어온 경우 실시간 알림(SSE) 조회
   <img src="https://github.com/user-attachments/assets/5863d170-7e02-4840-a0a1-80da30f9ce88" width=700>
