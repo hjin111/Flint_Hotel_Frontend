@@ -206,6 +206,9 @@
 <details>
   <summary>(1) Room(객실) 예약 </summary>
   <br>
+
+  * 💡 설명 <br>
+  <img src="https://github.com/user-attachments/assets/47a475f2-339d-480c-a869-8d4d007dd240" width=700>
   
   * 홈페이지를 통해 고객이 객실 예약을 진행<br>
   <img src="https://github.com/user-attachments/assets/9651c2f9-b69d-4fa3-b548-41541554972e" width=700>
@@ -324,12 +327,12 @@
   <summary>✈️ 객실 예약 시도</summary>
   <br>
 
-  * 설명 
+  * 💡 설명 
   <img src="https://github.com/user-attachments/assets/4c1ea456-e666-4c0f-bea7-bd6d1d2efea4" width=700>
   <img src="https://github.com/user-attachments/assets/71caf0f2-9c8a-4a44-9e2c-6abc7546144c" width=700>
   <br>
 
-  * 화면 
+  * 🖥️ 화면 
   <img src="https://github.com/user-attachments/assets/27f607ac-370e-4291-a282-8a968ee1d5e9" width=700>  
 </details>
 
