@@ -125,13 +125,12 @@
   <summary>(2) Dining 예약 </summary>
   <br>
   
-  * 홈페이지를 통해 고객이 다이닝 예약을 진행  
-    <br><br>
-    
-  * 관리자 페이지에서 다이닝 예약이 들어오면 실시간 알림(SSE) 조회
-    <br><br>
-    
-  * ➕ 여러 개의 객실 예약이 들어온 경우 실시간 알림(SSE) 조회
+  * 홈페이지를 통해 고객이 다이닝 예약을 진행 > 관리자 페이지에서 실시간 알림 (SSE) 조회<br>
+  <img src="https://github.com/user-attachments/assets/4068b2b0-b224-43b3-bbb0-a9ec2297a14b" width=700>
+  <br><br>
+
+  * 💡 부서마다 예약 알림 접근 제한 - ex) KorDinig의 예약이 들어왔을 때 ChiDining 부서의 직원에게는 알림이 가지 않음<br>
+  <img src="https://github.com/user-attachments/assets/6aa7dd0e-38f8-400f-9f7d-fb8bd625a046" width=700>
   <br><br>
 </details>
 <details>
