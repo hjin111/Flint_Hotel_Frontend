@@ -69,7 +69,7 @@
 ## 🧪 테스트 결과 
 ### 1️⃣ 고객 페이지
 <details>
-  <summary>(1) 회원가입 및 로그인</summary>
+  <summary>(1) 회원가입</summary>
   <br>
 
   * 이메일 인증을 통해 회원가입<br>
@@ -108,18 +108,23 @@
   <br>
 
   * 내가 예약한 Dining 목록/상세내역 조회 및 예약 삭제<br>
+  <img src="https://github.com/user-attachments/assets/6d83b8bc-1be0-44cd-b16d-1e5907c5bba3" width=700>
   <br><br>
   
   * 내가 예약한 Room 목록/상세내역 조회 및 예약 삭제<br>
+  <img src="https://github.com/user-attachments/assets/2db27547-f063-4762-8466-300ce9a8296a" width=700>
   <br><br>
 
   * 비밀번호 변경 - 변경하는 비밀번호가 일치하지 않을 때<br>
+  <img src="https://github.com/user-attachments/assets/be07c9b0-695a-49a3-9a2a-2d90c968aebb" width=700>
   <br><br>
 
   * 비밀번호 변경에 성공<br>
+  <img src="https://github.com/user-attachments/assets/3efce678-76fc-4c77-ac71-81199e30e114" width=700>
   <br><br>
 
   * 회원 탈퇴하기 <br>
+  <img src="https://github.com/user-attachments/assets/c8686ae7-45dc-49b3-beb5-c5982d2674ce" width=700>
     <br><br>
   
 </details>
@@ -176,15 +181,14 @@
    <img src="https://github.com/user-attachments/assets/2e83f59f-dac5-4901-b15f-e8e0997c7844" width=700>
     <br><br>
     
-  * 비밀번호 변경 
+  * 비밀번호 변경<br>
+  <img src="https://github.com/user-attachments/assets/69818d09-b57f-40b7-b5ea-5dce928e0a23" width=700>
     <br><br>
     
-  * 고객의 목록 및 상세 내역 조회 
+  * 고객의 목록 및 상세 내역 조회<br>
+  <img src="https://github.com/user-attachments/assets/d0417a88-56ac-4f9c-af1e-c1c613f87028" width=700>
     <br><br>
-    
-  * QnA가 등록되면 답변 달기<br>
-  <img src="https://github.com/user-attachments/assets/2c683c20-20ec-4f31-9f13-97c699b77cfe" width=700>
-    <br><br>
+
 </details>
 <details>
   <summary>(1) Office 부서 직원 [최상위 직원] </summary>
@@ -198,7 +202,7 @@
   <img src="https://github.com/user-attachments/assets/4d1335e9-86b2-4c48-9d88-da6b229cc0e4" width=700>
     <br><br>
     
-  * 새로 입사한 직원을 등록<br>
+  * 새로 입사한 직원을 등록 : 초기 비밀번호 12341234<br>
   <img src="https://github.com/user-attachments/assets/d27e50be-3a29-4de3-aff7-c98c9b53c20f" width=700>
     <br><br>
 
@@ -227,10 +231,12 @@
   <summary>(3) Dining 부서 직원 </summary>
   <br>
   
-  * 조회하고자 하는 고객의 이메일을 검색하여 다이닝 예약 내역 조회 
+  * 조회하고자 하는 고객의 이메일을 검색하여 다이닝 예약 내역 조회<br>
+  <img src="https://github.com/user-attachments/assets/94b33c24-7bab-4deb-84e1-bbcb357d681d" width=700>
     <br><br>
     
-  * 다이닝 예약 상세 내역 조회 / 수정 / 삭제
+  * 다이닝 예약 상세 내역 조회 / 수정 / 삭제<br>
+  <img src="https://github.com/user-attachments/assets/8ecb40d4-e2fb-4391-a68b-0c4fad933368" width=700>
     <br><br>
     
   * 각 다이닝별 메뉴 추가 / 가격 수정 / 삭제<br>
@@ -239,7 +245,14 @@
     <br><br>
 </details>
 
-### 4️⃣ Rabbit mq를 활용한 대기열 구현 (객실 예약 접근 ) 
+### 4️⃣ Rabbit mq를 활용한 대기열 구현  
+
+<details>
+  <summary>✈️ 객실 예약 시도</summary>
+  <br>
+
+  <img src="https://github.com/user-attachments/assets/27f607ac-370e-4291-a282-8a968ee1d5e9" width=700>  
+</details>
 
 
 
