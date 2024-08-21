@@ -26,7 +26,7 @@
 </div>
 
 ## 📢 요구사항 명세서
-[⬆️요구사항 명세서 바로가기]([https://docs.google.com/spreadsheets/d/1X0fafalLJS0A_FwmI4IMyJMZsv2F3uoe/edit?usp=sharing&ouid=106399302288862850251&rtpof=true&sd=true](https://www.notion.so/b6552765366e41ec816f4d0e3f196934))
+[⬆️요구사항 명세서 바로가기](https://docs.google.com/spreadsheets/d/1X0fafalLJS0A_FwmI4IMyJMZsv2F3uoe/edit?usp=sharing&ouid=106399302288862850251&rtpof=true&sd=true)
 <br>
 ## ⚙️ 기술 스택
 
