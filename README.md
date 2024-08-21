@@ -22,10 +22,11 @@
   관리자 페이지를 따로 생성하여 고객들 뿐만 아니라 객실이나 다이닝 등, 호텔 전반적인 서비스를 실시간으로 관리하여 보다 더 나은 서비스를 제공합니다. 
   그리고 각 부서 마다 권한을 부여함으로써 보안 또한 철저하게 관리됩니다. 
   저희 서비스를 통해 빠르고 철저한 호텔 예약을 함으로써 여행의 효율성을 높일 수 있습니다.
+  <br>
 </div>
 
 ## 📢 요구사항 명세서
-<br><br><br>
+[⬆️요구사항 명세서 바로가기]([https://docs.google.com/spreadsheets/d/1X0fafalLJS0A_FwmI4IMyJMZsv2F3uoe/edit?usp=sharing&ouid=106399302288862850251&rtpof=true&sd=true](https://www.notion.so/b6552765366e41ec816f4d0e3f196934))
 
 ## ⚙️ 기술 스택
 
