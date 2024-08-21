@@ -84,7 +84,7 @@
   <summary>(2) 아이디 및 비밀번호 찾기</summary>
   <br>
   
-  * 아이디 찾기<br>
+  * 이메일 찾기<br>
     <img src="https://github.com/user-attachments/assets/11ff4999-a218-4a74-8487-f0816c13b6b9" width=700>
     <br><br>
     
@@ -96,7 +96,8 @@
   <summary>(3) QnA CRUD</summary>
   <br>
   
-  * QnA 작성 및 조회 
+  * QnA 작성 및 조회<br> 
+  <img src="https://github.com/user-attachments/assets/6882017d-9372-466b-a43e-be3acd2c2930" width=700>
     <br><br>
     
   * QnA 수정 및 삭제
@@ -117,6 +118,7 @@
     <br><br>
     
   * ➕ 여러 개의 객실 예약이 들어온 경우 실시간 알림(SSE) 조회
+  <img src="https://github.com/user-attachments/assets/5863d170-7e02-4840-a0a1-80da30f9ce88" width=700>
     <br><br>
 </details>
 <details>
@@ -136,10 +138,12 @@
   <summary>(3) QnA에 답변 달기 </summary>
   <br>
   
-  * 관리자 페이지를 통해 들어온 QnA에 답변 달기 
+  * 관리자 페이지를 통해 들어온 QnA에 답변 달기 <br>
+  <img src="https://github.com/user-attachments/assets/2c683c20-20ec-4f31-9f13-97c699b77cfe" width=700>
     <br><br>
     
-  * 답변이 달리면 해당 고객의 페이지에 실시간 알림 숫자 업데이트
+  * 답변이 달리면 해당 고객의 페이지에 실시간 알림 숫자 업데이트<br>
+  <img src="https://github.com/user-attachments/assets/be2034e9-8d3a-4ee2-9b05-cea62f6565b2" width=700>
     <br><br>
 </details>
 
@@ -151,28 +155,32 @@
 
   * 로그인 및 본인의 정보 확인
    <img src="https://github.com/user-attachments/assets/2e83f59f-dac5-4901-b15f-e8e0997c7844" width=700>
-
     <br><br>
+    
   * 비밀번호 변경 
     <br><br>
     
   * 고객의 목록 및 상세 내역 조회 
     <br><br>
     
-  * QnA가 등록되면 답변 달기 
+  * QnA가 등록되면 답변 달기<br>
+  <img src="https://github.com/user-attachments/assets/2c683c20-20ec-4f31-9f13-97c699b77cfe" width=700>
     <br><br>
 </details>
 <details>
   <summary>(1) OFFICE 부서 직원 [최상위 직원] </summary>
   <br>
   
-  * 모든 직원들의 목록 조회 (검색 기능)
+  * 모든 직원들의 목록 조회 (검색 기능)<br>
+  <img src="https://github.com/user-attachments/assets/99115b4a-0442-4c53-b731-4974de06be23" width=700>
     <br><br>
     
-  * 직원의 상세 내역 조회 및 직급 변경 / 퇴사처리 
+  * 직원의 상세 내역 조회 및 직급 변경 / 퇴사처리<br>
+  <img src="https://github.com/user-attachments/assets/4d1335e9-86b2-4c48-9d88-da6b229cc0e4" width=700>
     <br><br>
     
-  * 새로 입사한 직원을 등록
+  * 새로 입사한 직원을 등록<br>
+  <img src="https://github.com/user-attachments/assets/d27e50be-3a29-4de3-aff7-c98c9b53c20f" width=700>
     <br><br>
 
     
@@ -189,7 +197,8 @@
   * 객실 예약 상세 내역 조회 / 수정 / 삭제
     <br><br>
     
-  * 객실의 base price 변경 
+  * 객실의 base price 변경 <br>
+  <img src="https://github.com/user-attachments/assets/1f65f519-85a7-4ee0-97da-3804d2a349e5" width=700>
     <br><br>
 </details>
 <details>
@@ -202,7 +211,9 @@
   * 다이닝 예약 상세 내역 조회 / 수정 / 삭제
     <br><br>
     
-  * 각 다이닝별 메뉴 추가 / 가격 수정 / 삭제
+  * 각 다이닝별 메뉴 추가 / 가격 수정 / 삭제<br>
+  <img src="https://github.com/user-attachments/assets/64feb06a-90a7-4183-9586-bc633e5f7557" width=700>
+  <img src="https://github.com/user-attachments/assets/1b795823-d14c-4458-ac3c-27197c176051" width=700>
     <br><br>
 </details>
 
