@@ -77,11 +77,9 @@
     <img src="https://github.com/user-attachments/assets/6b0a5ecc-dba2-4421-b738-fd6bc329676d" width=700>
     <br><br>
     
-  * 로그인 및 메인 페이지 조회
-    <br><br>
 </details>
 <details>
-  <summary>(2) 아이디 및 비밀번호 찾기</summary>
+  <summary>(2) 이메일 및 비밀번호 찾기</summary>
   <br>
   
   * 이메일 찾기<br>
@@ -100,8 +98,30 @@
   <img src="https://github.com/user-attachments/assets/6882017d-9372-466b-a43e-be3acd2c2930" width=700>
     <br><br>
     
-  * QnA 수정 및 삭제
+  * QnA 수정 및 삭제<br>
+  <img src="https://github.com/user-attachments/assets/5adf8b5c-bb2d-4cfb-8e1e-db90d0b395d4" width=700>
+  <img src="https://github.com/user-attachments/assets/2df897e5-2cc2-4546-8b89-3eaab102b6a7" width=700>
     <br><br>
+</details>
+<details>
+  <summary>(4) My Page</summary>
+  <br>
+
+  * 내가 예약한 Dining 목록/상세내역 조회 및 예약 삭제<br>
+  <br><br>
+  
+  * 내가 예약한 Room 목록/상세내역 조회 및 예약 삭제<br>
+  <br><br>
+
+  * 비밀번호 변경 - 변경하는 비밀번호가 일치하지 않을 때<br>
+  <br><br>
+
+  * 비밀번호 변경에 성공<br>
+  <br><br>
+
+  * 회원 탈퇴하기 <br>
+    <br><br>
+  
 </details>
 
 ### 2️⃣ 고객 페이지 + 관리자 페이지 
@@ -167,7 +187,7 @@
     <br><br>
 </details>
 <details>
-  <summary>(1) OFFICE 부서 직원 [최상위 직원] </summary>
+  <summary>(1) Office 부서 직원 [최상위 직원] </summary>
   <br>
   
   * 모든 직원들의 목록 조회 (검색 기능)<br>
@@ -183,17 +203,20 @@
     <br><br>
 
     
-  * ➕ Room/Dining 예약 내역 조회 불가 (권한 없음)
+  * ➕ Room/Dining 예약 내역 조회 불가 (권한 없음) : Office관리자는 Room 예약 내역 조회 기능에 접근할 수 없음<br>
+  <img src="https://github.com/user-attachments/assets/0a8d9e14-0882-4e3a-8a42-ffadd2d65a13" width=700>
     <br><br>
 </details>
 <details>
   <summary>(2) Room(객실) 부서 직원 </summary>
   <br>
   
-  * 조회하고자 하는 고객의 이메일을 검색하여 객실 예약 내역 조회 
+  * 조회하고자 하는 고객의 이메일을 검색하여 객실 예약 내역 조회<br>
+  <img src="https://github.com/user-attachments/assets/df672833-b420-4c46-a79f-fc061f83ac13" width=700>
     <br><br>
     
-  * 객실 예약 상세 내역 조회 / 수정 / 삭제
+  * 객실 예약 수정 / 삭제<br>
+  <img src="https://github.com/user-attachments/assets/04a468a8-468a-4439-8f5e-3945eb4a8075" width=700>
     <br><br>
     
   * 객실의 base price 변경 <br>
